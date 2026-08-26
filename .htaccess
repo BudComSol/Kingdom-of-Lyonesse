@@ -1,0 +1,39 @@
+AddDefaultCharset UTF-8
+DirectoryIndex index.php
+ErrorDocument 404 /index.php
+ErrorDocument 403 /index.php
+Options -Indexes
+
+<FilesMatch "^\.env">
+  Order allow,deny
+  Deny from all
+</FilesMatch>
+
+<FilesMatch "\.(sql|log|bak|env|example)$">
+  Order allow,deny
+  Deny from all
+</FilesMatch>
+##
+php_flag display_errors on
+##
+RewriteCond %{QUERY_STRING} (\<|%3C).*script.*(\>|%3E) [NC,OR] 
+RewriteCond %{QUERY_STRING} GLOBALS(=|\[|\%[0-9A-Z]{0,2}) [OR] 
+RewriteCond %{QUERY_STRING} _REQUEST(=|\[|\%[0-9A-Z]{0,2}) [OR] 
+##
+RewriteEngine On 
+##
+RewriteRule ^online([a-zA-Z_0-9-/]*)?$ /online.php?is=$1 [L,QSA]
+RewriteRule ^chat([a-zA-Z_0-9-/]*)?$ /chat.php?is=$1 [L,QSA]
+RewriteRule ^news([a-zA-Z_0-9-/]*)?$ /news.php?is=$1 [L,QSA]
+RewriteRule ^top([a-zA-Z_0-9-/]*)?$ /top.php?is=$1 [L,QSA]
+RewriteRule ^contacts([a-zA-Z_0-9-/]*)?$ /contacts.php?is=$1 [L,QSA]
+RewriteRule ^mail/([.a-zA-Z_0-9-/]*)/user([.a-zA-Z_0-9-/]*)?$ /mail.php?id=$1&is=$2 [L,QSA]
+RewriteRule ^ip/([.a-zA-Z_0-9-/]*)/user([.a-zA-Z_0-9-/]*)?$ /ip_user.php?id=$1&is=$2 [L,QSA] 
+RewriteRule ^ban/statistic([.a-zA-Z_0-9-/]*)?$ /history_ban.php?is=$1 [L,QSA] 
+RewriteRule ^ref_users([.a-zA-Z_0-9-/]*)?$ /ref.php?list&is=$1 [L,QSA] 
+# php -- BEGIN cPanel-generated handler, do not edit
+# Set the “ea-php74” package as the default “PHP” programming language.
+<IfModule mime_module>
+  AddHandler application/x-httpd-ea-php74___lsphp .php .php7 .phtml
+</IfModule>
+# php -- END cPanel-generated handler, do not edit

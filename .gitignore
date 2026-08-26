@@ -1,0 +1,13 @@
+# Environment configuration (Contains sensitive DB passwords)
+.env
+
+# System & server log files
+error_log
+*.log
+
+# Editor & OS files
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.tmp
