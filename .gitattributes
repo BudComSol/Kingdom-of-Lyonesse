@@ -1,0 +1,18 @@
+# =====================================================================
+# GitHub Linguist Language Configuration
+# =====================================================================
+
+# Force all PHP files to be detected as PHP
+*.php linguist-language=PHP
+
+# Force SQL schema dumps to be detected as SQL
+*.sql linguist-language=SQL
+
+# Force Stylesheets and JavaScript
+*.css linguist-language=CSS
+*.js linguist-language=JavaScript
+
+# Exclude images and zip archives from language statistics
+images/** linguist-vendored
+style/*.png linguist-vendored
+*.zip binary linguist-vendored
