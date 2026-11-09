@@ -52,8 +52,8 @@ body {
     min-height: 100vh;
     color: var(--text-main);
     margin: 0 auto;
-    background: radial-gradient(circle at 50% 0%, #151d2a 0%, #0c1017 50%, #07090d 100%);
-    background-attachment: fixed;
+    background: url('/images/start/1.png') center center / cover fixed,
+        radial-gradient(circle at 50% 0%, #151d2a 0%, #0c1017 50%, #07090d 100%);
     padding: 10px 8px 60px 8px;
     font-family: var(--font-ui);
     line-height: 1.5;
