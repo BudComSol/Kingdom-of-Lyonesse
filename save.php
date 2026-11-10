@@ -68,6 +68,8 @@ head("Save Hero Account", $uid);
         <div class="hrs"></div>
         <input type="submit" value="Save & Claim Bonus">
     </form>
+    <a href="/index.php?exit=1" class="button">No Thanks - Log Me Out</a>
+    <br><small>Without saving, you may not be able to recover this hero.</small>
 </div>
 
 <?php
