@@ -152,22 +152,19 @@ if ($agreee == 1) {
 if (!$uid) {
     head("Kingdom of Lyonesse", 0);
 ?>
-<div class="main_container" style="height: 763px;">
-    <div class="bgpanel">
-        <div class="logo">
-            <img src="/images/logo.png" alt="Logo">
-        </div>
-        <div class="ca_label">Test your fate<br>and become a legendary knight!</div>
-        <a class="enter_button" href="/?start=1">
-            <img src="/images/button_green.png" alt="">
-            <span>To Battle!</span>
-        </a>
-        <div class="vmmo_label">
-           <span>Already have an account?</span>
-           <a href="/?login=1" id="landing-login-button" class="landing-login-button">Log In</a>
-        </div>
+<div class="landing-content">
+    <div class="logo">
+        <img src="/images/logo.png" alt="Logo">
     </div>
-    <div class="login-background hidden" id="login-background"></div>
+    <div class="ca_label">Test your fate<br>and become a legendary knight!</div>
+    <a class="enter_button" href="/?start=1">
+        <img src="/images/button_green.png" alt="">
+        <span>To Battle!</span>
+    </a>
+    <div class="vmmo_label">
+       <span>Already have an account?</span>
+       <a href="/?login=1" id="landing-login-button" class="landing-login-button">Log In</a>
+    </div>
 </div>
 <center>
 
