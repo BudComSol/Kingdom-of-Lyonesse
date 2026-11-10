@@ -156,14 +156,12 @@ if (!$uid) {
     <div class="logo">
         <img src="/images/logo.png" alt="Logo">
     </div>
-    <div class="ca_label">Test your fate<br>and become a legendary knight!</div>
+    <div class="ca_label">Become a legendary knight, test your fate!</div>
     <a class="enter_button" href="/?start=1">
-        <img src="/images/button_green.png" alt="">
-        <span>To Battle!</span>
+        <img src="/images/button_green.png" alt="Battle Button">   
     </a>
     <div class="vmmo_label">
-       <span>Already have an account?</span>
-       <a href="/?login=1" id="landing-login-button" class="landing-login-button">Log In</a>
+       <span>Already Got An Account Then <a href="/?login=1" id="landing-login-button" class="landing-login-button">Login Now</a> !</span>       
     </div>
 </div>
 <center>
