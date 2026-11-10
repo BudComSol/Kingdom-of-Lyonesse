@@ -1,50 +1,10 @@
 <?php
-$go = number($_GET['go'] ?? 0);
 $step = (int)($user['start'] ?? 4);
-
-if ($go == 1 && $step != 7) {
-    qry("UPDATE `users` SET `start` = `start` + ? WHERE `id` = ? LIMIT 1", array(1, $uid));
-    header('Location: /');
-    exit();
-}
 
 $sex = (($user['sex'] ?? '1') == '1') ? 'Male' : 'Female';
 
-if (isset($_GET['sex'])) {
-    $gsex = (($user['sex'] ?? '1') == '1') ? '2' : '1';
-    qry("UPDATE `users` SET `sex` = ? WHERE `id` = ? LIMIT 1", array($gsex, $uid));
-    header('Location: /');
-    exit();
-}
-
 // Hero Name Creation Step
 if ($step == 7) {
-    if (isset($_GET['form'])) {
-        $loginInput = checking($_POST['login'] ?? '');
-        $err = false;
-
-        if (mb_strlen($loginInput) < 3 || mb_strlen($loginInput) > 20) {
-            err2("Hero name must be between 3 and 20 characters");
-            $err = true;
-        } else {
-            $search1 = fch("SELECT * FROM `users` WHERE `login` = ? AND `id` != ? LIMIT 1", array($loginInput, $uid));
-            if ($search1) {
-                err2("Hero name is already taken");
-                $err = true;
-            }
-        }
-
-        if ($err === false) {
-            $rou = rand(100000, 999999);
-            $hash = md5(md5((string)$rou));
-            qry("UPDATE `users` SET `login` = ?, `save` = ?, `start` = `start` + ? WHERE `id` = ? LIMIT 1", array($loginInput, 1, 1, $uid));
-            header("Location: /");
-            exit();
-        }
-
-        header("Location: /");
-        exit();
-    }
 ?>
     <div class="tophead cntr">Character Gender: <?php echo $sex; ?> - <a href="?sex">[Change]</a></div>
     <div class="tophead cntr">
