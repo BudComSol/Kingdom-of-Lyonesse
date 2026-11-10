@@ -1,13 +1,6 @@
 <?php
 qry("UPDATE `users` SET `news` = ?, `chat_check` = ? WHERE `id` = ? LIMIT 1", array(1, 1, $uid));
 
-$go = number($_GET['go'] ?? 0);
-if ($go == 1) {
-    qry("UPDATE `users` SET `start` = `start` + ? WHERE `id` = ? LIMIT 1", array(1, $uid));
-    header('Location: /');
-    exit();
-}
-
 $title = array(
     '',
     'First Memory',

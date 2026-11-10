@@ -240,6 +240,43 @@ No hero yet? <a href="/?start=1"><u>Start Game</u></a>
         exit();
     }
 
+    $tutorialStep = (int)($user['start'] ?? 1);
+    if ($tutorialStep <= 9 && $tutorialStep != 7 && number($_GET['go'] ?? 0) == 1) {
+        qry("UPDATE `users` SET `start` = `start` + ? WHERE `id` = ? LIMIT 1", array(1, $uid));
+        header('Location: /');
+        exit();
+    }
+
+    if ($tutorialStep == 7 && isset($_GET['sex'])) {
+        $gsex = (($user['sex'] ?? '1') == '1') ? '2' : '1';
+        qry("UPDATE `users` SET `sex` = ? WHERE `id` = ? LIMIT 1", array($gsex, $uid));
+        header('Location: /');
+        exit();
+    }
+
+    if ($tutorialStep == 7 && isset($_GET['form'])) {
+        $loginInput = checking($_POST['login'] ?? '');
+        $err = false;
+
+        if (mb_strlen($loginInput) < 3 || mb_strlen($loginInput) > 20) {
+            err2("Hero name must be between 3 and 20 characters");
+            $err = true;
+        } else {
+            $search1 = fch("SELECT * FROM `users` WHERE `login` = ? AND `id` != ? LIMIT 1", array($loginInput, $uid));
+            if ($search1) {
+                err2("Hero name is already taken");
+                $err = true;
+            }
+        }
+
+        if ($err === false) {
+            qry("UPDATE `users` SET `login` = ?, `save` = ?, `start` = `start` + ? WHERE `id` = ? LIMIT 1", array($loginInput, 1, 1, $uid));
+        }
+
+        header('Location: /');
+        exit();
+    }
+
     head("Kingdom of Lyonesse", $uid);
 
     // Step 1: Tutorial onboarding
