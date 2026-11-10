@@ -91,6 +91,14 @@ body::before {
     z-index: -1;
 }
 
+html.guest-page body {
+    box-shadow: none;
+}
+
+html.guest-page body::before {
+    content: none;
+}
+
 /* =====================================================================
    Typography & Global Headings
    ===================================================================== */
