@@ -76,6 +76,7 @@ html.bg-opacity-25 { --bg-image-opacity: 0.25; }
 html.bg-opacity-50 { --bg-image-opacity: 0.5; }
 html.bg-opacity-75 { --bg-image-opacity: 0.75; }
 html.bg-opacity-100 { --bg-image-opacity: 1; }
+html.guest-page { --bg-image-opacity: 1; }
 
 /* Ambient glow background overlay */
 body::before {
@@ -875,17 +876,17 @@ span.color { color: #ffffff; }
    Landing & Authentication View
    ===================================================================== */
 
-.bgpanel {
-    display: block;
+.landing-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
     position: relative;
-    background: url(/images/landing_back.jpg) no-repeat top center;
-    background-size: cover;
+    min-height: calc(100vh - 70px);
     width: 100%;
     text-align: center;
     margin: 0 auto;
-    padding-top: 25vh;
-    border-radius: 8px;
-    box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.9);
 }
 
 .logo img {

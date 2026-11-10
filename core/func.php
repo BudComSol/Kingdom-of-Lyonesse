@@ -485,7 +485,7 @@ function head($title, $uid) {
     require_once __DIR__ . "/level.php";
 ?>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="<?php echo $uid > 0 ? '' : 'guest-page'; ?>">
 <head>
     <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
     <meta charset="utf-8">
