@@ -41,6 +41,7 @@
 }
 
 html {
+    --bg-image-opacity: 0.5; /* 0 = hidden, 1 = fully visible */
     background-color: var(--bg-dark);
     font-size: 15px;
     scroll-behavior: smooth;
@@ -52,13 +53,29 @@ body {
     min-height: 100vh;
     color: var(--text-main);
     margin: 0 auto;
-    background: radial-gradient(circle at 50% 0%, #151d2a 0%, #0c1017 50%, #07090d 100%);
+    background: transparent;
     padding: 10px 8px 60px 8px;
     font-family: var(--font-ui);
     line-height: 1.5;
     z-index: 1;
     box-shadow: 0 0 80px rgba(0, 0, 0, 0.9);
 }
+
+/* Game background image; opacity set via --bg-image-opacity or .bg-opacity-* class on <html> */
+html::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: url('../images/start/bg.webp') center / cover no-repeat;
+    opacity: var(--bg-image-opacity);
+    pointer-events: none;
+    z-index: -2;
+}
+html.bg-opacity-0 { --bg-image-opacity: 0; }
+html.bg-opacity-25 { --bg-image-opacity: 0.25; }
+html.bg-opacity-50 { --bg-image-opacity: 0.5; }
+html.bg-opacity-75 { --bg-image-opacity: 0.75; }
+html.bg-opacity-100 { --bg-image-opacity: 1; }
 
 /* Ambient glow background overlay */
 body::before {
