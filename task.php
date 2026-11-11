@@ -36,9 +36,10 @@ if (isset($_GET['ok'])) {
         $q = fch("SELECT * FROM `quest` WHERE `id` = ? LIMIT 1", array($quest['id_quest']));
         if ($q && ($quest['koll'] >= $quest['max_koll'] || $quest['koll'] >= $q['koll'])) {
             qry("UPDATE `quest_user` SET `koll` = '0', `last` = ? WHERE `id` = ? LIMIT 1", array(time() + 86400 * 2, $quest['id']));
+            $rewardCoins = clanRewardAmount($uid, $q['silver'] * $prem);
             qry("UPDATE `users` SET `gold` = `gold` + ?, `silver` = `silver` + ?, `key` = `key` + 3, `key2` = `key2` + 3, `tour` = `tour` + 1 WHERE `id` = ? LIMIT 1",
-                array($q['gold'], $q['silver'] * $prem, $uid));
-            msg("Quest reward claimed! (+" . $q['gold'] . " Rubies, +" . ($q['silver'] * $prem) . " Coins, +3 Keys, +1 Tournament Point)");
+                array($q['gold'], $rewardCoins, $uid));
+            msg("Quest reward claimed! (+" . $q['gold'] . " Rubies, +" . $rewardCoins . " Coins, +3 Keys, +1 Tournament Point)");
         }
     }
     header('Location: /task.php');

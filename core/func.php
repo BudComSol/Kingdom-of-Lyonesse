@@ -212,6 +212,56 @@ function text_msg($text, $maxwords = 100, $maxchar = 105) {
     return $text;
 }
 
+function effectiveCombatStats($player) {
+    $stats = [
+        'power' => (int)($player['power'] ?? 10),
+        'block' => (int)($player['block'] ?? 10),
+        'health' => (int)($player['health'] ?? 10),
+        'set_pieces' => 0,
+        'critical_chance' => 0,
+    ];
+    $playerId = (int)($player['id'] ?? 0);
+    if ($playerId <= 0) {
+        return $stats;
+    }
+
+    $sets = fch(
+        "SELECT `set`, COUNT(*) AS `pieces` FROM `inv` WHERE `id_user` = ? AND `yes` = '1' GROUP BY `set` ORDER BY `pieces` DESC LIMIT 1",
+        [$playerId]
+    );
+    $pieces = (int)($sets['pieces'] ?? 0);
+    $stats['set_pieces'] = $pieces;
+
+    if ($pieces >= 8) {
+        $stats['power'] = (int)round($stats['power'] * 1.25);
+        $stats['health'] = (int)round($stats['health'] * 1.25);
+        $stats['critical_chance'] = 10;
+    } elseif ($pieces >= 4) {
+        $stats['power'] = (int)round($stats['power'] * 1.10);
+        $stats['health'] = (int)round($stats['health'] * 1.10);
+    }
+
+    return $stats;
+}
+
+function clanRewardAmount($userId, $amount) {
+    $amount = max(0, (int)$amount);
+    if ($amount === 0 || (int)$userId <= 0) {
+        return $amount;
+    }
+
+    $clan = fch(
+        "SELECT c.`level` FROM `users` u INNER JOIN `clans` c ON c.`id` = u.`id_clan` WHERE u.`id` = ? AND u.`id_clan` > 0 LIMIT 1",
+        [(int)$userId]
+    );
+    if (!$clan) {
+        return $amount;
+    }
+
+    $bonusPercent = min(25, max(0, (int)$clan['level']) * 5);
+    return (int)floor($amount * (100 + $bonusPercent) / 100);
+}
+
 // Human readable time
 function clock($time = null) {
     global $user;
@@ -526,9 +576,10 @@ if ($user && isset($user['start']) && $user['start'] >= 4) {
             <span class="lime"><?php echo $userLevel; ?> lvl</span>
         </span>
 
-        <img src="/images/power.png" width="17px" height="17px"><?php echo $user['power']; ?>
-        <img src="/images/block.png" width="17px" height="17px"><?php echo $user['block']; ?>
-        <img src="/images/health.png" width="17px" height="17px"><?php echo $user['health']; ?>
+        <?php $headerStats = effectiveCombatStats($user); ?>
+        <img src="/images/power.png" width="17px" height="17px"><?php echo $headerStats['power']; ?>
+        <img src="/images/block.png" width="17px" height="17px"><?php echo $headerStats['block']; ?>
+        <img src="/images/health.png" width="17px" height="17px"><?php echo $headerStats['health']; ?>
 
         <span style="float: right;">
         <?php if ($new_msg > 0) { ?>
@@ -616,9 +667,10 @@ document.addEventListener('DOMContentLoaded', () => {
     </div>
 
     <div class="tophead2 sidebar_stat_box">
-        <span class="stat_badge" title="Power"><img src="/images/power.png" width="16px" height="16px" alt="Power"> <?php echo $user['power']; ?></span>
-        <span class="stat_badge" title="Defense"><img src="/images/block.png" width="16px" height="16px" alt="Defense"> <?php echo $user['block']; ?></span>
-        <span class="stat_badge" title="Health"><img src="/images/health.png" width="16px" height="16px" alt="Health"> <?php echo $user['health']; ?></span>
+        <?php $sidebarStats = effectiveCombatStats($user); ?>
+        <span class="stat_badge" title="Power"><img src="/images/power.png" width="16px" height="16px" alt="Power"> <?php echo $sidebarStats['power']; ?></span>
+        <span class="stat_badge" title="Defense"><img src="/images/block.png" width="16px" height="16px" alt="Defense"> <?php echo $sidebarStats['block']; ?></span>
+        <span class="stat_badge" title="Health"><img src="/images/health.png" width="16px" height="16px" alt="Health"> <?php echo $sidebarStats['health']; ?></span>
     </div>
 
     <div class="sidebar_menu_container">
@@ -707,7 +759,7 @@ function foot($uid) {
     </table>
 </div>
 
-<div class="cntr">
+<div class="cntr" style="font-size: 22px; font-weight: 600;">
     <div class="hrs"></div>
     <a href="/news.php"><?php if (isset($user['news']) && $user['news'] != 0) echo '<span class="lime">'; ?>News</span></a> |
     <a href="/chat.php"><?php if (isset($user['chat_check']) && $user['chat_check'] != 0) echo '<span class="lime">'; ?>Chat</span></a> |

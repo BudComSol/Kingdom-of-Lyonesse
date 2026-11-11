@@ -43,10 +43,10 @@
 ## ⚔️ Key Gameplay Features
 
 * **Dynamic Real-Time Combat (AJAX):** Turn-based Dark Forest encounters featuring floating combat text (`-120 💥 CRIT!`, `+45 💚`), smooth health bar transitions, tactile audio effects, and direct boss loot drops without full-page reloads.
-* **Guild & Clan System:** Clan creation, Clan Hall, member hierarchy (Leader, Officer, Member), passive clan buffs (`+5%` to `+25%` bonus Exp and Gold), and cooperative battles against the **Weekly Clan Raid Boss** (*Ancient Abyssal Leviathan*).
-* **Inventory & Crafting Hub:** 8 equipment slots, 5 rarity tiers (Common, Rare, Epic, Legendary, Mythic), blacksmith forging (+1 to +10), rune socketing, 1-click batch item dismantling, and **4-Piece / 8-Piece Set Resonance Bonuses**.
+* **Guild & Clan System:** Clan creation, Clan Hall, member hierarchy (Leader, Officer, Member), passive clan buffs (`+5%` to `+25%` earned Coins and Exp), and cooperative battles against the **Weekly Clan Raid Boss** (*Ancient Abyssal Leviathan*).
+* **Inventory & Crafting Hub:** 8 equipment slots, 5 rarity tiers (Common, Rare, Epic, Legendary, Mythic), blacksmith forging (+1 to +10), rune socketing, 1-click batch item dismantling, and working **4-Piece / 8-Piece Set Resonance Bonuses** to Power and Health (plus Critical Strike at 8 pieces).
 * **Daily Engagement & Progression:** 7-day progressive daily login streak calendar, real-time energy ticker countdowns, and a 10-tier Hero Achievement & Equipable Title system.
-* **PvP Arena & Royal Tournament:** Arena gladiators, Hall of Fame leaderboards, and weekly tournaments with automated reward payouts.
+* **PvP Arena & Royal Tournament:** Asynchronous player challenges against opponents within 5 levels, settled from both players' combat stats, plus tournament points and weekly reward payouts.
 * **Economy & Royal Treasury:** Ruby shop (`paywk.php`), voucher promo code redemption, and currency exchange.
 * **Animated Toast Notifications:** Floating notifications with sound effects and auto-dismissal.
 
@@ -72,7 +72,7 @@
 ├── item.php                  <- Equipment manager, stat inspector & Set Resonance indicators
 ├── bag.php                   <- Backpack inventory, item comparison & 1-click batch dismantle
 ├── lec.php                   <- Dark Forest hunting grounds & zone monster selector
-├── arena.php                 <- PvP Arena combat and gladiator matchmaking
+├── arena.php                 <- Asynchronous player challenges, duel results & rewards
 ├── daily.php                 <- 7-Day progressive daily login rewards calendar
 ├── achievements.php          <- Hero achievement tracker & equipable title registry
 ├── clan.php                  <- Clan Castle, guild buffs, member roster & Weekly Raid Boss
@@ -282,7 +282,7 @@ To ensure recurring world events, weekly tournaments, and daily chest respawns o
 1. **Password Protection:** Passwords are encrypted using **BCrypt** ($2y$) via `password_hash()`. Any legacy MD5 hashes are automatically and transparently upgraded to modern BCrypt upon user login.
 2. **Confidential File Shielding:** The [.htaccess](file:///c:/Users/Equipo/Downloads/Nueva%20carpeta%20(3)/setst/setst.site/.htaccess) configuration forbids public HTTP access to `.env`, `.env.example`, `.sql` dumps, and error logs.
 3. **Hardened Session Management:** Session cookies are configured with `HttpOnly = true`, `SameSite = Lax`, and `use_strict_mode = 1` to prevent cross-site scripting (XSS) and session hijacking.
-4. **Self-Healing Schema Migrations:** The database engine automatically creates missing tables (`clans`, `clan_members`, `clan_boss`, `achievements_user`) and columns on initial database connection.
+4. **Self-Healing Schema Migrations:** The database engine automatically creates missing tables (`clans`, `clan_members`, `clan_boss`, `achievements_user`, `arena_challenges`) and columns on initial database connection.
 
 ---
 

@@ -66,8 +66,8 @@ $count_skills = cnt("SELECT (id) FROM `skills` WHERE `level` >= '1' AND `id_user
 <?php
 if (isset($_GET['get']) && ($user['level'] ?? 1) >= 5 && ($user['kill'] ?? 0) >= 1 && ($user['medik'] ?? 0) >= 1 && $count_skills && $count_item && ($tavern['glava'] ?? 1) == 1) {
     $ruby_n = ($tavern['glava'] ?? 1) * 25;
-    $gold_n = ($tavern['glava'] ?? 1) * 5000;
-    $exp_n  = ($tavern['glava'] ?? 1) * 1000;
+    $gold_n = clanRewardAmount($uid, ($tavern['glava'] ?? 1) * 5000);
+    $exp_n  = clanRewardAmount($uid, ($tavern['glava'] ?? 1) * 1000);
 
     qry("UPDATE `users` SET `gold` = `gold` + ?, `silver` = `silver` + ?, `exp` = `exp` + ? WHERE `id` = ? LIMIT 1", array($ruby_n, $gold_n, $exp_n, $uid));
     qry("UPDATE `tavern` SET `glava` = `glava` + 1 WHERE `id_user` = ? LIMIT 1", array($uid));

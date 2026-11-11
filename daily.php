@@ -37,7 +37,7 @@ if ($lastClaimTime < $todayStart) {
 if (isset($_GET['claim']) && $canClaimToday) {
     $reward = $dailyRewards[$nextDay];
 
-    $coins = $reward['coins'];
+    $coins = clanRewardAmount($uid, $reward['coins']);
     $rubies = $reward['rubies'];
     $metal = $reward['metal'];
     $tkan = $reward['tkan'];

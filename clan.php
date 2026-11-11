@@ -74,7 +74,8 @@ if (isset($_GET['attack_boss']) && $clanId > 0) {
     $clanBoss = fch("SELECT * FROM `clan_boss` WHERE `clan_id` = ? LIMIT 1", array($clanId));
     if ($clanBoss && $clanBoss['hp'] > 0) {
         $lastAttack = (int)($clanBoss['last_attack'] ?? 0);
-        $heroDmg = rand(max(10, round(($user['power'] ?? 10) / 2)), max(20, round(($user['power'] ?? 10))));
+        $combatStats = effectiveCombatStats($user);
+        $heroDmg = rand(max(10, round($combatStats['power'] / 2)), max(20, $combatStats['power']));
 
         $newHp = max(0, $clanBoss['hp'] - $heroDmg);
         qry("UPDATE `clan_boss` SET `hp` = ?, `last_attack` = ? WHERE `clan_id` = ? LIMIT 1", array($newHp, time(), $clanId));
@@ -86,8 +87,10 @@ if (isset($_GET['attack_boss']) && $clanId > 0) {
             $allMembers = $members->fetchAll(PDO::FETCH_ASSOC);
 
             foreach ($allMembers as $m) {
+                $memberCoins = clanRewardAmount((int)$m['user_id'], (int)$clanBoss['reward_gold']);
+                $memberExp = clanRewardAmount((int)$m['user_id'], (int)$clanBoss['reward_exp']);
                 qry("UPDATE `users` SET `silver` = `silver` + ?, `exp` = `exp` + ? WHERE `id` = ? LIMIT 1",
-                    array($clanBoss['reward_gold'], $clanBoss['reward_exp'], $m['user_id']));
+                    array($memberCoins, $memberExp, $m['user_id']));
             }
 
             // Level up clan
@@ -181,7 +184,7 @@ $bossHpPercent = ($clanBoss && $clanBoss['max_hp'] > 0) ? round(($clanBoss['hp']
     <div class="hrs"></div>
     Clan Level: <span class="yellow"><b><?php echo $clan['level']; ?></b></span> &nbsp;|&nbsp;
     Members: <span class="lime"><b><?php echo $clanMembersCount; ?></b></span> &nbsp;|&nbsp;
-    Clan Buff: <span class="gold"><b>+<?php echo min(25, $clan['level'] * 5); ?>% Bonus Exp & Gold</b></span>
+    Clan Buff: <span class="gold"><b>+<?php echo min(25, $clan['level'] * 5); ?>% Bonus Exp & Coins</b></span>
 </div>
 
 <!-- Weekly Clan Raid Boss -->

@@ -92,9 +92,10 @@ $block     = max(1, rand(round($lec_fight['block'] / 10), round($lec_fight['bloc
 $power_opp = max(0, $power_opp - $block);
 $power     = max(0, $power - $block_opp);
 
-// Critical strike chance (15%)
+$combatStats = effectiveCombatStats($user);
+$criticalChance = 15 + (int)$combatStats['critical_chance'];
 $isCrit = false;
-if (rand(1, 100) <= 15) {
+if (rand(1, 100) <= $criticalChance) {
     $power = intval($power * 1.5);
     $isCrit = true;
 }
@@ -104,7 +105,9 @@ if ($power >= $lec_fight['bot_hp']) {
     $matType = $lec_fight['type'];
     qry("UPDATE `users` SET `{$matType}` = `{$matType}` + 1, `kills_boss` = `kills_boss` + 1 WHERE `id` = ? LIMIT 1", array($uid));
     qry("UPDATE `lec_user` SET `{$matType}` = `{$matType}` + 1 WHERE `id_user` = ? LIMIT 1", array($uid));
-    qry("UPDATE `users` SET `exp` = `exp` + ?, `silver` = `silver` + ?, `tour` = `tour` + 1 WHERE `id` = ? LIMIT 1", array(intval($res_rand_win / 2), $res_rand_win, $uid));
+    $rewardExp = clanRewardAmount($uid, intval($res_rand_win / 2));
+    $rewardCoins = clanRewardAmount($uid, $res_rand_win);
+    qry("UPDATE `users` SET `exp` = `exp` + ?, `silver` = `silver` + ?, `tour` = `tour` + 1 WHERE `id` = ? LIMIT 1", array($rewardExp, $rewardCoins, $uid));
     qry("DELETE FROM `lec_fight` WHERE `id_user` = ?", array($uid));
 
     // Boss loot drop roll (35% chance for equipment drop on high-tier bosses)
@@ -128,15 +131,15 @@ if ($power >= $lec_fight['bot_hp']) {
         'success' => true,
         'status' => 'victory',
         'hero_hp' => max(0, $lec_fight['hp']),
-        'hero_max_hp' => max(1, $user['health'] ?? 100),
+        'hero_max_hp' => max(1, $combatStats['health']),
         'monster_hp' => 0,
         'monster_max_hp' => max(1, $lec_fight['default']),
         'damage_dealt' => $power,
         'damage_received' => 0,
         'is_crit' => $isCrit,
         'reward' => [
-            'gold' => intval($res_rand_win),
-            'exp' => intval($res_rand_win / 2),
+            'gold' => $rewardCoins,
+            'exp' => $rewardExp,
             'resource' => $matType,
             'item' => $droppedItem
         ],
@@ -148,21 +151,23 @@ if ($power >= $lec_fight['bot_hp']) {
 // Defeat Check
 if ($power_opp >= $lec_fight['hp'] && $act8 == 0 && $act9 == 0 && $act14 == 0 && ($lec_fight['clon_hp'] ?? 0) <= 0) {
     qry("DELETE FROM `lec_fight` WHERE `id_user` = ?", array($uid));
-    qry("UPDATE `users` SET `exp` = `exp` + ?, `silver` = `silver` + ? WHERE `id` = ? LIMIT 1", array(intval($res_rand_lose / 2), $res_rand_lose, $uid));
+    $rewardExp = clanRewardAmount($uid, intval($res_rand_lose / 2));
+    $rewardCoins = clanRewardAmount($uid, $res_rand_lose);
+    qry("UPDATE `users` SET `exp` = `exp` + ?, `silver` = `silver` + ? WHERE `id` = ? LIMIT 1", array($rewardExp, $rewardCoins, $uid));
 
     echo json_encode([
         'success' => true,
         'status' => 'defeat',
         'hero_hp' => 0,
-        'hero_max_hp' => max(1, $user['health'] ?? 100),
+        'hero_max_hp' => max(1, $combatStats['health']),
         'monster_hp' => max(0, $lec_fight['bot_hp']),
         'monster_max_hp' => max(1, $lec_fight['default']),
         'damage_dealt' => $power,
         'damage_received' => $power_opp,
         'is_crit' => $isCrit,
         'reward' => [
-            'gold' => intval($res_rand_lose),
-            'exp' => intval($res_rand_lose / 2)
+            'gold' => $rewardCoins,
+            'exp' => $rewardExp
         ],
         'message' => "Defeat! Fall back to heal!"
     ]);
@@ -186,7 +191,7 @@ echo json_encode([
     'success' => true,
     'status' => 'in_progress',
     'hero_hp' => max(0, (int)($updatedFight['hp'] ?? 0)),
-    'hero_max_hp' => max(1, $user['health'] ?? 100),
+    'hero_max_hp' => max(1, $combatStats['health']),
     'monster_hp' => max(0, (int)($updatedFight['bot_hp'] ?? 0)),
     'monster_max_hp' => max(1, $lec_fight['default']),
     'damage_dealt' => $power,
