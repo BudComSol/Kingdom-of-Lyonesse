@@ -56,6 +56,8 @@ head("Save Hero Account", $uid);
 <div class="tophead cntr">
     <div class="title cntr"><span class="color">Link & Protect Hero Account</span></div>
     <small><font color="#a4b0be">Save your progress, get an instant <b>+10 Rubies bonus</b> and <b>VIP status</b>!</font></small>
+    <p>Saving creates an account you can come back and use anytime.</p>
+    <p>Not saving here means should you return it will be as a GUEST.</p>
     <div class="hrs"></div>
 
     <form method="post" action="?form">
@@ -66,7 +68,7 @@ head("Save Hero Account", $uid);
         <input type="email" name="email" required placeholder="your.email@domain.com">
         <br>
         <div class="hrs"></div>
-        <input type="submit" value="Save & Claim The Bonus">
+        <input type="submit" value="Save & Claim Bonus">
     </form>
     <a href="/index.php?exit=1" class="button">No Thanks - Log Me Out</a>
     <br><small>Without saving, you may not be able to recover this hero.</small>
