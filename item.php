@@ -41,28 +41,12 @@ $dat2 = array('1' => 'Common', '2' => 'Rare', '3' => 'Epic', '4' => 'Legendary',
 $color = array('1' => '#32cd32', '2' => '#a335ee', '3' => '#ff8000', '4' => '#05CCFF', '5' => '#f5270d');
 $type = array('1' => 'Helmet', '2' => 'Shoulders', '3' => 'Armor', '4' => 'Gloves', '5' => 'Sword', '6' => 'Shield', '7' => 'Pants', '8' => 'Boots');
 
-// Calculate Set Resonance
-$equippedSets = [];
-for ($i = 1; $i <= 8; $i++) {
-    $eq = fch("SELECT `set` FROM `inv` WHERE `type` = ? AND `yes` = '1' AND `id_user` = ? LIMIT 1", array($i, $id));
-    if ($eq && isset($eq['set'])) {
-        $equippedSets[$eq['set']] = ($equippedSets[$eq['set']] ?? 0) + 1;
-    }
-}
-
-$activeBonusText = "";
-foreach ($equippedSets as $setTier => $setPieceCount) {
-    if ($setPieceCount >= 8) {
-        $activeBonusText = "<div class='tophead2 cntr' style='border-color: #f1c40f; background: rgba(30, 24, 10, 0.95);'><span class='yellow' style='font-size: 1rem;'><b>⭐ 8/8 Grand Set Resonance Active!</b></span><br><small><span class='lime'>+25% Power, +25% Health, +10% Critical Strike</span></small></div>";
-        break;
-    } elseif ($setPieceCount >= 4) {
-        $activeBonusText = "<div class='tophead2 cntr' style='border-color: #2ecc71; background: rgba(10, 26, 16, 0.95);'><span class='lime' style='font-size: 0.95rem;'><b>✨ 4/8 Set Resonance Active!</b></span><br><small>+10% Power & +10% Health</small></div>";
-        break;
-    }
-}
-
-if (!empty($activeBonusText)) {
-    echo $activeBonusText;
+// Set resonance uses the same effective stats applied to combat.
+$setStats = effectiveCombatStats($us);
+if ($setStats['set_pieces'] >= 8) {
+    echo "<div class='tophead2 cntr' style='border-color: #f1c40f; background: rgba(30, 24, 10, 0.95);'><span class='yellow' style='font-size: 1rem;'><b>⭐ 8/8 Grand Set Resonance Active!</b></span><br><small><span class='lime'>+25% Power, +25% Health, +10% Critical Strike</span></small></div>";
+} elseif ($setStats['set_pieces'] >= 4) {
+    echo "<div class='tophead2 cntr' style='border-color: #2ecc71; background: rgba(10, 26, 16, 0.95);'><span class='lime' style='font-size: 0.95rem;'><b>✨ 4/8 Set Resonance Active!</b></span><br><small>+10% Power & +10% Health</small></div>";
 }
 
 if (isset($_GET['view'])) {

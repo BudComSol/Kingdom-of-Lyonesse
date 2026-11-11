@@ -33,6 +33,7 @@ if ($attack >= 1 && ($user['lec'] ?? 0) >= 1) {
         exit();
     }
 
+    $combatStats = effectiveCombatStats($user);
     qry("UPDATE `users` SET `lec` = `lec` - 1 WHERE `id` = ? LIMIT 1", array($uid));
     qry("UPDATE `skills` SET `time` = '0', `reset` = '0' WHERE `id_user` = ?", array($uid));
 
@@ -56,11 +57,11 @@ if ($attack >= 1 && ($user['lec'] ?? 0) >= 1) {
             $check['param'],
             $check['param'],
             $check['param'],
-            $user['power'],
-            $user['block'],
-            $user['health'],
+            $combatStats['power'],
+            $combatStats['block'],
+            $combatStats['health'],
             $check['param'],
-            $user['power'],
+            $combatStats['power'],
             $check['type']
         )
     );

@@ -212,6 +212,7 @@ try {
               KEY `user_id` (`user_id`),
               KEY `achievement_id` (`achievement_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
         ");
 
         $userCols = $BaseConnect->query("SHOW COLUMNS FROM `users`")->fetchAll(PDO::FETCH_COLUMN);
@@ -231,6 +232,29 @@ try {
         }
     } catch (Exception $e) {
         // Schema auto-migration fallback
+    }
+
+    try {
+        $BaseConnect->exec("
+            CREATE TABLE IF NOT EXISTS `arena_challenges` (
+              `id` int(11) NOT NULL AUTO_INCREMENT,
+              `challenger_id` int(11) NOT NULL,
+              `opponent_id` int(11) NOT NULL,
+              `challenger_stats` text NOT NULL,
+              `status` varchar(16) NOT NULL DEFAULT 'pending',
+              `winner_id` int(11) NOT NULL DEFAULT 0,
+              `battle_log` text NOT NULL,
+              `created_at` int(11) NOT NULL DEFAULT 0,
+              `resolved_at` int(11) NOT NULL DEFAULT 0,
+              PRIMARY KEY (`id`),
+              KEY `opponent_status` (`opponent_id`, `status`),
+              KEY `challenger_status` (`challenger_id`, `status`),
+              KEY `created_at` (`created_at`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+        ");
+    } catch (PDOException $e) {
+        error_log('Arena challenge schema migration failed: ' . $e->getMessage());
+        die('Arena challenge storage is unavailable. Please contact the game administrator.');
     }
 } catch (PDOException $e) {
     if (APP_DEBUG) {

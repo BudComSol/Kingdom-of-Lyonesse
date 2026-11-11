@@ -25,8 +25,9 @@ if ($go == 2 && ($tavern['id_quest'] ?? 0) == 2) {
 }
 
 if ($go == 3 && ($tavern['id_quest'] ?? 0) == 3) {
+    $combatStats = effectiveCombatStats($user);
     qry("INSERT INTO `tavern_fight` SET `id_user` = ?, `name` = 'Squire', `bot_power` = '35', `bot_block` = '35', `bot_hp` = '35', `power` = ?, `block` = ?, `hp` = ?",
-        array($uid, $user['power'] ?? 10, $user['block'] ?? 10, $user['health'] ?? 10));
+        array($uid, $combatStats['power'], $combatStats['block'], $combatStats['health']));
     qry("UPDATE `tavern` SET `level` = '4' WHERE `id_user` = ? LIMIT 1", array($uid));
     header('Location: /tavern.php');
     exit();

@@ -118,7 +118,7 @@ if (isset($_GET['claim'])) {
             qry("INSERT INTO `achievements_user` (`user_id`, `achievement_id`, `progress`, `unlocked`, `unlocked_at`) VALUES (?, ?, ?, 1, ?) ON DUPLICATE KEY UPDATE `unlocked` = 1, `unlocked_at` = ?",
                 array($uid, $achKey, $ach['current'], time(), time()));
 
-            $coins = $ach['reward_coins'];
+            $coins = clanRewardAmount($uid, $ach['reward_coins']);
             $rubies = $ach['reward_rubies'];
             qry("UPDATE `users` SET `silver` = `silver` + ?, `gold` = `gold` + ? WHERE `id` = ? LIMIT 1", array($coins, $rubies, $uid));
 

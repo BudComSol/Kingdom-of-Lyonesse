@@ -1,5 +1,6 @@
 <?php
 $tavf = fch("SELECT * FROM `tavern_fight` WHERE `id_user` = ? LIMIT 1", array($uid));
+$combatStats = effectiveCombatStats($user);
 
 if (!$tavf) {
     header('Location: /tavern.php');
@@ -13,10 +14,15 @@ $block     = max(1, rand(round($tavf['block'] / 10), round($tavf['block'] / 8)))
 
 $power_opp = max(0, $power_opp - $block);
 $power     = max(0, $power - $block_opp);
+$isCrit = rand(1, 100) <= 15 + (int)$combatStats['critical_chance'];
+if ($isCrit) {
+    $power = (int)($power * 1.5);
+}
 
 if (isset($_GET['attack'])) {
     if ($power >= $tavf['bot_hp']) {
-        qry("UPDATE `users` SET `exp` = `exp` + 30 WHERE `id` = ? LIMIT 1", array($uid));
+        $questExp = clanRewardAmount($uid, 30);
+        qry("UPDATE `users` SET `exp` = `exp` + ? WHERE `id` = ? LIMIT 1", array($questExp, $uid));
         qry("UPDATE `tavern` SET `id_quest` = '4', `level` = '5' WHERE `id_user` = ? LIMIT 1", array($uid));
         qry("DELETE FROM `tavern_fight` WHERE `id_user` = ?", array($uid));
         msg2("You defeated the Squire!");
@@ -30,7 +36,7 @@ if (isset($_GET['attack'])) {
 }
 
 $botHpPercent = round(max(0, $tavf['bot_hp']) / max(1, $tavf['bot_power']) * 100, 1);
-$heroHpPercent = round(max(0, $tavf['hp']) / max(1, $tavf['power']) * 100, 1);
+$heroHpPercent = round(max(0, $tavf['hp']) / max(1, $combatStats['health']) * 100, 1);
 ?>
 
 <div class="tophead">

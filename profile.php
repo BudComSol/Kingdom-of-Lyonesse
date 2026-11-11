@@ -14,6 +14,7 @@ if (!$users) {
 }
 
 $title = $users['login'];
+$profileCombatStats = effectiveCombatStats($users);
 head($title, $uid);
 
 $count_bag  = cnt("SELECT (id) FROM `inv` WHERE `yes` = '0' AND `id_user` = ?", array($uid));
@@ -130,13 +131,13 @@ if (($users['id_clan'] ?? 0) > 0) {
     <table style="width:100%;">
         <tr>
             <td style="width: 33%;" class="cntr">
-                <a class="tophead"><img src="/images/power.png" width="17px" height="17px" alt="Power"> <?php echo $users['power']; ?></a>
+                <a class="tophead"><img src="/images/power.png" width="17px" height="17px" alt="Power"> <?php echo $profileCombatStats['power']; ?></a>
             </td>
             <td style="width: 33%;" class="cntr">
-                <a class="tophead"><img src="/images/block.png" width="17px" height="17px" alt="Defense"> <?php echo $users['block']; ?></a>
+                <a class="tophead"><img src="/images/block.png" width="17px" height="17px" alt="Defense"> <?php echo $profileCombatStats['block']; ?></a>
             </td>
             <td style="width: 33%;" class="cntr">
-                <a class="tophead"><img src="/images/health.png" width="17px" height="17px" alt="Health"> <?php echo $users['health']; ?></a>
+                <a class="tophead"><img src="/images/health.png" width="17px" height="17px" alt="Health"> <?php echo $profileCombatStats['health']; ?></a>
             </td>
         </tr>
     </table>

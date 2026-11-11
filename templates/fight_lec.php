@@ -1,5 +1,6 @@
 <?php
 $prem = (($user['premium_time'] ?? 0) > time()) ? 2 : 1;
+$combatStats = effectiveCombatStats($user);
 $res_rand_win  = intval(rand(90, 150) * $prem);
 $res_rand_lose = intval(rand(40, 80) * $prem);
 
@@ -112,6 +113,10 @@ $block     = max(1, rand(round($lec_fight['block'] / 10), round($lec_fight['bloc
 
 $power_opp = max(0, $power_opp - $block);
 $power     = max(0, $power - $block_opp);
+$isCrit = rand(1, 100) <= 15 + (int)$combatStats['critical_chance'];
+if ($isCrit) {
+    $power = (int)($power * 1.5);
+}
 
 if (isset($_GET['attack_get'])) {
     if (($lec_fight['fight_time'] ?? 0) > time() && ($lec_fight['bot_hp'] ?? 0) >= 1) {
@@ -128,25 +133,29 @@ if (isset($_GET['attack_get'])) {
         qry("UPDATE `lec_user` SET `{$matType}` = `{$matType}` + 1 WHERE `id_user` = ? LIMIT 1", array($uid));
         $resource = "<img src='/images/" . $matType . ".png' width='16' height='16'> +1";
 
-        qry("UPDATE `users` SET `exp` = `exp` + ?, `silver` = `silver` + ?, `tour` = `tour` + 1 WHERE `id` = ? LIMIT 1", array(intval($res_rand_win / 2), $res_rand_win, $uid));
+        $rewardExp = clanRewardAmount($uid, intval($res_rand_win / 2));
+        $rewardCoins = clanRewardAmount($uid, $res_rand_win);
+        qry("UPDATE `users` SET `exp` = `exp` + ?, `silver` = `silver` + ?, `tour` = `tour` + 1 WHERE `id` = ? LIMIT 1", array($rewardExp, $rewardCoins, $uid));
         qry("DELETE FROM `lec_fight` WHERE `id_user` = ?", array($uid));
 
         msg2("<div class='b-notice trsmgr'><div class='notify-inner'><center>
             <b>Victory! Monster Defeated!</b><br>
             Reward: " . $resource . " &nbsp;|&nbsp;
-            <img src='/images/gold.png' width='15px' height='15px'> " . intval($res_rand_win) . " Coins &nbsp;|&nbsp;
-            <img src='/images/exp.png' width='15px' height='15px'> " . intval($res_rand_win / 2) . " Exp
+            <img src='/images/gold.png' width='15px' height='15px'> " . $rewardCoins . " Coins &nbsp;|&nbsp;
+            <img src='/images/exp.png' width='15px' height='15px'> " . $rewardExp . " Exp
         </center></div></div>");
         header('Location: /lec.php');
         exit();
     } elseif ($power_opp >= $lec_fight['hp'] && $act8 == 0 && $act9 == 0 && $act14 == 0 && ($lec_fight['clon_hp'] ?? 0) <= 0) { // Defeat
         qry("DELETE FROM `lec_fight` WHERE `id_user` = ?", array($uid));
-        qry("UPDATE `users` SET `exp` = `exp` + ?, `silver` = `silver` + ? WHERE `id` = ? LIMIT 1", array(intval($res_rand_lose / 2), $res_rand_lose, $uid));
+        $rewardExp = clanRewardAmount($uid, intval($res_rand_lose / 2));
+        $rewardCoins = clanRewardAmount($uid, $res_rand_lose);
+        qry("UPDATE `users` SET `exp` = `exp` + ?, `silver` = `silver` + ? WHERE `id` = ? LIMIT 1", array($rewardExp, $rewardCoins, $uid));
 
         err2("<center>
             <b>Defeat!</b><br>
-            Consolation: <img src='/images/gold.png' width='15px' height='15px'> " . intval($res_rand_lose) . " Coins &nbsp;
-            <img src='/images/exp.png' width='15px' height='15px'> " . intval($res_rand_lose / 2) . " Exp
+            Consolation: <img src='/images/gold.png' width='15px' height='15px'> " . $rewardCoins . " Coins &nbsp;
+            <img src='/images/exp.png' width='15px' height='15px'> " . $rewardExp . " Exp
         </center>");
         header('Location: /lec.php');
         exit();
@@ -166,7 +175,7 @@ if (isset($_GET['attack_get'])) {
 }
 
 $botHpPercent = round(max(0, $lec_fight['bot_hp']) / max(1, $lec_fight['default']) * 100, 1);
-$heroHpPercent = round(max(0, $lec_fight['hp']) / max(1, $user['health'] ?? 10) * 100, 1);
+$heroHpPercent = round(max(0, $lec_fight['hp']) / max(1, $combatStats['health']) * 100, 1);
 ?>
 
 <div class="tophead combat-arena-card" id="monster-card">
@@ -231,7 +240,7 @@ $heroHpPercent = round(max(0, $lec_fight['hp']) / max(1, $user['health'] ?? 10) 
     <span class="yellow" style="font-size: 1.05rem;"><b><?php echo htmlspecialchars($user['login'] ?? 'Knight'); ?></b></span><br>
     <img src="/images/power.png" width="15px" height="15px"> <span id="hero-power"><?php echo $lec_fight['power']; ?></span> &nbsp;
     <img src="/images/block.png" width="15px" height="15px"> <span id="hero-block"><?php echo $lec_fight['block']; ?></span> &nbsp;
-    <img src="/images/health.png" width="15px" height="15px"> <span id="hero-hp-text" class="lime"><b><?php echo max(0, $lec_fight['hp']); ?></b> / <?php echo max(1, $user['health'] ?? 10); ?></span>
+    <img src="/images/health.png" width="15px" height="15px"> <span id="hero-hp-text" class="lime"><b><?php echo max(0, $lec_fight['hp']); ?></b> / <?php echo max(1, $combatStats['health']); ?></span>
 
     <div class="hrs"></div>
     <div class="progress-bar exp">
