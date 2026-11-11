@@ -759,7 +759,7 @@ function foot($uid) {
     </table>
 </div>
 
-<div class="cntr">
+<div class="cntr" style="font-size: 22px; font-weight: 600;">
     <div class="hrs"></div>
     <a href="/news.php"><?php if (isset($user['news']) && $user['news'] != 0) echo '<span class="lime">'; ?>News</span></a> |
     <a href="/chat.php"><?php if (isset($user['chat_check']) && $user['chat_check'] != 0) echo '<span class="lime">'; ?>Chat</span></a> |
