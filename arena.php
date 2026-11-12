@@ -210,7 +210,7 @@ head("Player Arena", $uid);
     <?php } else { foreach ($players as $player) {
         $opponentStats = effectiveCombatStats($player);
     ?>
-        <div class="tophead">
+        <div class="tophead cntr">
             <a href="/profile.php?id=<?php echo (int)$player['id']; ?>"><b><?php echo htmlspecialchars($player['login']); ?></b></a>
             <small>Level <?php echo (int)$player['level']; ?> ·
                 <img src="/images/power.png" width="14" height="14" alt="Power"> <?php echo $opponentStats['power']; ?>
