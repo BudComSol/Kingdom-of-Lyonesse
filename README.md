@@ -42,7 +42,7 @@
 
 ## ⚔️ Key Gameplay Features
 
-* **Dynamic Real-Time Combat (AJAX):** Turn-based Dark Forest encounters featuring floating combat text (`-120 💥 CRIT!`, `+45 💚`), smooth health bar transitions, tactile audio effects, and direct boss loot drops without full-page reloads.
+* **Dynamic Real-Time Combat (AJAX):** Turn-based Dark Forest encounters featuring floating combat text (`-120 💥 CRIT!`, `+45 💚`), smooth health bar transitions, tactile audio effects, and direct boss loot drops without full-page reloads. Dropped equipment retains its item's set rarity and slot.
 * **Guild & Clan System:** Clan creation, Clan Hall, member hierarchy (Leader, Officer, Member), passive clan buffs (`+5%` to `+25%` earned Coins and Exp), and cooperative battles against the **Weekly Clan Raid Boss** (*Ancient Abyssal Leviathan*).
 * **Inventory & Crafting Hub:** 8 equipment slots, 5 rarity tiers (Common, Rare, Epic, Legendary, Mythic), blacksmith forging (+1 to +10), rune socketing, 1-click batch item dismantling, and working **4-Piece / 8-Piece Set Resonance Bonuses** to Power and Health (plus Critical Strike at 8 pieces).
 * **Daily Engagement & Progression:** 7-day progressive daily login streak calendar, real-time energy ticker countdowns, and a 10-tier Hero Achievement & Equipable Title system.
