@@ -950,10 +950,11 @@ span.color { color: #ffffff; }
 
 .vmmo_label {
     padding: 14px 22px;
+    border: 2px solid #d5c558;
     border-radius: 8px;
-    background: #2ecc71;
+    background: #144e4e;
     color: #ffffff;
-    font-size: 1rem;
+    font-size: 0.9rem;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
 }
 
