@@ -103,28 +103,37 @@ if (rand(1, 100) <= $criticalChance) {
 // Victory Check
 if ($power >= $lec_fight['bot_hp']) {
     $matType = $lec_fight['type'];
-    qry("UPDATE `users` SET `{$matType}` = `{$matType}` + 1, `kills_boss` = `kills_boss` + 1 WHERE `id` = ? LIMIT 1", array($uid));
-    qry("UPDATE `lec_user` SET `{$matType}` = `{$matType}` + 1 WHERE `id_user` = ? LIMIT 1", array($uid));
-    $rewardExp = clanRewardAmount($uid, intval($res_rand_win / 2));
-    $rewardCoins = clanRewardAmount($uid, $res_rand_win);
-    qry("UPDATE `users` SET `exp` = `exp` + ?, `silver` = `silver` + ?, `tour` = `tour` + 1 WHERE `id` = ? LIMIT 1", array($rewardExp, $rewardCoins, $uid));
-    qry("DELETE FROM `lec_fight` WHERE `id_user` = ?", array($uid));
+    try {
+        $BaseConnect->beginTransaction();
+        qry("UPDATE `users` SET `{$matType}` = `{$matType}` + 1, `kills_boss` = `kills_boss` + 1 WHERE `id` = ? LIMIT 1", array($uid));
+        qry("UPDATE `lec_user` SET `{$matType}` = `{$matType}` + 1 WHERE `id_user` = ? LIMIT 1", array($uid));
+        $rewardExp = clanRewardAmount($uid, intval($res_rand_win / 2));
+        $rewardCoins = clanRewardAmount($uid, $res_rand_win);
+        qry("UPDATE `users` SET `exp` = `exp` + ?, `silver` = `silver` + ?, `tour` = `tour` + 1 WHERE `id` = ? LIMIT 1", array($rewardExp, $rewardCoins, $uid));
+        qry("DELETE FROM `lec_fight` WHERE `id_user` = ?", array($uid));
 
-    // Boss loot drop roll (35% chance for equipment drop on high-tier bosses)
-    $droppedItem = null;
-    if (rand(1, 100) <= 35) {
-        $randomItem = fch("SELECT * FROM `items` WHERE `level` <= ? ORDER BY RAND() LIMIT 1", array((int)($user['level'] ?? 1)));
-        if ($randomItem) {
-            $slot = $randomItem['tip'] ?? 1;
-            $quality = rand(1, 4); // 1: Common, 2: Uncommon, 3: Rare, 4: Epic
-            qry("INSERT INTO `inv` (`id_user`, `id_item`, `tip`, `level`, `power`, `block`, `health`, `quality`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)",
-                array($uid, $randomItem['id'], $slot, $randomItem['level'] ?? 1, $randomItem['power'] ?? 0, $randomItem['block'] ?? 0, $randomItem['health'] ?? 0, $quality));
-            $droppedItem = [
-                'name' => $randomItem['name'] ?? 'Mystic Equipment',
-                'quality' => $quality,
-                'icon' => "/images/items/" . $slot . ".png"
-            ];
+        $droppedItem = null;
+        if (rand(1, 100) <= 35) {
+            $randomItem = fch("SELECT * FROM `items` WHERE `level` <= ? ORDER BY RAND() LIMIT 1", array((int)($user['level'] ?? 1)));
+            if ($randomItem) {
+                qry("INSERT INTO `inv` (`id_user`, `set`, `name`, `type`, `level`, `power`, `block`, `health`, `energy`, `max_smitch`, `smitch`, `yes`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0, ?, 0, 0)",
+                    array($uid, $randomItem['set'], $randomItem['name'], $randomItem['type'], $randomItem['level'], $randomItem['power'], $randomItem['block'], $randomItem['health'], $randomItem['max_smitch']));
+                $droppedItem = [
+                    'name' => $randomItem['name'],
+                    'quality' => (int)$randomItem['set'],
+                    'icon' => "/images/items/" . $randomItem['set'] . "/" . $randomItem['type'] . ".png"
+                ];
+            }
         }
+        $BaseConnect->commit();
+    } catch (Throwable $e) {
+        if ($BaseConnect->inTransaction()) {
+            $BaseConnect->rollBack();
+        }
+        error_log("Combat victory failed: " . $e->getMessage());
+        http_response_code(500);
+        echo json_encode(['success' => false, 'message' => 'Could not complete combat. Please try again.']);
+        exit();
     }
 
     echo json_encode([
