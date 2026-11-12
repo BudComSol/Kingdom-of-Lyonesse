@@ -87,8 +87,8 @@ if (($user['level'] ?? 1) >= 20 && $count_skills >= 10 && ($user['arena_tav'] ??
             <font color="#888">
                 Rewards:
                 <img class="money" src="/images/ruby.png" width="16" height="16" alt="Rubies"> <?php echo ($tavern['glava'] ?? 1) * 25; ?> Rubies &nbsp;
-                <img class="money" src="/images/gold.png" width="16" height="16" alt="Coins"> <?php echo ($tavern['glava'] ?? 1) * 5000; ?> Coins &nbsp;
-                <img class="money" src="/images/exp.png" width="16" height="16" alt="Exp"> <?php echo ($tavern['glava'] ?? 1) * 1000; ?> Exp
+                <img class="money" src="/images/gold.png" width="16" height="16" alt="Coins"> <?php echo clanRewardAmount($uid, ($tavern['glava'] ?? 1) * 5000); ?> Coins &nbsp;
+                <img class="money" src="/images/exp.png" width="16" height="16" alt="Exp"> <?php echo clanRewardAmount($uid, ($tavern['glava'] ?? 1) * 1000); ?> Exp
             </font>
         </small>
         <div class="hrs"></div>

@@ -82,6 +82,8 @@ if (isset($_GET['attack_boss']) && $clanId > 0) {
 
         if ($newHp <= 0) {
             // Distribute rewards to all clan members
+            $bossRewardCoins = clanRewardAmount($uid, (int)$clanBoss['reward_gold']);
+            $bossRewardExp = clanRewardAmount($uid, (int)$clanBoss['reward_exp']);
             $members = $BaseConnect->prepare("SELECT `user_id` FROM `clan_members` WHERE `clan_id` = ?");
             $members->execute([$clanId]);
             $allMembers = $members->fetchAll(PDO::FETCH_ASSOC);
@@ -100,7 +102,7 @@ if (isset($_GET['attack_boss']) && $clanId > 0) {
             qry("UPDATE `clan_boss` SET `hp` = ?, `max_hp` = ?, `reward_gold` = `reward_gold` + 2500, `reward_exp` = `reward_exp` + 1000 WHERE `clan_id` = ? LIMIT 1",
                 array($nextMax, $nextMax, $clanId));
 
-            msg("⭐ RAID BOSS SLAIN! Clan members received +{$clanBoss['reward_gold']} Coins and +{$clanBoss['reward_exp']} Exp! Clan Level increased!");
+            msg("⭐ RAID BOSS SLAIN! Clan members received +{$bossRewardCoins} Coins and +{$bossRewardExp} Exp (including clan bonus)! Clan Level increased!");
         } else {
             msg("⚔️ Struck Clan Raid Boss for {$heroDmg} damage!");
         }
@@ -198,8 +200,8 @@ $bossHpPercent = ($clanBoss && $clanBoss['max_hp'] > 0) ? round(($clanBoss['hp']
         </div>
         <small class="lime"><b><?php echo max(0, $clanBoss['hp']); ?> / <?php echo $clanBoss['max_hp']; ?> HP</b> (<?php echo $bossHpPercent; ?>%)</small>
         <br><br>
-        Reward Pool: <img src="/images/gold.png" width="15px" height="15px"> <span class="yellow">+<?php echo $clanBoss['reward_gold']; ?> Coins</span> &nbsp;|&nbsp;
-        <img src="/images/exp.png" width="15px" height="15px"> <span class="lime">+<?php echo $clanBoss['reward_exp']; ?> Exp</span> to each member!
+        Reward per member: <img src="/images/gold.png" width="15px" height="15px"> <span class="yellow">+<?php echo clanRewardAmount($uid, (int)$clanBoss['reward_gold']); ?> Coins</span> &nbsp;|&nbsp;
+        <img src="/images/exp.png" width="15px" height="15px"> <span class="lime">+<?php echo clanRewardAmount($uid, (int)$clanBoss['reward_exp']); ?> Exp</span> (including clan bonus)
         <div class="hrs"></div>
         <a class="button button_danger" style="font-size: 0.95rem; padding: 6px 20px;" href="?attack_boss=1">⚔️ Attack Raid Boss</a>
     </div>

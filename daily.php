@@ -70,6 +70,7 @@ head("Daily Login Rewards", $uid);
 
 <div class="daily-calendar-grid" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 8px; margin: 10px 0;">
     <?php foreach ($dailyRewards as $dayNum => $r) {
+        $displayCoins = clanRewardAmount($uid, $r['coins']);
         $isCurrent = ($dayNum === $nextDay && $canClaimToday);
         $isClaimed = ($dayNum <= $currentStreak && !$canClaimToday) || ($dayNum < $nextDay && $canClaimToday);
         $cardBorder = $isCurrent ? 'border: 2px solid #f1c40f; box-shadow: 0 0 15px rgba(241, 196, 15, 0.4);' : ($isClaimed ? 'border: 1px solid #2ecc71; opacity: 0.8;' : 'border: 1px solid var(--border-gold); opacity: 0.6;');
@@ -79,7 +80,7 @@ head("Daily Login Rewards", $uid);
             <span class="yellow"><b>Day <?php echo $dayNum; ?></b></span><br>
             <img src="<?php echo $r['icon']; ?>" width="32" height="32" alt="Reward" style="margin: 4px 0;"><br>
             <small><b><?php echo htmlspecialchars($r['name']); ?></b></small><br>
-            <small class="lime">+<?php echo $r['coins']; ?> Coins</small><br>
+            <small class="lime">+<?php echo $displayCoins; ?> Coins<?php if ($displayCoins !== $r['coins']) { ?> (with clan bonus)<?php } ?></small><br>
             <?php if ($r['rubies'] > 0) { ?><small class="orange">+<?php echo $r['rubies']; ?> Rubies</small><br><?php } ?>
             <?php if ($r['vip'] > 0) { ?><small class="gold">+<?php echo ($r['vip'] / 86400); ?>d VIP</small><br><?php } ?>
             
