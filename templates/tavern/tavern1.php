@@ -4,14 +4,14 @@
     </div>
     <span class="lime">Jack (Innkeeper)</span><br>
     <small>
-        Welcome! My name is Jack. I've been waiting for you to recover. It is fortunate you survived the Dark Forest attack!
+        <p>Welcome, my name is Jack and I've been waiting for you to recover, it is fortunate you survived the Dark Forest attack!</p>
     </small>
 </div>
 
 <div class="tophead">
     <span class="tomato">You</span><br>
     <small>
-        As I mentioned to <span class="yellow">Elaine</span>, my memories are scattered. But I know I need coin, rations, and equipment. I was told I could find work here at the Tavern!
+        <p>As I mentioned to <span class="yellow">Elaine</span>, my memories are scattered but I know I need coin, rations, and equipment and I was told I could find work here at the Tavern!</p>
     </small>
 </div>
 
@@ -21,9 +21,9 @@
     </div>
     <span class="lime">Jack</span><br>
     <small>
-        Easy now! There is plenty of work to be done, but look at you—you're in no shape for a serious contract just yet!<br><br>
-        Let me help you get started. Take these crafting materials: <img src="/images/metal.png" width="17px" height="17px" alt="Iron"> 10 Iron &nbsp; <img src="/images/tkan.png" width="17px" height="17px" alt="Cloth"> 10 Cloth.<br>
-        Go visit <span class="yellow">Luther</span> at the Town Market Square so he can forge your first equipment!
+        <p>Easy now! There is plenty of work to be done, but look at you—you're in no shape for a serious contract just yet!</p>
+        <p>Let me help you get started. Take these crafting materials: <img src="/images/metal.png" width="17px" height="17px" alt="Iron"> 10 Iron &nbsp; <img src="/images/tkan.png" width="17px" height="17px" alt="Cloth"> 10 Cloth.</p>
+        <p>Go and visit <span class="yellow">Luther</span> at the Town Market Square so he can forge your first equipment!</p>
     </small>
 </div>
 
