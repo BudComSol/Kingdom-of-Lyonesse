@@ -534,7 +534,10 @@ function head($title, $uid) {
     <meta name="keywords" content="Kingdom, Online Game, Castle Siege, RPG, mobile game, MMORPG">
     <meta name="description" content="Kingdom of Lyonesse Mobile MMORPG. Immerse yourself in a medieval fantasy world and become a legendary knight.">
     <title><?php echo $title ? $title . ' - ' . APP_NAME : APP_NAME; ?></title>
-    <link rel="stylesheet" href="/style/style.css?v=2.2.3" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&amp;family=Outfit:wght@300;400;500;600;700&amp;display=swap">
+    <link rel="stylesheet" href="/style/style.css?v=2.2.4" />
     <script defer src="/style/toast.js?v=2.2.0"></script>
     <script defer src="/style/audio.js?v=2.2.0"></script>
     <meta name="author" content="<?php echo APP_NAME; ?>" />
