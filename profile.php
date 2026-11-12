@@ -97,7 +97,7 @@ if (($users['id_clan'] ?? 0) > 0) {
     ?>
 </div>
 
-<div class="tophead">
+<div class="tophead cntr">
     <span class="lime">Level: <?php echo $users['level']; ?></span> &nbsp;|&nbsp;
     Daily Streak: <span class="yellow"><b><?php echo (int)($users['daily_streak'] ?? 0); ?> / 7 Days</b></span><br>
     <?php if ($uid == $id) { ?>
