@@ -27,7 +27,7 @@ if (isset($_REQUEST['ok'])) {
 head("Currency Exchange", $uid);
 ?>
 
-<div class="tophead">
+<div class="tophead cntr">
     <img src="/images/ruby.png" width="17px" height="17px" alt="Ruby"> 1 Ruby = <img src="/images/gold.png" width="17px" height="17px" alt="Gold"> 1,000 Gold Coins<br>
     Your Balance: <img src="/images/ruby.png" width="17px" height="17px" alt="Ruby"> <?php echo $user['gold'] ?? 0; ?> Rubies
 </div>
