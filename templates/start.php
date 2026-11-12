@@ -11,9 +11,9 @@ $title = array(
 
 $text = array(
     '',
-    'Waking up in a dark forest, you cannot comprehend what happened. <br>Seeing blood on your hands, panic sets in, but distant cries for help force you into action.',
-    'Rushing towards the cries, you witness a fierce battle. The enemy holds overwhelming power, and in moments a brave knight falls bleeding to the ground.<br><br><span class="red">The dragon turns its blazing gaze toward you and lunges! You have no choice but to fight for your life!</span>',
-    'After a brief clash, you realize you stand no chance against the beast. Struck by devastating blows, you collapse into darkness.<br>The last thing you see is the roaring dragon and blazing flames...',
+    '<p>Waking up in a dark forest, you cannot comprehend what happened.</p><p>With blood on your hands panic sets in, but distant cries force you into action.</p><p>SHIT & CORRUPTION ... WHAT AM I GOING TO DO?</p>',
+    '<p>Rushing towards the cries, you witness a fierce battle</p><p> The fiery enemy holds overwhelming strength and power, and in a flash a brave knight falls bleeding to the cold hard ground.</p><p>The dragon turns its blazing gaze toward you and lunges.</p><p style="color: red;"> YOU HAVE NO CHOICE BUT TO FIGHT FOR YOUR VERY LIFE!</p>',
+    '<P>After a brief clash, you realize you stand no chance against the beast and struck by devastating blows, you collapse into darkness.</p><p  style="color: red;">THE LAST THING YOU SEE IS THE ROARING DRAGON AND ITS DEVASTATINGLY SCORCHING FLAMES BEFORE YOU BLACKOUT!</P>',
     ''
 );
 
