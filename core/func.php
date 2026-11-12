@@ -542,6 +542,10 @@ function head($title, $uid) {
 <body>
 
 <?php
+if ($uid <= 0) {
+    echo '<main>';
+}
+
 if ($user && isset($user['start']) && $user['start'] >= 4) {
     global $user_level;
     $new_msg = cnt("SELECT (id) FROM `mail` WHERE `id_ank` = ? AND `check` = ? LIMIT 1", array($uid, 1));
@@ -762,6 +766,11 @@ function foot($uid) {
 </nav>
 <div class="hrs"></div>
 
+</body></html>
+<?php
+    } else {
+?>
+</main>
 </body></html>
 <?php
     }
