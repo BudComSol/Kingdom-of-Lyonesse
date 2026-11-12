@@ -232,6 +232,10 @@ a:hover {
     border-color: rgba(212, 175, 55, 0.25);
 }
 
+.profile-attributes {
+    text-align: center;
+}
+
 .list2 {
     background: rgba(20, 27, 39, 0.9);
 }
