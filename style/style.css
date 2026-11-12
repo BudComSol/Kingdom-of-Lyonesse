@@ -3,8 +3,6 @@
    Modernized Gaming UI, Glassmorphism, Micro-Animations & Responsive HUD
    ===================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=Outfit:wght@300;400;500;600;700&display=swap');
-
 :root {
     --bg-dark: #090b10;
     --bg-surface: rgba(18, 24, 35, 0.94);
