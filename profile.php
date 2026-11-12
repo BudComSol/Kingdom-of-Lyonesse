@@ -126,7 +126,7 @@ if (($users['id_clan'] ?? 0) > 0) {
 </div>
 <br>
 
-<div class="tophead2">
+<div class="tophead2 profile-attributes">
     <div class="title cntr"><span class="color">Attributes</span></div>
     <table style="width:100%;">
         <tr>
