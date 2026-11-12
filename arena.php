@@ -218,7 +218,7 @@ head("Player Arena", $uid);
                 <img src="/images/health.png" width="14" height="14" alt="Health"> <?php echo $opponentStats['health']; ?>
             </small>
             <?php if ($arena > 0) { ?>
-                <form method="post" action="/arena.php" style="display:inline;">
+                <form method="post" action="/arena.php">
                     <input type="hidden" name="action" value="challenge">
                     <input type="hidden" name="opponent_id" value="<?php echo (int)$player['id']; ?>">
                     <button class="button" type="submit">Challenge (1 battle)</button>
