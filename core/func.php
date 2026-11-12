@@ -528,7 +528,7 @@ function head($title, $uid) {
 <!DOCTYPE html>
 <html lang="en" class="<?php echo $uid > 0 ? '' : 'guest-page'; ?>">
 <head>
-    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+    <meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, user-scalable=yes" />
     <meta charset="utf-8">
     <link type="Image/x-icon" href="/style/favicon.ico" rel="icon">
     <meta name="keywords" content="Kingdom, Online Game, Castle Siege, RPG, mobile game, MMORPG">
