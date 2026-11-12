@@ -948,6 +948,24 @@ span.color { color: #ffffff; }
     filter: drop-shadow(0 6px 20px rgba(0, 0, 0, 0.9));
 }
 
+.vmmo_label {
+    padding: 14px 22px;
+    border-radius: 8px;
+    background: #2ecc71;
+    color: #ffffff;
+    font-size: 1rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+}
+
+.vmmo_label .landing-login-button {
+    color: inherit;
+    transition: color 0.2s ease;
+}
+
+.vmmo_label .landing-login-button:hover {
+    color: #ff0000;
+}
+
 
 /* =====================================================================
    Animated RPG Toast Notifications
