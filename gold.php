@@ -34,8 +34,7 @@ head("Currency Exchange", $uid);
 
 <div class="tophead cntr">
     <?php echo logs(); ?>
-    How many rubies do you want to exchange?
-    <br><br>
+    <p>How many rubies do you wish to exchange?</p>    
     <form action="" method="post">
         <input type="number" name="ruby" min="1" max="<?php echo (int)($user['gold'] ?? 0); ?>" required />
         <br><br>
