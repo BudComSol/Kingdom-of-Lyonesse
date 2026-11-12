@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' || isset($_GET['form'])) {
             qry("UPDATE `users` SET `password` = ?, `hash_password` = ?, `email` = ?, `save` = 2, `gold` = `gold` + 10, `premium` = 2, `premium_time` = ? WHERE `id` = ? LIMIT 1", 
                 array($passwordHash, $hash, $email, time() + 7200, $uid));
 
-            UserEnter($uid, $password);
+            UserEnter($uid);
             unset($_SESSION['u']);
             msg("Hero account saved successfully! Received +10 Rubies and VIP bonus.");
             header("Location: /");
