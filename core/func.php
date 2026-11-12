@@ -747,14 +747,16 @@ function foot($uid) {
     </table>
 </div>
 
-<div class="cntr" style="font-size: 22px; font-weight: 600;">
+<nav class="footer-nav" aria-label="Game navigation">
     <div class="hrs"></div>
-    <a href="/news.php"><?php if (isset($user['news']) && $user['news'] != 0) echo '<span class="lime">'; ?>News</span></a> |
-    <a href="/chat.php"><?php if (isset($user['chat_check']) && $user['chat_check'] != 0) echo '<span class="lime">'; ?>Chat</span></a> |
-    <a href="/online.php">Online: <?php echo $on; ?></a>
-    <br>
-    <a href="/index.php?help=1">Game Help</a> | <a href="/settings.php">Settings</a>
-</div>
+    <div class="footer-nav-buttons">
+        <a href="/news.php"><?php if (isset($user['news']) && $user['news'] != 0) echo '<span class="lime">'; ?>News<?php if (isset($user['news']) && $user['news'] != 0) echo '</span>'; ?></a>
+        <a href="/chat.php"><?php if (isset($user['chat_check']) && $user['chat_check'] != 0) echo '<span class="lime">'; ?>Chat<?php if (isset($user['chat_check']) && $user['chat_check'] != 0) echo '</span>'; ?></a>
+        <a href="/online.php">Online: <?php echo $on; ?></a>
+        <a href="/index.php?help=1">Game Help</a>
+        <a href="/settings.php">Settings</a>
+    </div>
+</nav>
 <div class="hrs"></div>
 
 </body></html>
