@@ -99,7 +99,7 @@ while ($post = $q_stmt->fetch(PDO::FETCH_ASSOC)) {
             <font color="#888">
                 Rewards:
                 <img class="money" src="/images/ruby.png" width="16" height="16" alt="Rubies"> <?php echo $quest['gold']; ?> Rubies &nbsp;
-                <img class="money" src="/images/gold.png" width="16" height="16" alt="Coins"> <?php echo $quest['silver'] * $prem; ?> Coins &nbsp;
+                <img class="money" src="/images/gold.png" width="16" height="16" alt="Coins"> <?php echo clanRewardAmount($uid, $quest['silver'] * $prem); ?> Coins &nbsp;
                 <img class="money" src="/images/key.png" width="16" height="16" alt="Keys"> 3 Keys &nbsp;
                 <img class="money" src="/images/tour.png" width="16" height="16" alt="Tournament"> +1 Point
                 <br>

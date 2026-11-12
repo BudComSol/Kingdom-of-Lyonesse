@@ -44,9 +44,9 @@ $type = array('1' => 'Helmet', '2' => 'Shoulders', '3' => 'Armor', '4' => 'Glove
 // Set resonance uses the same effective stats applied to combat.
 $setStats = effectiveCombatStats($us);
 if ($setStats['set_pieces'] >= 8) {
-    echo "<div class='tophead2 cntr' style='border-color: #f1c40f; background: rgba(30, 24, 10, 0.95);'><span class='yellow' style='font-size: 1rem;'><b>⭐ 8/8 Grand Set Resonance Active!</b></span><br><small><span class='lime'>+25% Power, +25% Health, +10% Critical Strike</span></small></div>";
+    echo "<div class='tophead2 cntr' style='border-color: #f1c40f; background: rgba(30, 24, 10, 0.95);'><span class='yellow' style='font-size: 1rem;'><b>⭐ 8/8 Grand Set Resonance Active!</b></span><br><small><span class='lime'>+25% Power, +25% Health, +10% Critical Strike</span><br>Effective combat stats: {$setStats['power']} Power, {$setStats['block']} Defense, {$setStats['health']} Health</small></div>";
 } elseif ($setStats['set_pieces'] >= 4) {
-    echo "<div class='tophead2 cntr' style='border-color: #2ecc71; background: rgba(10, 26, 16, 0.95);'><span class='lime' style='font-size: 0.95rem;'><b>✨ 4/8 Set Resonance Active!</b></span><br><small>+10% Power & +10% Health</small></div>";
+    echo "<div class='tophead2 cntr' style='border-color: #2ecc71; background: rgba(10, 26, 16, 0.95);'><span class='lime' style='font-size: 0.95rem;'><b>✨ 4/8 Set Resonance Active!</b></span><br><small>+10% Power & +10% Health<br>Effective combat stats: {$setStats['power']} Power, {$setStats['block']} Defense, {$setStats['health']} Health</small></div>";
 }
 
 if (isset($_GET['view'])) {

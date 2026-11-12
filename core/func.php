@@ -246,20 +246,23 @@ function effectiveCombatStats($player) {
 
 function clanRewardAmount($userId, $amount) {
     $amount = max(0, (int)$amount);
-    if ($amount === 0 || (int)$userId <= 0) {
+    $userId = (int)$userId;
+    if ($amount === 0 || $userId <= 0) {
         return $amount;
     }
 
-    $clan = fch(
-        "SELECT c.`level` FROM `users` u INNER JOIN `clans` c ON c.`id` = u.`id_clan` WHERE u.`id` = ? AND u.`id_clan` > 0 LIMIT 1",
-        [(int)$userId]
-    );
-    if (!$clan) {
-        return $amount;
+    static $bonusPercentByUser = [];
+    if (!array_key_exists($userId, $bonusPercentByUser)) {
+        $clan = fch(
+            "SELECT c.`level` FROM `users` u INNER JOIN `clans` c ON c.`id` = u.`id_clan` WHERE u.`id` = ? AND u.`id_clan` > 0 LIMIT 1",
+            [$userId]
+        );
+        $bonusPercentByUser[$userId] = $clan
+            ? min(25, max(0, (int)$clan['level']) * 5)
+            : 0;
     }
 
-    $bonusPercent = min(25, max(0, (int)$clan['level']) * 5);
-    return (int)floor($amount * (100 + $bonusPercent) / 100);
+    return (int)floor($amount * (100 + $bonusPercentByUser[$userId]) / 100);
 }
 
 // Human readable time
