@@ -154,7 +154,7 @@ if (!$uid) {
 ?>
 <div class="landing-content">
     <div class="logo">
-        <img src="/images/logo.png" alt="Logo">
+        <img src="/images/logo.png" alt="Logo" fetchpriority="high">
     </div>    
     <a class="enter_button" href="/?start=1">
         <img src="/images/button_green.png" alt="Battle Button">   
