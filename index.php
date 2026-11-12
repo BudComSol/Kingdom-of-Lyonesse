@@ -70,7 +70,7 @@ if ($login == 1 && isset($_GET['enter'])) {
 
     if ($quser && verifyPassword($passInput, $quser['password'])) {
         upgradePasswordIfNeeded($quser['id'], $passInput, $quser['password']);
-        UserEnter($quser['id'], $passInput);
+        UserEnter($quser['id']);
         header("Location: /?r=" . $r);
         exit();
     } else {
@@ -106,7 +106,7 @@ if (isset($_GET['id']) && isset($_GET['hash']) && isset($_GET['enter'])) {
         $newPasswordHash = hashPassword($newPassword);
 
         qry("UPDATE `users` SET `password` = ?, `hash_password` = ? WHERE `id` = ? LIMIT 1", array($newPasswordHash, $newHash, $id));
-        UserEnter($id, $newPassword);
+        UserEnter($id);
         msg("Password updated successfully!");
         header('Location: /');
         exit();

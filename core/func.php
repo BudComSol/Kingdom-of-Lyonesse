@@ -411,7 +411,6 @@ function upgradePasswordIfNeeded($userId, $password, $currentHash) {
 // Session & Authentication State
 // ---------------------------------------------------------------------
 $sessionUid = isset($_SESSION['uid']) ? number($_SESSION['uid']) : 0;
-$cookieUid = isset($_COOKIE['uid']) ? number($_COOKIE['uid']) : 0;
 $user = false;
 
 if ($sessionUid > 0) {
@@ -420,19 +419,17 @@ if ($sessionUid > 0) {
     $user = $BaseUser->fetch(PDO::FETCH_ASSOC);
 }
 
-// Fallback for persistent login cookie
-if (!$user && $cookieUid > 0) {
-    $cookiePassword = checking($_COOKIE['password'] ?? '');
-    $BaseUser = $BaseConnect->prepare("SELECT * FROM `users` WHERE `id` = ? LIMIT 1");
-    $BaseUser->execute([$cookieUid]);
-    $candidate = $BaseUser->fetch(PDO::FETCH_ASSOC);
-    if ($candidate && $cookiePassword !== '' && ($candidate['password'] === $cookiePassword || verifyPassword($cookiePassword, $candidate['password']))) {
-        $user = $candidate;
-        $_SESSION['uid'] = (int)$user['id'];
-        upgradePasswordIfNeeded($user['id'], $cookiePassword, $candidate['password']);
-    } else {
-        setcookie('uid', '', time() - 86400 * 365, '/');
-        setcookie('password', '', time() - 86400 * 365, '/');
+// Remove credentials left by the legacy persistent-login cookie.
+if (isset($_COOKIE['uid']) || isset($_COOKIE['password'])) {
+    $isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
+    foreach (['uid', 'password'] as $cookieName) {
+        setcookie($cookieName, '', [
+            'expires'  => time() - 86400 * 365,
+            'path'     => '/',
+            'secure'   => $isSecure,
+            'httponly' => true,
+            'samesite' => 'Lax'
+        ]);
     }
 }
 
@@ -443,22 +440,13 @@ if ($uid === 0 && isset($location) && $location === true) {
     exit();
 }
 
-function UserEnter($uid, $password = null) {
+function UserEnter($uid) {
     $uid = number($uid);
     if (session_status() === PHP_SESSION_NONE) {
         session_start();
     }
     session_regenerate_id(true);
     $_SESSION['uid'] = $uid;
-
-    $isSecure = (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off');
-    setcookie("uid", (string)$uid, [
-        'expires'  => time() + 86400 * 30,
-        'path'     => '/',
-        'secure'   => $isSecure,
-        'httponly' => true,
-        'samesite' => 'Lax'
-    ]);
 }
 
 function UserExit($uid = 0) {
