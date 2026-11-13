@@ -637,6 +637,10 @@ if ($user && isset($user['start']) && $user['start'] >= 4) {
             <div class="sidebar_nav_icon_wrap"><img src="/style/clan.png" width="22px" height="22px" alt="Clan"></div>
             <span class="sidebar_nav_text">Clan Castle</span>
         </a>
+        <a class="sidebar_nav_item" href="/privacy.php">
+            <div class="sidebar_nav_icon_wrap" aria-hidden="true">🛡️</div>
+            <span class="sidebar_nav_text">Privacy Page</span>
+        </a>
     </div>
 </div>
 
