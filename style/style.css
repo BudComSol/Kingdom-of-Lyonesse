@@ -349,6 +349,18 @@ select {
     padding: 1em 0;
 }
 
+.password-recovery-links {
+    margin: 16px 0;
+}
+
+.password-recovery-links a {
+    display: block;
+}
+
+.password-recovery-links a + a {
+    margin-top: 8px;
+}
+
 .login-form input[name="login"],
 .login-form input[name="password"] {
     text-align: center;
