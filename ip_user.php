@@ -32,10 +32,10 @@ $msg_q->bindValue(':start', (int)$start, PDO::PARAM_INT);
 $msg_q->bindValue(':limit', (int)$str, PDO::PARAM_INT);
 $msg_q->execute();
 
-echo '<div class="tophead">Checking: ' . user_list($profile['id']) . ' <br>Linked IP Accounts Found: ' . $count . '</div>';
+echo '<div class="tophead cntr">Checking: ' . user_list($profile['id']) . ' <br>Linked IP Accounts Found: ' . $count . '</div>';
 
 if ($count == 0) {
-    echo '<div class="tophead2">No other accounts found sharing this IP address.</div>';
+    echo '<div class="tophead2 cntr">No other accounts found sharing this IP address.</div>';
 }
 
 while ($msg = $msg_q->fetch(PDO::FETCH_ASSOC)) {
