@@ -1085,6 +1085,8 @@ span.color { color: #ffffff; }
    ===================================================================== */
 
 .combat-attack-button {
+    position: relative;
+    top: 16px;
     background: linear-gradient(135deg, rgba(180, 20, 20, 0.95), rgba(80, 10, 10, 0.95));
     border: 2px solid #e74c3c;
     border-radius: 10px;
