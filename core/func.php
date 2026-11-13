@@ -695,7 +695,7 @@ document.addEventListener('DOMContentLoaded', () => {
 <div class="wp200 alc pos-r lptp comp_menu_left">
     <div class="tophead2 cntr" style="padding: 10px 6px;">
         <a href="/avatar.php" title="Change Avatar">
-            <img class="round_image" src="/images/avatar/<?php echo $user['sex']; ?>/<?php echo $user['avatar']; ?>.png" width="95" height="95" alt="Avatar">
+            <img class="round_image" src="/images/avatar/<?php echo $user['sex']; ?>/<?php echo $user['avatar']; ?>.png" width="105" height="105" alt="Avatar">
         </a>
     </div>
 
