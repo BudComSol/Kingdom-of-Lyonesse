@@ -17209,3 +17209,13 @@ CREATE TABLE IF NOT EXISTS `achievements_user` (
   KEY `user_id` (`user_id`),
   KEY `achievement_id` (`achievement_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Table structure for table `site_settings`
+--
+
+CREATE TABLE IF NOT EXISTS `site_settings` (
+  `setting_key` varchar(100) NOT NULL,
+  `setting_value` text NOT NULL,
+  PRIMARY KEY (`setting_key`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

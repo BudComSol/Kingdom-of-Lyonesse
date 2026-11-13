@@ -10,6 +10,42 @@ if (($user['adm'] ?? 0) != 3) {
 $r = rand(100000, 999999);
 $news = number($_GET['news'] ?? 0);
 
+if (isset($_GET['analytics'])) {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $analyticsId = trim((string)($_POST['analytics_id'] ?? ''));
+        if ($analyticsId !== '' && !preg_match('/^G-[A-Z0-9]{10}$/i', $analyticsId)) {
+            err("Enter a valid GA4 measurement ID (for example, G-XXXXXXXXXX).");
+        } else {
+            qry(
+                "INSERT INTO `site_settings` (`setting_key`, `setting_value`) VALUES (?, ?) ON DUPLICATE KEY UPDATE `setting_value` = VALUES(`setting_value`)",
+                array('google_analytics_id', $analyticsId)
+            );
+            msg("Google Analytics settings saved.");
+        }
+        header("Location: /update.php?analytics=1&r=" . $r);
+        exit();
+    }
+
+    $analyticsSetting = fch(
+        "SELECT `setting_value` FROM `site_settings` WHERE `setting_key` = ? LIMIT 1",
+        array('google_analytics_id')
+    );
+    head("Google Analytics - Admin Panel", $uid);
+?>
+    <form action="?analytics=1" method="post">
+        <div class="tophead cntr">
+            Google Analytics GA4 Measurement ID:<br>
+            <input type="text" name="analytics_id" value="<?php echo htmlspecialchars($analyticsSetting['setting_value'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" maxlength="12" pattern="G-[A-Za-z0-9]{10}" placeholder="G-XXXXXXXXXX">
+            <br><small>Leave blank to disable Google Analytics.</small><br><br>
+            <input type="submit" value="Save Analytics Settings">
+        </div>
+    </form>
+    <a href="/update.php" class="tophead cntr">← Back to Admin Panel</a>
+<?php
+    foot($uid);
+    exit();
+}
+
 if ($news == 1 && isset($_GET['form'])) {
     $name = checking($_POST['name'] ?? '');
     $text = checking($_POST['text'] ?? '');
@@ -78,6 +114,7 @@ $count_d31 = cnt("SELECT (id) FROM `users` WHERE `time_on` > ?", array(time() - 
 
 <a href="/create_item.php" class="tophead">Create Equipment Set</a>
 <a href="/update.php?news=1" class="tophead">Publish News / Announcement</a>
+<a href="/update.php?analytics=1" class="tophead">Google Analytics Settings</a>
 <a href="/history_ban.php" class="tophead">Moderation & Ban List</a>
 <a href="/bot_create.php" class="tophead">Spawn NPC / AI Bot</a>
 

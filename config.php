@@ -256,6 +256,19 @@ try {
         error_log('Arena challenge schema migration failed: ' . $e->getMessage());
         die('Arena challenge storage is unavailable. Please contact the game administrator.');
     }
+
+    try {
+        $BaseConnect->exec("
+            CREATE TABLE IF NOT EXISTS `site_settings` (
+              `setting_key` varchar(100) NOT NULL,
+              `setting_value` text NOT NULL,
+              PRIMARY KEY (`setting_key`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+        ");
+    } catch (PDOException $e) {
+        error_log('Site settings schema migration failed: ' . $e->getMessage());
+        die('Site settings storage is unavailable. Please contact the game administrator.');
+    }
 } catch (PDOException $e) {
     if (APP_DEBUG) {
         die('Database connection error: ' . htmlspecialchars($e->getMessage()));
