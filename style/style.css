@@ -613,7 +613,7 @@ textarea.mail {
 
 .sidebar_quick_btn {
     flex: 1;
-    height: 38px;
+    height: 28px;
     border: 1px solid var(--border-gold);
     border-radius: 6px;
     background: linear-gradient(180deg, rgba(25, 34, 48, 0.95) 0%, rgba(14, 20, 30, 0.95) 100%);
