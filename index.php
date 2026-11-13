@@ -154,7 +154,10 @@ if (!$uid) {
 ?>
 <div class="landing-content">
     <div class="logo">
-        <img src="/images/logo.png" alt="Logo" fetchpriority="high">
+        <picture>
+            <source type="image/webp" media="(max-resolution: 1dppx)" srcset="/images/logo-272.webp">
+            <img src="/images/logo.png" width="320" height="213" alt="Logo" fetchpriority="high">
+        </picture>
     </div>    
     <a class="enter_button" href="/?start=1">
         <img src="/images/button_green.png" alt="Battle Button">   
