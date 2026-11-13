@@ -541,6 +541,23 @@ function head($title, $uid) {
     <script defer src="/style/toast.js?v=2.2.0"></script>
     <script defer src="/style/audio.js?v=2.2.0"></script>
     <meta name="author" content="<?php echo APP_NAME; ?>" />
+    <?php
+    $analyticsSetting = fch(
+        "SELECT `setting_value` FROM `site_settings` WHERE `setting_key` = ? LIMIT 1",
+        array('google_analytics_id')
+    );
+    $analyticsId = $analyticsSetting['setting_value'] ?? '';
+    if (preg_match('/^G-[A-Z0-9]{10}$/i', $analyticsId)) {
+        $analyticsId = htmlspecialchars($analyticsId, ENT_QUOTES, 'UTF-8');
+    ?>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo $analyticsId; ?>"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', '<?php echo $analyticsId; ?>');
+    </script>
+    <?php } ?>
 </head>
 <body>
 
