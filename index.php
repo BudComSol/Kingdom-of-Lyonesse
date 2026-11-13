@@ -170,7 +170,7 @@ if ($login == 1) {
 ?>
 <div class="title cntr"><span class="color">Hero Login</span></div>
 <div class="hrs"></div>
-<form action="?login=1&enter&r=<?php echo $r; ?>" method="post">
+<form class="login-form" action="?login=1&enter&r=<?php echo $r; ?>" method="post">
     Hero Name:<br />
     <input type="text" name="login" maxlength="20" value="" required placeholder="Enter hero name..." /><br /><br />
     Password:<br />
