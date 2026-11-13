@@ -19,7 +19,7 @@ head("Royal Tournament Guide", $uid);
     </small>
 </div>
 
-<a href="/tour.php" class="tophead">Back to Tournament Standings</a>
+<a href="/tour.php" class="tophead cntr">← Back to Tournament Standings</a>
 
 <?php
 foot($uid);
