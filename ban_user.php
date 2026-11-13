@@ -55,7 +55,7 @@ head("Admin - Moderation Ban", $uid);
         </select>
         <br><div class="hrs"></div>
 
-        Ban Reason:
+        What For:
         <select name="cause">
             <option value="1">Spam / Advertising</option>
             <option value="2">Profanity / Harassment</option>
@@ -65,7 +65,7 @@ head("Admin - Moderation Ban", $uid);
         </select>
         <br><div class="hrs"></div>
 
-        Duration:
+        Ban Time:
         <select name="time">
             <option value="60">1 Hour</option>
             <option value="120">2 Hours</option>
