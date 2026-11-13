@@ -206,7 +206,7 @@ if (($users['id_clan'] ?? 0) > 0) {
 <?php if (($user['adm'] ?? 0) != 0) { ?>
 <div class="tophead2 cntr">
     <a href="/ban_user.php?id=<?php echo $id; ?>"><span class="orange"><u>Moderate / Ban User</u></span></a><br>
-    <a href="/ip_user.php?id=<?php echo $id; ?>"><span class="orange"><u>Multi-accounts</u></span></a><br>
+    <a href="/ip_user.php?id=<?php echo $id; ?>"><span class="orange"><u>Multi-Accounts</u></span></a><br>
     <a href="/update.php"><span class="orange"><u>Admin Panel</u></span></a>
 </div>
 <?php } ?>

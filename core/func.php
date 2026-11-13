@@ -532,7 +532,7 @@ function head($title, $uid) {
     <meta charset="utf-8">
     <link type="Image/x-icon" href="/style/favicon.ico" rel="icon">
     <meta name="keywords" content="Kingdom, Online Game, Castle Siege, RPG, mobile game, MMORPG">
-    <meta name="description" content="Kingdom of Lyonesse Mobile MMORPG. Immerse yourself in a medieval fantasy world and become a legendary knight.">
+    <meta name="description" content="Kingdom of Lyonesse modern MMORPG for mobile and desktop. Immerse yourself in a medieval fantasy world and become a legendary Knight so come join us NOW!">
     <title><?php echo $title ? $title . ' - ' . APP_NAME : APP_NAME; ?></title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
