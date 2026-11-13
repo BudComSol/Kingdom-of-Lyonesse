@@ -269,6 +269,32 @@ try {
         error_log('Site settings schema migration failed: ' . $e->getMessage());
         die('Site settings storage is unavailable. Please contact the game administrator.');
     }
+
+    try {
+        $BaseConnect->exec("
+            CREATE TABLE IF NOT EXISTS `paypal_orders` (
+              `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+              `user_id` int(11) NOT NULL,
+              `package_id` tinyint(3) unsigned NOT NULL,
+              `rubies` int(11) NOT NULL,
+              `vip_days` int(11) NOT NULL DEFAULT 0,
+              `amount` decimal(10,2) NOT NULL,
+              `currency` char(3) NOT NULL DEFAULT 'USD',
+              `paypal_order_id` varchar(64) DEFAULT NULL,
+              `paypal_capture_id` varchar(64) DEFAULT NULL,
+              `status` varchar(16) NOT NULL DEFAULT 'pending',
+              `created_at` int(11) NOT NULL,
+              `captured_at` int(11) NOT NULL DEFAULT 0,
+              PRIMARY KEY (`id`),
+              UNIQUE KEY `paypal_order_id` (`paypal_order_id`),
+              UNIQUE KEY `paypal_capture_id` (`paypal_capture_id`),
+              KEY `user_id_status` (`user_id`, `status`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+        ");
+    } catch (PDOException $e) {
+        error_log('PayPal order schema migration failed: ' . $e->getMessage());
+        die('Payment storage is unavailable. Please contact the game administrator.');
+    }
 } catch (PDOException $e) {
     if (APP_DEBUG) {
         die('Database connection error: ' . htmlspecialchars($e->getMessage()));
