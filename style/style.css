@@ -64,7 +64,7 @@ html::before {
     content: '';
     position: fixed;
     inset: 0;
-    background: url('../images/start/bg.webp') center / cover no-repeat;
+    background: url('/images/start/bg.webp') center / cover no-repeat;
     opacity: var(--bg-image-opacity);
     pointer-events: none;
     z-index: -2;

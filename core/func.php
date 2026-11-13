@@ -524,6 +524,10 @@ function head($title, $uid) {
     global $user;
     $title = checking($title);
     require_once __DIR__ . "/level.php";
+    $stylesheet = file_get_contents(__DIR__ . '/../style/style.css');
+    if ($stylesheet === false) {
+        throw new RuntimeException('Unable to load the game stylesheet.');
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en" class="<?php echo $uid > 0 ? '' : 'guest-page'; ?>">
@@ -536,8 +540,11 @@ function head($title, $uid) {
     <title><?php echo $title ? $title . ' - ' . APP_NAME : APP_NAME; ?></title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&amp;family=Outfit:wght@300;400;500;600;700&amp;display=swap">
-    <link rel="stylesheet" href="/style/style.css?v=2.2.5" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&amp;family=Outfit:wght@300;400;500;600;700&amp;display=swap" media="print" onload="this.onload=null;this.media='all'">
+    <noscript>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&amp;family=Outfit:wght@300;400;500;600;700&amp;display=swap">
+    </noscript>
+    <style><?php echo $stylesheet; ?></style>
     <script defer src="/style/toast.js?v=2.2.0"></script>
     <script defer src="/style/audio.js?v=2.2.0"></script>
     <meta name="author" content="<?php echo APP_NAME; ?>" />
