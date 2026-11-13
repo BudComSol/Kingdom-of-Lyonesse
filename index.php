@@ -159,7 +159,7 @@ if (!$uid) {
     <a class="enter_button" href="/?start=1">
         <img src="/images/button_green.png" alt="Battle Button">   
     </a>
-    <div class="vmmo_label">
+    <div class="title cntr">
        <span>Already Got An Account Then <a href="/?login=1" id="landing-login-button" class="landing-login-button">Login Now</a> !</span>       
     </div>
 </div>
