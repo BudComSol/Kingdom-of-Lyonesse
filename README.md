@@ -98,7 +98,7 @@
 │   └── clear_inactive.php    <- Session cleanup and stale cache purges
 │
 └── style/
-    ├── style.css             <- Dark Fantasy RPG stylesheet (v2.2.0)
+    ├── style.css             <- Dark Fantasy RPG stylesheet (inlined by head())
     ├── toast.js              <- Client-side animated toast notification engine
     ├── audio.js              <- Web Audio API sound synthesizer engine
     └── favicon.ico           <- Official game favicon
@@ -293,6 +293,7 @@ To ensure recurring world events, weekly tournaments, and daily chest respawns o
 2. **Confidential File Shielding:** The [.htaccess](file:///c:/Users/Equipo/Downloads/Nueva%20carpeta%20(3)/setst/setst.site/.htaccess) configuration forbids public HTTP access to `.env`, `.env.example`, `.sql` dumps, and error logs.
 3. **Hardened Session Management:** Session cookies are configured with `HttpOnly = true`, `SameSite = Lax`, and `use_strict_mode = 1` to prevent cross-site scripting (XSS) and session hijacking.
 4. **Self-Healing Schema Migrations:** The database engine automatically creates missing tables (`clans`, `clan_members`, `clan_boss`, `achievements_user`, `arena_challenges`) and columns on initial database connection.
+5. **Render-blocking Styles:** `head()` inlines `style/style.css` so the first render does not wait for a separate stylesheet request. Keep CSS asset URLs root-relative so they work on every route. Google Fonts load asynchronously with `display=swap` and a no-JavaScript fallback. Inlining preserves the initial layout but includes the stylesheet in every HTML response instead of caching it separately.
 
 ---
 
