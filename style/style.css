@@ -979,6 +979,11 @@ span.color { color: #ffffff; }
     font-weight: 900;
 }
 
+.logo {
+    width: 320px;
+    max-width: 100%;
+}
+
 .logo img {
     max-width: 320px;
     width: 85%;
