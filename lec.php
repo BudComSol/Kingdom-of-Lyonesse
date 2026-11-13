@@ -114,7 +114,7 @@ $currentZone = (int)($lec['level'] ?? 1);
 <div class="tophead">
     <div class="ohh"><img class="img4" src="/images/lec/nps.png" width="50px" height="50px" alt="Guard"></div>
     <span class="lime">City Gate Guard</span><br>
-    <small>Venture forth with caution! Only seasoned warriors survive the terrifying creatures lurking in the Dark Forest.</small>
+    <small><p>Take heed and venture forth with great caution hardy traveller, as only the most seasoned warriors and brave, survive the terrifying monstrous creatures lurking in yonder Dark Forest.</p></small>
 </div>
 
 <div class="tophead2 cntr">
