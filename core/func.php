@@ -624,6 +624,19 @@ if ($user && isset($user['start']) && $user['start'] >= 4) {
         </small>
     </div>
 
+    <div class="sidebar_quick_row">
+        <a class="sidebar_quick_btn" href="/contacts.php" title="Mailbox">
+            <img src="/images/mail.png" width="18px" height="18px" alt="Mail">
+            <?php if ($new_msg > 0) { ?><span class="sidebar_unread_dot"></span><?php } ?>
+        </a>
+        <div class="sidebar_quick_btn sidebar_quick_lvl" title="Hero Level">
+            <span class="yellow"><b><?php echo $userLevel; ?></b> lvl</span>
+        </div>
+        <a class="sidebar_quick_btn" href="/index.php" title="Town Square">
+            <img src="/style/home.png" width="18px" height="18px" alt="Home">
+        </a>
+    </div>
+
     <div class="sidebar_menu_container">
         <a class="sidebar_nav_item" href="/daily.php">
             <div class="sidebar_nav_icon_wrap"><img src="/images/cup.png" width="22px" height="22px" alt="Daily"></div>
@@ -713,19 +726,6 @@ document.addEventListener('DOMContentLoaded', () => {
         <a class="sidebar_nav_item" href="/gold.php">
             <div class="sidebar_nav_icon_wrap"><img src="/images/gold.png" width="22px" height="22px" alt="Exchange"></div>
             <span class="sidebar_nav_text">Currency Exchange</span>
-        </a>
-    </div>
-
-    <div class="sidebar_quick_row">
-        <a class="sidebar_quick_btn" href="/contacts.php" title="Mailbox">
-            <img src="/images/mail.png" width="18px" height="18px" alt="Mail">
-            <?php if ($new_msg > 0) { ?><span class="sidebar_unread_dot"></span><?php } ?>
-        </a>
-        <div class="sidebar_quick_btn sidebar_quick_lvl" title="Hero Level">
-            <span class="yellow"><b><?php echo $userLevel; ?></b> lvl</span>
-        </div>
-        <a class="sidebar_quick_btn" href="/index.php" title="Town Square">
-            <img src="/style/home.png" width="18px" height="18px" alt="Home">
         </a>
     </div>
 
