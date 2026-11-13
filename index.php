@@ -160,7 +160,7 @@ if (!$uid) {
         <img src="/images/button_green.png" alt="Battle Button">   
     </a>
     <div class="title cntr">
-       <span>Already Got An Account Then <a href="/?login=1" id="landing-login-button" class="landing-login-button">Login Now</a> !</span>       
+       <span>Got An Account - <a href="/?login=1" id="landing-login-button" class="landing-login-button">Login!</a></span>
     </div>
 </div>
 <center>
