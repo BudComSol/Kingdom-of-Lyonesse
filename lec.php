@@ -131,7 +131,7 @@ while ($boss = $user_q->fetch(PDO::FETCH_ASSOC)) {
 ?>
     <div class="tophead">
         <div class="ohh">
-            <img class="imgItem" src="/images/boss/<?php echo $boss['id']; ?>.png" width="50" height="50" alt="Monster">
+            <img class="imgItem" src="/images/lec/<?php echo $boss['id']; ?>.png" width="50" height="50" alt="Monster">
         </div>
         <span class="orange"><b><?php echo htmlspecialchars($boss['name']); ?></b></span><br>
         <small>

@@ -180,7 +180,7 @@ $heroHpPercent = round(max(0, $lec_fight['hp']) / max(1, $combatStats['health'])
 
 <div class="tophead combat-arena-card" id="monster-card">
     <div class="ohh">
-        <img class="imgSkill" src="/images/boss/<?php echo $lec_fight['id_bot']; ?>.png" width="45" height="45" alt="Monster" id="monster-avatar">
+        <img class="imgSkill" src="/images/lec/<?php echo $lec_fight['id_bot']; ?>.png" width="45" height="45" alt="Monster" id="monster-avatar">
     </div>
     <span class="orange" style="font-size: 1.05rem;"><b><?php echo htmlspecialchars($lec_fight['name']); ?></b></span><br>
     <img src="/images/power.png" width="15px" height="15px"> <span id="monster-power"><?php echo $lec_fight['bot_power']; ?></span> &nbsp;
