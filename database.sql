@@ -17219,3 +17219,26 @@ CREATE TABLE IF NOT EXISTS `site_settings` (
   `setting_value` text NOT NULL,
   PRIMARY KEY (`setting_key`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Table structure for table `paypal_orders`
+--
+
+CREATE TABLE IF NOT EXISTS `paypal_orders` (
+  `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `package_id` tinyint(3) unsigned NOT NULL,
+  `rubies` int(11) NOT NULL,
+  `vip_days` int(11) NOT NULL DEFAULT 0,
+  `amount` decimal(10,2) NOT NULL,
+  `currency` char(3) NOT NULL DEFAULT 'USD',
+  `paypal_order_id` varchar(64) DEFAULT NULL,
+  `paypal_capture_id` varchar(64) DEFAULT NULL,
+  `status` varchar(16) NOT NULL DEFAULT 'pending',
+  `created_at` int(11) NOT NULL,
+  `captured_at` int(11) NOT NULL DEFAULT 0,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `paypal_order_id` (`paypal_order_id`),
+  UNIQUE KEY `paypal_capture_id` (`paypal_capture_id`),
+  KEY `user_id_status` (`user_id`,`status`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

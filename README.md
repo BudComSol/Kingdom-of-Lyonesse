@@ -47,7 +47,7 @@
 * **Inventory & Crafting Hub:** 8 equipment slots, 5 rarity tiers (Common, Rare, Epic, Legendary, Mythic), blacksmith forging (+1 to +10), rune socketing, 1-click batch item dismantling, and working **4-Piece / 8-Piece Set Resonance Bonuses** to Power and Health (plus Critical Strike at 8 pieces).
 * **Daily Engagement & Progression:** 7-day progressive daily login streak calendar, real-time energy ticker countdowns, and a 10-tier Hero Achievement & Equipable Title system.
 * **PvP Arena & Royal Tournament:** Asynchronous player challenges against opponents within 5 levels, settled from both players' combat stats, plus tournament points and weekly reward payouts.
-* **Economy & Royal Treasury:** Ruby shop (`paywk.php`), voucher promo code redemption, and currency exchange.
+* **Economy & Royal Treasury:** PayPal Checkout for Ruby packs, voucher promo code redemption, and currency exchange.
 * **Animated Toast Notifications:** Floating notifications with sound effects and auto-dismissal.
 
 ---
@@ -77,7 +77,7 @@
 ├── achievements.php          <- Hero achievement tracker & equipable title registry
 ├── clan.php                  <- Clan Castle, guild buffs, member roster & Weekly Raid Boss
 ├── shop.php                  <- Town market: armory, blacksmith forge, runes, masteries, trader
-├── paywk.php                 <- Royal Treasury, Ruby purchases & promo voucher redemption
+├── paywk.php                 <- Royal Treasury, PayPal Ruby purchases & promo voucher redemption
 ├── chat.php                  <- Global world chat and private clan chat
 ├── mail.php / contacts.php   <- Player-to-player messaging and friends list
 ├── save.php                  <- Account registration & linking (+10 Rubies & VIP bonus)
@@ -119,6 +119,7 @@ All game settings are managed through the `.env` file located in the root direct
 APP_NAME="Kingdom of Lyonesse"
 APP_ENV=production
 APP_DEBUG=false
+APP_KEY=replace_with_a_unique_random_secret_key
 
 # Use 'auto' for automatic URL detection, or specify your full domain (e.g., https://yourdomain.com)
 BASE_URL=auto
@@ -144,6 +145,15 @@ SESSION_NAME=LYONESSE_SESSID
 
 > [!TIP]
 > **Automatic Base URL (`BASE_URL=auto`):** Keeping this setting on `auto` enables the game to automatically identify whether it is running on `http://localhost:7000`, in a subfolder, or on a live production domain with HTTPS, eliminating the need for manual URL updates across environments.
+
+### PayPal Checkout
+
+1. Generate a unique application encryption key and set it as `APP_KEY` in `.env` (for example, `php -r "echo bin2hex(random_bytes(32)), PHP_EOL;"`). Keep this key private and unchanged; it encrypts the PayPal Secret stored in the database.
+2. Log in as a game administrator (`adm = 3`) and open **Admin Panel → PayPal & Ruby Pack Settings**.
+3. Enter the PayPal REST API Client ID and Secret. Start in **Sandbox**, test with PayPal sandbox accounts, and switch to **Live** with live credentials when ready. Ruby pack amounts, prices (USD), and VIP days are editable on this page.
+4. Configure a public HTTPS `BASE_URL` before accepting live payments. Payment approval and capture are handled server-side; Rubies and VIP time are granted only after PayPal confirms the captured amount and currency.
+
+Back up `APP_KEY` securely with the database. If it is lost or changed, saved PayPal credentials can no longer be decrypted and must be entered again.
 
 ---
 
@@ -294,7 +304,7 @@ Verify that the database credentials in `.env` (`DB_HOST`, `DB_NAME`, `DB_USER`,
 #### 2. How do I access the Game Administration Panel?
 - Register a hero account in the game.
 - Open phpMyAdmin, locate your hero in the `users` table, and change the `adm` column value to `3`.
-- Log in to access the **Admin Panel** (`/update.php`) to create item sets, spawn NPC bots, broadcast news announcements, and manage bans.
+- Log in to access the **Admin Panel** (`/update.php`) to create item sets, configure PayPal and Ruby packs, spawn NPC bots, broadcast news announcements, and manage bans.
 
 #### 3. Why are CSS changes not appearing in the browser?
 Press `Ctrl + F5` (or `Cmd + Shift + R` on macOS) to bypass browser caching. The stylesheet includes versioning parameters (`v=2.2.0`) to handle asset cache invalidation automatically.
