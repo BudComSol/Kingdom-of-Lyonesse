@@ -208,13 +208,13 @@ if ($password == 1) {
 <form action="?password=1&enter&r=<?php echo $r; ?>" method="post">
     Hero Name:<br><input type="text" name="login" required placeholder="Enter your hero name..."><br><br>
     <input name="add" type="submit" value="Send Recovery Link">
+    <div class="password-recovery-links">
+        <a href="/?login=1"><u>Already have a hero? Log In</u></a>
+        <a href="/?start=1"><u>No hero yet? Start Game</u></a>
+        <a href="/?agreee=1"><u>Terms & Agreement</u></a>
+    </div>
 </form>
 </div>
-<br>
-Already have a hero? <a href="/?login=1"><u>Log In</u></a><br><br>
-No hero yet? <a href="/?start=1"><u>Start Game</u></a>
-<br><br>
-<a href="/?agreee=1"><u>Terms & Agreement</u></a>
 <?php
     foot(0);
     exit();
