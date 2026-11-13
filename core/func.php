@@ -642,6 +642,11 @@ if ($user && isset($user['start']) && $user['start'] >= 4) {
             <span class="sidebar_nav_text">Privacy Page</span>
         </a>
     </div>
+
+    <a class="sidebar_nav_item sidebar_ruby_special" href="/paywk.php">
+        <div class="sidebar_nav_icon_wrap"><img src="/images/ruby.png" width="22px" height="22px" alt="Rubies"></div>
+        <span class="sidebar_nav_text yellow"><b>Buy Rubies</b></span>
+    </a>
 </div>
 
 <script>
@@ -724,10 +729,6 @@ document.addEventListener('DOMContentLoaded', () => {
         </a>
     </div>
 
-    <a class="sidebar_nav_item sidebar_ruby_special" href="/paywk.php">
-        <div class="sidebar_nav_icon_wrap"><img src="/images/ruby.png" width="22px" height="22px" alt="Rubies"></div>
-        <span class="sidebar_nav_text yellow"><b>Buy Rubies</b></span>
-    </a>
     <div class="ven"></div>
 </div>
 
