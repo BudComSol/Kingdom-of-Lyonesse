@@ -42,7 +42,7 @@ head("Currency Exchange", $uid);
     </form>
 </div>
 
-<a href="/shop.php" class="tophead">Back to Town / Shops</a>
+<a href="/shop.php" class="tophead cntr">← Back to Town / Shops</a>
 
 <?php
 foot($uid);
