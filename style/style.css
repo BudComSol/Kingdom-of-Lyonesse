@@ -339,6 +339,10 @@ select {
     display: inline-block;
 }
 
+.login-form {
+    background: var(--bg-card);
+}
+
 .login-form input[name="login"],
 .login-form input[name="password"] {
     text-align: center;

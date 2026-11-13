@@ -175,10 +175,10 @@ if ($login == 1) {
     <input type="text" name="login" maxlength="20" value="" required placeholder="Enter hero name..." /><br /><br />
     Password:<br />
     <input type="password" name="password" maxlength="32" value="" required placeholder="Enter password..." /><br /><br />
-    <input id="landing-login-button" class="landing-login-button" type="submit" value="Log In" /><br />
+    <input id="landing-login-button" class="title cntr" type="submit" value="Login" /><br />
 </form>
 <br>
-<a class="a" href="/?password=1"><u>Forgot password?</u></a> &nbsp;|&nbsp; <a class="a" href="/?start=1"><u>New Hero Registration</u></a>
+<a class="a" href="/?password=1"><u>Forgot Password?</u></a> &nbsp;|&nbsp; <a class="a" href="/?start=1"><u>New Hero Registration</u></a>
 <?php
     foot(0);
     exit();
