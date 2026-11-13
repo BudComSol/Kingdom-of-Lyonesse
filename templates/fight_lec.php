@@ -176,8 +176,10 @@ if (isset($_GET['attack_get'])) {
 
 $botHpPercent = round(max(0, $lec_fight['bot_hp']) / max(1, $lec_fight['default']) * 100, 1);
 $heroHpPercent = round(max(0, $lec_fight['hp']) / max(1, $combatStats['health']) * 100, 1);
+head("Combat - The Dark Forest", $uid);
 ?>
 
+<meta http-equiv="Refresh" content="6; URL=lec.php?attack_get">
 <div class="tophead combat-arena-card" id="monster-card">
     <div class="ohh">
         <img class="imgSkill" src="/images/lec/<?php echo $lec_fight['id_bot']; ?>.png" width="45" height="45" alt="Monster" id="monster-avatar">

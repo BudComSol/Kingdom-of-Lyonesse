@@ -81,10 +81,6 @@ if ($energy == 2 && ($user['lec'] ?? 0) <= 0 && ($user['gold'] ?? 0) >= 20) {
 
 // Ongoing combat view
 if ($lec_fight) {
-    head("Combat - The Dark Forest", $uid);
-?>
-    <meta http-equiv="Refresh" content="6; URL=lec.php?attack_get">
-<?php
     require_once __DIR__ . "/templates/fight_lec.php";
     foot($uid);
     exit();
