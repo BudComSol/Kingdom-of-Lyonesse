@@ -196,6 +196,11 @@ a:hover {
     text-shadow: 0 0 8px var(--gold-primary);
 }
 
+.landing-content .title::before,
+.landing-content .title::after {
+    content: none;
+}
+
 .title span.color {
     color: #fff;
 }
@@ -980,7 +985,7 @@ span.color { color: #ffffff; }
     transition: color 0.2s ease;
 }
 
-.vmmo_label .landing-login-button:hover {
+.landing-content .landing-login-button:hover {
     color: #ff0000;
 }
 
