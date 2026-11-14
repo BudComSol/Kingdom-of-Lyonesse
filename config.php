@@ -162,8 +162,8 @@ try {
     $BaseConnect = new PDO($dsn, $dbUser, $dbPass, $pdoOptions);
     $BaseConnect->exec("SET NAMES {$dbCharset}");
 
-    // Auto-ensure modern gameplay schema (Clans, Achievements, Daily Streaks, Hero Titles)
-    try {
+    // Schema changes run only through the deployment migration command.
+    if (PHP_SAPI === 'cli' && defined('RUN_SCHEMA_MIGRATIONS') && RUN_SCHEMA_MIGRATIONS) {
         $BaseConnect->exec("
             CREATE TABLE IF NOT EXISTS `clans` (
               `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -230,11 +230,6 @@ try {
                 $BaseConnect->exec($alterSql);
             }
         }
-    } catch (Exception $e) {
-        // Schema auto-migration fallback
-    }
-
-    try {
         $BaseConnect->exec("
             CREATE TABLE IF NOT EXISTS `arena_challenges` (
               `id` int(11) NOT NULL AUTO_INCREMENT,
@@ -252,12 +247,6 @@ try {
               KEY `created_at` (`created_at`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
         ");
-    } catch (PDOException $e) {
-        error_log('Arena challenge schema migration failed: ' . $e->getMessage());
-        die('Arena challenge storage is unavailable. Please contact the game administrator.');
-    }
-
-    try {
         $BaseConnect->exec("
             CREATE TABLE IF NOT EXISTS `site_settings` (
               `setting_key` varchar(100) NOT NULL,
@@ -265,12 +254,6 @@ try {
               PRIMARY KEY (`setting_key`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
         ");
-    } catch (PDOException $e) {
-        error_log('Site settings schema migration failed: ' . $e->getMessage());
-        die('Site settings storage is unavailable. Please contact the game administrator.');
-    }
-
-    try {
         $BaseConnect->exec("
             CREATE TABLE IF NOT EXISTS `paypal_orders` (
               `id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -291,11 +274,12 @@ try {
               KEY `user_id_status` (`user_id`, `status`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
         ");
-    } catch (PDOException $e) {
-        error_log('PayPal order schema migration failed: ' . $e->getMessage());
-        die('Payment storage is unavailable. Please contact the game administrator.');
     }
 } catch (PDOException $e) {
+    if (PHP_SAPI === 'cli' && defined('RUN_SCHEMA_MIGRATIONS') && RUN_SCHEMA_MIGRATIONS) {
+        fwrite(STDERR, 'Database migration failed: ' . $e->getMessage() . PHP_EOL);
+        exit(1);
+    }
     if (APP_DEBUG) {
         die('Database connection error: ' . htmlspecialchars($e->getMessage()));
     } else {
