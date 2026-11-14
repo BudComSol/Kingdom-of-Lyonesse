@@ -7,6 +7,13 @@ function check($condition, $message) {
 }
 
 define('APP_NAME', 'Kingdom of Lyonesse');
+$sourceStylesheet = file_get_contents(__DIR__ . '/../style/style.css');
+$minifiedStylesheet = file_get_contents(__DIR__ . '/../style/style.min.css');
+check($sourceStylesheet !== false, 'Readable stylesheet missing');
+check($minifiedStylesheet !== false, 'Minified stylesheet missing');
+check(strlen($minifiedStylesheet) < strlen($sourceStylesheet), 'Minified stylesheet is not smaller than its source');
+check(!str_contains($minifiedStylesheet, "\n"), 'Minified stylesheet contains line breaks');
+
 $source = file_get_contents(__DIR__ . '/../core/func.php');
 $start = strpos($source, 'function head(');
 $end = strpos($source, 'function foot(', $start);
@@ -22,7 +29,7 @@ foreach ([0, 1] as $uid) {
     $html = ob_get_clean();
 
     check(preg_match('/<style>(.*?)<\/style>/s', $html, $matches) === 1, 'Inline stylesheet missing');
-    check($matches[1] === file_get_contents(__DIR__ . '/../style/style.css'), 'Inline stylesheet differs from source');
+    check($matches[1] === $minifiedStylesheet, 'Inline stylesheet differs from minified source');
     check(!str_contains($html, 'href="/style/style.css'), 'External game stylesheet still requested');
     check(str_contains($html, "url('/images/start/bg.webp')"), 'Background URL must work on nested routes');
     check(preg_match('/url\(\s*[\'"]?(?!\/|https?:|data:)[a-z.]/i', $matches[1]) === 0, 'Inline CSS has a relative asset URL');
