@@ -58,7 +58,8 @@
 ├── .env                      <- Database credentials and environment configuration
 ├── .env.example              <- Template configuration file
 ├── .htaccess                 <- Apache rewrite rules and security protection for config files
-├── config.php                <- .env parser, PDO connection, session security & auto-migrations
+├── config.php                <- .env parser, PDO connection & session security
+├── migrate.php               <- Command-line database schema migrations
 ├── database.sql (baza.sql)   <- Complete database dump in English (UTF-8)
 │
 ├── core/
@@ -193,6 +194,10 @@ Back up `APP_KEY` securely with the database. If it is lost or changed, saved Pa
    - In cPanel $\rightarrow$ **Select PHP Version** (or MultiPHP Manager), set PHP to **8.1 or 8.2**.
    - Verify that `pdo_mysql`, `mbstring`, and `json` extensions are enabled.
 
+6. **Run database migrations:** From a terminal in the game directory, run `php migrate.php`.
+   Run this after importing the database and before serving traffic, and again when deploying updates.
+   The configured database user needs permission to create tables and alter `users`.
+
 ---
 
 ### B. VPS / Dedicated Server (Nginx / Apache)
@@ -208,6 +213,8 @@ Back up `APP_KEY` securely with the database. If it is lost or changed, saved Pa
    ```bash
    mysql -u your_username -p your_database_name < /var/www/lyonesse/database.sql
    ```
+   Configure `.env`, then run `php migrate.php` from the game directory before serving traffic.
+   Repeat the migration command when deploying updates.
 
 3. **Nginx VirtualHost Configuration Example:**
    ```nginx
@@ -264,7 +271,10 @@ Back up `APP_KEY` securely with the database. If it is lost or changed, saved Pa
    BASE_URL=auto
    ```
 
-4. **Launch Game in Browser:**
+4. **Run database migrations:** Run `php migrate.php` from the game directory after the import
+   and configuration, and again when deploying updates.
+
+5. **Launch Game in Browser:**
    - Visit `http://localhost:7000` or `http://localhost/setst.site`.
 
 ---
