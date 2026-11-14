@@ -524,7 +524,7 @@ function head($title, $uid) {
     global $user;
     $title = checking($title);
     require_once __DIR__ . "/level.php";
-    $stylesheet = file_get_contents(__DIR__ . '/../style/style.css');
+    $stylesheet = file_get_contents(__DIR__ . '/../style/style.min.css');
     if ($stylesheet === false) {
         throw new RuntimeException('Unable to load the game stylesheet.');
     }
