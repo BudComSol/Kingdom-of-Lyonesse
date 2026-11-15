@@ -645,10 +645,6 @@ if ($user && isset($user['start']) && $user['start'] >= 4) {
     </div>
 
     <div class="sidebar_menu_container">
-        <a class="sidebar_nav_item" href="/daily.php">
-            <div class="sidebar_nav_icon_wrap"><img src="/images/cup.png" width="22px" height="22px" alt="Daily"></div>
-            <span class="sidebar_nav_text yellow">Daily Rewards</span>
-        </a>
         <a class="sidebar_nav_item" href="/achievements.php">
             <div class="sidebar_nav_icon_wrap"><img src="/images/records.png" width="22px" height="22px" alt="Achievements"></div>
             <span class="sidebar_nav_text">Achievements</span>
@@ -657,9 +653,17 @@ if ($user && isset($user['start']) && $user['start'] >= 4) {
             <div class="sidebar_nav_icon_wrap"><img src="/style/clan.png" width="22px" height="22px" alt="Clan"></div>
             <span class="sidebar_nav_text">Clan Castle</span>
         </a>
+        <a class="sidebar_nav_item" href="/daily.php">
+            <div class="sidebar_nav_icon_wrap"><img src="/images/cup.png" width="22px" height="22px" alt="Daily"></div>
+            <span class="sidebar_nav_text yellow">Daily Rewards</span>
+        </a>
         <a class="sidebar_nav_item" href="/privacy.php">
             <div class="sidebar_nav_icon_wrap" aria-hidden="true">🛡️</div>
             <span class="sidebar_nav_text">Privacy Page</span>
+        </a>
+        <a class="sidebar_nav_item" href="/index.php">
+            <div class="sidebar_nav_icon_wrap"><img src="/style/home.png" width="22px" height="22px" alt="Town Hall"></div>
+            <span class="sidebar_nav_text">Town Hall</span>
         </a>
     </div>
 
@@ -733,10 +737,6 @@ document.addEventListener('DOMContentLoaded', () => {
         <a class="sidebar_nav_item" href="/profile.php">
             <div class="sidebar_nav_icon_wrap"><img src="/images/profile.png" width="22px" height="22px" alt="Profile"></div>
             <span class="sidebar_nav_text">Profile</span>
-        </a>
-        <a class="sidebar_nav_item" href="/index.php">
-            <div class="sidebar_nav_icon_wrap"><img src="/style/home.png" width="22px" height="22px" alt="Town Hall"></div>
-            <span class="sidebar_nav_text">Town Hall</span>
         </a>
     </div>
 
