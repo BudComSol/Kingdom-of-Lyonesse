@@ -170,6 +170,7 @@ if (!$uid) {
 
 <?php
 if ($login == 1) {
+    echo logs();
 ?>
 <div class="title cntr"><span class="color">Hero Login</span></div>
 <div class="hrs"></div>
