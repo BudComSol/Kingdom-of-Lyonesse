@@ -16359,7 +16359,14 @@ CREATE TABLE `users` (
   `lec` int(11) DEFAULT '100',
   `arena_tav` int(11) DEFAULT '0',
   `skills_invise` int(11) DEFAULT '0',
-  `ref_ruby` int(11) DEFAULT '0'
+  `ref_ruby` int(11) DEFAULT '0',
+  `id_clan` int(11) NOT NULL DEFAULT '0',
+  `daily_streak` int(11) NOT NULL DEFAULT '0',
+  `daily_last_claim` int(11) NOT NULL DEFAULT '0',
+  `title` varchar(50) NOT NULL DEFAULT '',
+  `kills_boss` int(11) NOT NULL DEFAULT '0',
+  `kills_pvp` int(11) NOT NULL DEFAULT '0',
+  `forged_items` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -17160,7 +17167,7 @@ CREATE TABLE IF NOT EXISTS `clans` (
   `created_at` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `leader_id` (`leader_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Table structure for table `clan_members`
@@ -17175,7 +17182,7 @@ CREATE TABLE IF NOT EXISTS `clan_members` (
   PRIMARY KEY (`id`),
   KEY `clan_id` (`clan_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Table structure for table `clan_boss`
@@ -17192,7 +17199,7 @@ CREATE TABLE IF NOT EXISTS `clan_boss` (
   `last_attack` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`),
   KEY `clan_id` (`clan_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Table structure for table `achievements_user`
@@ -17208,7 +17215,27 @@ CREATE TABLE IF NOT EXISTS `achievements_user` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   KEY `achievement_id` (`achievement_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Table structure for table `arena_challenges`
+--
+
+CREATE TABLE IF NOT EXISTS `arena_challenges` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `challenger_id` int(11) NOT NULL,
+  `opponent_id` int(11) NOT NULL,
+  `challenger_stats` text NOT NULL,
+  `status` varchar(16) NOT NULL DEFAULT 'pending',
+  `winner_id` int(11) NOT NULL DEFAULT '0',
+  `battle_log` text NOT NULL,
+  `created_at` int(11) NOT NULL DEFAULT '0',
+  `resolved_at` int(11) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`),
+  KEY `opponent_status` (`opponent_id`, `status`),
+  KEY `challenger_status` (`challenger_id`, `status`),
+  KEY `created_at` (`created_at`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Table structure for table `site_settings`

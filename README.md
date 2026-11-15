@@ -194,9 +194,7 @@ Back up `APP_KEY` securely with the database. If it is lost or changed, saved Pa
    - In cPanel $\rightarrow$ **Select PHP Version** (or MultiPHP Manager), set PHP to **8.1 or 8.2**.
    - Verify that `pdo_mysql`, `mbstring`, and `json` extensions are enabled.
 
-6. **Run database migrations:** From a terminal in the game directory, run `php migrate.php`.
-   Run this after importing the database and before serving traffic, and again when deploying updates.
-   The configured database user needs permission to create tables and alter `users`.
+6. **Finish setup:** The imported `database.sql` includes the current schema, so no migration command is needed for a fresh install. When upgrading an existing installation, back up the database and run `php migrate.php` from a terminal in the game directory. The configured database user needs permission to create tables and alter `users`.
 
 ---
 
@@ -213,8 +211,7 @@ Back up `APP_KEY` securely with the database. If it is lost or changed, saved Pa
    ```bash
    mysql -u your_username -p your_database_name < /var/www/lyonesse/database.sql
    ```
-   Configure `.env`, then run `php migrate.php` from the game directory before serving traffic.
-   Repeat the migration command when deploying updates.
+   Configure `.env`; the imported `database.sql` already includes the current schema. No migration command is needed for a fresh install. When upgrading an existing installation, back up the database and run `php migrate.php` from the game directory.
 
 3. **Nginx VirtualHost Configuration Example:**
    ```nginx
@@ -271,8 +268,7 @@ Back up `APP_KEY` securely with the database. If it is lost or changed, saved Pa
    BASE_URL=auto
    ```
 
-4. **Run database migrations:** Run `php migrate.php` from the game directory after the import
-   and configuration, and again when deploying updates.
+4. **Finish setup:** The imported `database.sql` includes the current schema, so no migration command is needed for a fresh install. When upgrading an existing installation, back up the database and run `php migrate.php` from the game directory.
 
 5. **Launch Game in Browser:**
    - Visit `http://localhost:7000` or `http://localhost/setst.site`.
