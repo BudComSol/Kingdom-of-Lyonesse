@@ -161,6 +161,8 @@ Back up `APP_KEY` securely with the database. If it is lost or changed, saved Pa
 
 ## 🚀 Installation & Deployment Guide
 
+> The database dump does not include an administrator account. After registering a hero account, promote it to administrator in phpMyAdmin using the instructions in the FAQ below.
+
 ### A. Shared Hosting (cPanel / LiteSpeed / Apache)
 
 1. **Upload Game Files:**
@@ -194,7 +196,7 @@ Back up `APP_KEY` securely with the database. If it is lost or changed, saved Pa
    - In cPanel $\rightarrow$ **Select PHP Version** (or MultiPHP Manager), set PHP to **8.1 or 8.2**.
    - Verify that `pdo_mysql`, `mbstring`, and `json` extensions are enabled.
 
-6. **Finish setup:** The imported `database.sql` includes the current schema, so no migration command is needed for a fresh install. When upgrading an existing installation, back up the database and run `php migrate.php` from a terminal in the game directory. The configured database user needs permission to create tables and alter `users`.
+6. **Finish setup:** The imported `database.sql` includes the current schema, so no migration command is needed for a fresh install. Register a hero account, then promote it to administrator in phpMyAdmin using the FAQ instructions below. When upgrading an existing installation, back up the database and run `php migrate.php` from a terminal in the game directory. The configured database user needs permission to create tables and alter `users`.
 
 ---
 
