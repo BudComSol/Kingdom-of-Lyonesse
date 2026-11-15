@@ -781,10 +781,10 @@ function foot($uid) {
     <table style="width:100%;">
         <tr>
             <td style="width: 50%;" class="cntr">
-                <a class="tophead" href="/" title="In The Beginning"><img src="/style/homes.png" width="65px" height="59px" alt="In The Beginning"></a>
+                <a class="tophead" href="/" title="The Tutorial"><img src="/style/homes.png" width="65px" height="59px" alt="The Tutorial"></a>
             </td>
             <td style="width: 50%;" class="cntr">
-                <a class="tophead" href="/profile.php" title="You're Game Story"><img src="/style/profils.png" width="65px" height="59px" alt="You're Game Story"></a>
+                <a class="tophead" href="/profile.php" title="Your Statistics"><img src="/style/profils.png" width="65px" height="59px" alt="Your Statistics"></a>
             </td>
         </tr>
     </table>
