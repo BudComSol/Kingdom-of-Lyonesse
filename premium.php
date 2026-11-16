@@ -9,8 +9,8 @@ if (isset($_GET['pay']) && ($user['premium_time'] ?? 0) <= time()) {
         exit();
     }
 
-    qry("UPDATE `users` SET `gold` = `gold` - ?, `premium` = ?, `premium_time` = ? WHERE `id` = ? LIMIT 1", array(600, 2, time() + 86400 * 3, $uid));
-    msg("Premium VIP Account activated for 3 days!");
+    qry("UPDATE `users` SET `gold` = `gold` - ?, `premium` = ?, `premium_time` = ? WHERE `id` = ? LIMIT 1", array(600, 2, time() + 86400 * 30, $uid));
+    msg("Premium VIP Account activated for 30 days!");
     header('Location: /premium.php');
     exit();
 }
@@ -18,11 +18,11 @@ if (isset($_GET['pay']) && ($user['premium_time'] ?? 0) <= time()) {
 head("Premium VIP Account", $uid);
 ?>
 
-<div class="tophead">
+<div class="tophead cntr">
     <center><span class="yellow"><b>VIP Premium Privileges & Bonuses:</b></span></center>
     <br>
     <li>VIP status active in all game zones</li>
-    <li>Duration: 3 full days (72 hours)</li>
+    <li>Duration: 30 full days (720 hours)</li>
     <li>Distinctive golden VIP badge on your profile</li>
     <br>
     <li><span class="lime">+100%</span> Bonus Experience</li>
@@ -40,7 +40,7 @@ head("Premium VIP Account", $uid);
     <div class="tophead cntr"><span class="yellow"><b>Time Remaining: <?php echo timer($user['premium_time']); ?></b></span></div>
 <?php } else { ?>
     <div class="tophead cntr">
-        <b>3-Day VIP Pass Activation</b><br>
+        <b>30-Day VIP Pass Activation</b><br>
         <div class="hrs"></div>
         <a class="button button_amber" href="?pay">Purchase for <img src="/images/ruby.png" width="17px" height="17px" alt="Ruby"> 600 Rubies</a>
         <div class="hrs"></div>
