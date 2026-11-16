@@ -49,7 +49,7 @@
 * **PvP Arena & Royal Tournament:** Asynchronous player challenges against opponents within 5 levels, settled from both players' combat stats, plus tournament points and weekly reward payouts.
 * **Economy & Royal Treasury:** PayPal Checkout for Ruby packs, voucher promo code redemption, and currency exchange.
 * **Animated Toast Notifications:** Floating notifications with sound effects and auto-dismissal.
-* **Animated Landing Page:** A compact, winged dragon flies across the hero and periodically breathes fire. The animation is hidden when reduced motion is preferred.
+* **Animated Landing Page:** A compact, winged dragon flies across the hero and periodically breathes fire. Administrators can turn it on or off under **Admin Panel → Landing Page Dragon**; it is also hidden when reduced motion is preferred.
 
 ---
 

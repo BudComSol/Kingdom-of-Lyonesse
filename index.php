@@ -151,8 +151,13 @@ if ($agreee == 1) {
 
 if (!$uid) {
     head("Kingdom of Lyonesse", 0);
+    $dragonSetting = fch(
+        "SELECT `setting_value` FROM `site_settings` WHERE `setting_key` = ? LIMIT 1",
+        array('landing_dragon_enabled')
+    );
 ?>
 <div class="landing-content">
+    <?php if (($dragonSetting['setting_value'] ?? '1') === '1') { ?>
     <div class="dragon-sky" aria-hidden="true">
         <div class="dragon-container">
             <svg class="dragon-svg" viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg" focusable="false">
@@ -177,6 +182,7 @@ if (!$uid) {
             </svg>
         </div>
     </div>
+    <?php } ?>
     <div class="logo">
         <picture>
             <source type="image/webp" media="(max-resolution: 1dppx)" srcset="/images/logo-272.webp">
