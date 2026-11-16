@@ -1033,7 +1033,7 @@ span.color { color: #ffffff; }
 
 .dragon-fire-breath {
     transform-box: view-box;
-    transform-origin: 304px 84px;
+    transform-origin: 281px 87px;
     animation: dragonFireBreath 5s ease-in-out infinite;
 }
 
