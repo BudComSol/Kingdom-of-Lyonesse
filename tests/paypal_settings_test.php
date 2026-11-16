@@ -31,6 +31,8 @@ $testAppKey = 'paypal-settings-test-key-with-at-least-32-characters';
 
 $packs = paypalNormalizePacks(paypalDefaultPacks());
 check(count($packs) === 4 && $packs[2]['price'] === '14.99', 'Default Ruby packs did not normalize');
+check($packs[2]['vip_days'] === 10, 'Treasury Vault should award 10 VIP days');
+check($packs[3]['vip_days'] === 20, "Dragon's Hoard should award 20 VIP days");
 
 $packs[0]['price'] = '-1';
 try {

@@ -19,8 +19,8 @@ function paypalDefaultPacks() {
     return [
         ['name' => 'Pouch of Rubies', 'rubies' => 50, 'price' => '1.99', 'vip_days' => 0],
         ['name' => 'Chest of Rubies', 'rubies' => 150, 'price' => '4.99', 'vip_days' => 0],
-        ['name' => 'Treasury Vault', 'rubies' => 500, 'price' => '14.99', 'vip_days' => 1],
-        ['name' => "Dragon's Hoard", 'rubies' => 1200, 'price' => '29.99', 'vip_days' => 3],
+        ['name' => 'Treasury Vault', 'rubies' => 500, 'price' => '14.99', 'vip_days' => 10],
+        ['name' => "Dragon's Hoard", 'rubies' => 1200, 'price' => '29.99', 'vip_days' => 20],
     ];
 }
 
