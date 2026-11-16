@@ -163,6 +163,8 @@ Back up `APP_KEY` securely with the database. If it is lost or changed, saved Pa
 
 > The database dump does not include an administrator account. After registering a hero account, promote it to administrator in phpMyAdmin using the instructions in the FAQ below.
 
+Fresh installs start player IDs at 1. Deleting rows from an existing `users` table does not reset its MySQL auto-increment counter. If this is a fresh deployment with no players **and no retained player-related data**, stop registrations and run `ALTER TABLE users AUTO_INCREMENT = 1;` before creating the first player. Do not reset the counter on an existing game: reused IDs could associate old data with new players. If a freshly created table still starts above 1, check the MySQL `auto_increment_increment` and `auto_increment_offset` settings.
+
 ### A. Shared Hosting (cPanel / LiteSpeed / Apache)
 
 1. **Upload Game Files:**
