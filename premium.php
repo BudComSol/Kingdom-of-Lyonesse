@@ -18,7 +18,7 @@ if (isset($_GET['pay']) && ($user['premium_time'] ?? 0) <= time()) {
 head("Premium VIP Account", $uid);
 ?>
 
-<div class="tophead">
+<div class="tophead cntr">
     <center><span class="yellow"><b>VIP Premium Privileges & Bonuses:</b></span></center>
     <br>
     <li>VIP status active in all game zones</li>
