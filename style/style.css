@@ -1003,22 +1003,46 @@ span.color { color: #ffffff; }
     display: block;
     width: 100%;
     height: auto;
-    fill: #111827;
     filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.15));
     animation: dragonHoverBob 2.4s ease-in-out infinite;
 }
 
+.dragon-body,
+.dragon-horns {
+    fill: #111827;
+}
+
+.dragon-eye {
+    fill: #ffb13b;
+}
+
 .dragon-wing-front {
+    fill: #182334;
     transform-box: view-box;
-    transform-origin: 195px 112px;
+    transform-origin: 194px 124px;
     animation: dragonFlapFront 1.2s ease-in-out infinite;
 }
 
 .dragon-wing-back {
+    fill: #29364a;
     transform-box: view-box;
-    transform-origin: 185px 105px;
+    transform-origin: 194px 122px;
     opacity: 0.75;
     animation: dragonFlapBack 1.2s ease-in-out infinite;
+}
+
+.dragon-fire-breath {
+    transform-box: view-box;
+    transform-origin: 304px 84px;
+    animation: dragonFireBreath 5s ease-in-out infinite;
+}
+
+.dragon-flame-outer {
+    fill: #ed4c16;
+}
+
+.dragon-flame-inner {
+    fill: #ffd45b;
 }
 
 @keyframes dragonFlyAcross {
@@ -1042,6 +1066,11 @@ span.color { color: #ffffff; }
     50% { transform: scaleY(-0.55) rotate(16deg); }
 }
 
+@keyframes dragonFireBreath {
+    0%, 62%, 78%, 100% { opacity: 0; transform: scaleX(0.45); }
+    66%, 73% { opacity: 0.95; transform: scaleX(1); }
+}
+
 @media (prefers-reduced-motion: reduce) {
     .dragon-sky {
         display: none;
@@ -1052,6 +1081,10 @@ span.color { color: #ffffff; }
     .dragon-wing-front,
     .dragon-wing-back {
         animation: none;
+    }
+
+    .dragon-fire-breath {
+        display: none;
     }
 }
 
