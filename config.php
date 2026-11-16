@@ -161,6 +161,7 @@ try {
     ];
     $BaseConnect = new PDO($dsn, $dbUser, $dbPass, $pdoOptions);
     $BaseConnect->exec("SET NAMES {$dbCharset}");
+    $BaseConnect->exec("SET time_zone = '+09:30'");
 
     // Schema changes run only through the deployment migration command.
     if (PHP_SAPI === 'cli' && defined('RUN_SCHEMA_MIGRATIONS') && RUN_SCHEMA_MIGRATIONS) {
