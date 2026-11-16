@@ -979,6 +979,82 @@ span.color { color: #ffffff; }
     font-weight: 900;
 }
 
+.dragon-sky {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    width: 100vw;
+    height: 100%;
+    transform: translateX(-50%);
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.dragon-container {
+    position: absolute;
+    top: 12%;
+    left: -380px;
+    width: clamp(200px, 34vw, 340px);
+    animation: dragonFlyAcross 20s linear infinite;
+}
+
+.dragon-svg {
+    display: block;
+    width: 100%;
+    height: auto;
+    fill: #111827;
+    filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.15));
+    animation: dragonHoverBob 2.4s ease-in-out infinite;
+}
+
+.dragon-wing-front {
+    transform-box: view-box;
+    transform-origin: 195px 112px;
+    animation: dragonFlapFront 1.2s ease-in-out infinite;
+}
+
+.dragon-wing-back {
+    transform-box: view-box;
+    transform-origin: 185px 105px;
+    opacity: 0.75;
+    animation: dragonFlapBack 1.2s ease-in-out infinite;
+}
+
+@keyframes dragonFlyAcross {
+    0% { transform: translateX(0) translateY(25px) scale(0.8); }
+    50% { transform: translateX(calc(50vw + 190px)) translateY(-35px) scale(1); }
+    100% { transform: translateX(calc(100vw + 420px)) translateY(15px) scale(0.85); }
+}
+
+@keyframes dragonHoverBob {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-14px) rotate(2deg); }
+}
+
+@keyframes dragonFlapFront {
+    0%, 100% { transform: scaleY(1) rotate(0deg); }
+    50% { transform: scaleY(-0.65) rotate(14deg); }
+}
+
+@keyframes dragonFlapBack {
+    0%, 100% { transform: scaleY(0.92) rotate(-6deg); }
+    50% { transform: scaleY(-0.55) rotate(16deg); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .dragon-sky {
+        display: none;
+    }
+
+    .dragon-container,
+    .dragon-svg,
+    .dragon-wing-front,
+    .dragon-wing-back {
+        animation: none;
+    }
+}
+
 .logo {
     width: 320px;
     max-width: 100%;

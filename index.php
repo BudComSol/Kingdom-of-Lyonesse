@@ -153,6 +153,27 @@ if (!$uid) {
     head("Kingdom of Lyonesse", 0);
 ?>
 <div class="landing-content">
+    <div class="dragon-sky" aria-hidden="true">
+        <div class="dragon-container">
+            <svg class="dragon-svg" viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg" focusable="false">
+                <path class="dragon-wing-back" d="M185,105 C165,65 135,35 95,20 C110,45 108,60 100,72 C115,65 128,70 132,85 C145,78 158,82 162,96 C172,92 180,98 185,105 Z" />
+                <path class="dragon-body" d="
+                    M12,135 L28,128 L24,136 L45,134
+                    Q85,138 125,122
+                    L132,115 L136,120 L144,112 L148,118 L156,110 L160,115
+                    Q185,105 215,108 Q245,112 268,94 Q282,82 296,80
+                    L282,66 L298,74 L288,58 L306,74
+                    C318,74 330,78 342,84
+                    L334,90 L340,94 L322,96
+                    Q305,96 292,106 Q275,122 252,126
+                    L246,144 L254,148 L242,148 L238,132
+                    Q205,136 172,132
+                    L160,152 L170,158 L154,156 L146,162 L150,148 L156,132
+                    Q110,144 65,142 Q35,142 12,135 Z" />
+                <path class="dragon-wing-front" d="M195,112 C185,60 148,22 98,5 C118,32 115,52 104,68 C122,58 138,65 144,82 C160,72 175,78 180,95 C188,92 192,102 195,112 Z" />
+            </svg>
+        </div>
+    </div>
     <div class="logo">
         <picture>
             <source type="image/webp" media="(max-resolution: 1dppx)" srcset="/images/logo-272.webp">
