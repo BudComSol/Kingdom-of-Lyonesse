@@ -1,0 +1,86 @@
+<?php
+
+function check($condition, $message) {
+    if (!$condition) throw new RuntimeException($message);
+}
+
+if (($argv[1] ?? '') === '--child') {
+    $case = $argv[2];
+    $stored = $argv[3];
+    $user = ['adm' => $case === 'non-admin' ? 0 : 3];
+    $uid = str_starts_with($case, 'landing') ? 0 : 1;
+    $queries = [];
+    $notice = '';
+    $_SESSION = ['dragon_csrf' => 'test-token'];
+    $_SERVER['REQUEST_METHOD'] = in_array($case, ['save-on', 'save-off', 'invalid', 'bad-token', 'non-admin'], true) ? 'POST' : 'GET';
+    $_GET = $uid ? ['dragon' => '1'] : [];
+    $_POST = [
+        'csrf_token' => $case === 'bad-token' ? 'wrong' : 'test-token',
+        'dragon_enabled' => $case === 'invalid' ? 'invalid' : ($case === 'save-on' ? '1' : '0'),
+    ];
+
+    function number($value) { return abs((int)$value); }
+    function fch($sql, $params = []) {
+        global $stored;
+        check($params === ['landing_dragon_enabled'], 'Unexpected setting read');
+        return $stored === 'missing' ? false : ['setting_value' => $stored];
+    }
+    function qry($sql, $params = []) { $GLOBALS['queries'][] = [$sql, $params]; }
+    function head($title, $uid) { echo '<header></header>'; }
+    function foot($uid) { echo '<footer></footer>'; }
+    function msg($message) { $GLOBALS['notice'] = $message; }
+    function err($message) { $GLOBALS['notice'] = $message; }
+
+    register_shutdown_function(function () {
+        fwrite(STDERR, json_encode(['queries' => $GLOBALS['queries'], 'notice' => $GLOBALS['notice']]));
+    });
+
+    $file = $uid ? 'update.php' : 'index.php';
+    $source = file_get_contents(__DIR__ . '/../' . $file);
+    $source = str_replace(
+        ['require_once __DIR__ . "/core/func.php";', "require_once __DIR__ . '/core/func.php';", "require_once __DIR__ . '/core/paypal.php';"],
+        '',
+        $source
+    );
+    eval('?>' . $source);
+    exit;
+}
+
+function runCase($case, $stored = 'missing') {
+    $process = proc_open([PHP_BINARY, '-d', 'xdebug.mode=off', __FILE__, '--child', $case, $stored], [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes);
+    check(is_resource($process), "Could not start $case");
+    $output = stream_get_contents($pipes[1]);
+    $errors = stream_get_contents($pipes[2]);
+    fclose($pipes[1]);
+    fclose($pipes[2]);
+    check(proc_close($process) === 0, "$case failed: $errors");
+    $result = json_decode($errors, true);
+    check(is_array($result), "$case returned invalid result: $errors");
+    return [$output, $result];
+}
+
+foreach (['missing' => true, '1' => true, '0' => false] as $setting => $visible) {
+    [$output] = runCase('landing', (string)$setting);
+    check(str_contains($output, 'class="dragon-sky"') === $visible, "Dragon markup incorrect for $setting");
+    check(str_contains($output, 'class="landing-content"') && str_contains($output, 'class="logo"'), 'Landing page missing');
+}
+
+foreach (['save-off' => '0', 'save-on' => '1'] as $case => $expected) {
+    [, $result] = runCase($case);
+    check(count($result['queries']) === 1 && $result['queries'][0][1] === ['landing_dragon_enabled', $expected], "$case did not save setting");
+    check(str_contains($result['notice'], 'saved'), "$case did not report success");
+}
+
+foreach (['invalid', 'bad-token', 'non-admin'] as $case) {
+    [, $result] = runCase($case);
+    check($result['queries'] === [], "$case saved a setting");
+    if ($case !== 'non-admin') check($result['notice'] !== '', "$case did not report an error");
+}
+
+foreach (['missing' => '1', '0' => '0'] as $setting => $selected) {
+    [$output] = runCase('admin', (string)$setting);
+    check(str_contains($output, 'value="' . $selected . '" selected'), "Incorrect selected option for $setting");
+    check(str_contains($output, 'name="csrf_token"'), 'CSRF token missing');
+}
+
+echo "Landing dragon settings tests passed\n";

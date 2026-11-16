@@ -12,6 +12,57 @@ require_once __DIR__ . '/core/paypal.php';
 $r = rand(100000, 999999);
 $news = number($_GET['news'] ?? 0);
 
+if (isset($_GET['dragon'])) {
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        $token = $_POST['csrf_token'] ?? null;
+        $enabled = $_POST['dragon_enabled'] ?? null;
+        if (!isset($_SESSION['dragon_csrf']) || !is_string($token) || !hash_equals($_SESSION['dragon_csrf'], $token)) {
+            err('Your session expired. Reload the page and try again.');
+        } elseif (!in_array($enabled, ['0', '1'], true)) {
+            err('Select a valid dragon setting.');
+        } else {
+            try {
+                qry(
+                    "INSERT INTO `site_settings` (`setting_key`, `setting_value`) VALUES (?, ?) ON DUPLICATE KEY UPDATE `setting_value` = VALUES(`setting_value`)",
+                    array('landing_dragon_enabled', $enabled)
+                );
+                msg('Landing page dragon setting saved.');
+            } catch (PDOException $e) {
+                error_log('Could not save landing page dragon setting: ' . $e->getMessage());
+                err('Could not save the dragon setting. Check server logs.');
+            }
+        }
+        header('Location: /update.php?dragon=1&r=' . $r);
+        exit();
+    }
+
+    $dragonSetting = fch(
+        "SELECT `setting_value` FROM `site_settings` WHERE `setting_key` = ? LIMIT 1",
+        array('landing_dragon_enabled')
+    );
+    $dragonEnabled = ($dragonSetting['setting_value'] ?? '1') === '1';
+    if (empty($_SESSION['dragon_csrf'])) {
+        $_SESSION['dragon_csrf'] = bin2hex(random_bytes(32));
+    }
+    head('Landing Page Dragon - Admin Panel', $uid);
+?>
+    <form action="?dragon=1" method="post">
+        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['dragon_csrf'], ENT_QUOTES, 'UTF-8'); ?>">
+        <div class="tophead cntr">
+            <label for="dragon_enabled">Landing page dragon:</label><br>
+            <select id="dragon_enabled" name="dragon_enabled">
+                <option value="1" <?php echo $dragonEnabled ? 'selected' : ''; ?>>On</option>
+                <option value="0" <?php echo !$dragonEnabled ? 'selected' : ''; ?>>Off</option>
+            </select><br><br>
+            <input type="submit" value="Save Dragon Setting">
+        </div>
+    </form>
+    <a href="/update.php" class="tophead cntr">← Back to Admin Panel</a>
+<?php
+    foot($uid);
+    exit();
+}
+
 if (isset($_GET['paypal'])) {
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         try {
@@ -231,6 +282,7 @@ $count_d31 = cnt("SELECT (id) FROM `users` WHERE `time_on` > ?", array(time() - 
 <a href="/update.php?news=1" class="tophead">Publish News / Announcement</a>
 <a href="/update.php?analytics=1" class="tophead">Google Analytics Settings</a>
 <a href="/update.php?paypal=1" class="tophead">PayPal & Ruby Pack Settings</a>
+<a href="/update.php?dragon=1" class="tophead">Landing Page Dragon</a>
 <a href="/history_ban.php" class="tophead">Moderation & Ban List</a>
 <a href="/bot_create.php" class="tophead">Spawn NPC / AI Bot</a>
 
