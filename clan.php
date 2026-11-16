@@ -121,17 +121,17 @@ if ($clanId == 0) {
     <div class="tophead cntr">
         <div class="title cntr"><span class="color">Guilds & Clan Castles</span></div>
         <div class="hrs"></div>
-        <small><font color="#a4b0be">Unite with fellow knights, unlock passive clan bonuses, and conquer massive weekly Raid Bosses!</font></small>
+        <small><font color="#a4b0be"><p>Unite with fellow knights, unlock passive bonuses and conquer massive weekly Raid Bosses!</p></font></small>
     </div>
 
     <div class="tophead cntr">
-        <span class="yellow" style="font-size: 1.05rem;"><b>Establish a New Clan</b></span>
+        <span class="yellow" style="font-size: 1.05rem;"><b>Establish New Clan</b></span>
         <div class="hrs"></div>
         <form action="/clan.php?create" method="post">
             Clan Name:<br>
             <input type="text" name="clan_name" required minlength="3" maxlength="24" placeholder="Enter clan name..." style="width: 70%; max-width: 250px;"><br><br>
             <small>Creation Cost: <img src="/images/gold.png" width="15px" height="15px"> <span class="yellow">5,000 Silver Coins</span></small><br><br>
-            <input type="submit" value="Found Clan">
+            <input type="submit" value="Found Your Clan Now">
         </form>
     </div>
 
@@ -145,7 +145,7 @@ if ($clanId == 0) {
     $clans = $clansQuery->fetchAll(PDO::FETCH_ASSOC);
 
     if (empty($clans)) {
-        echo '<div class="tophead2 cntr">No clans established yet. Be the first knight to found a clan!</div>';
+        echo '<div class="tophead2 cntr"><p>No clans established yet, be the first knight to found a clan!</p></div>';
     } else {
         foreach ($clans as $c) {
             $leader = fch("SELECT `login` FROM `users` WHERE `id` = ? LIMIT 1", array($c['leader_id']));
