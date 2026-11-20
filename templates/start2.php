@@ -1,5 +1,6 @@
 <?php
 $step = (int)($user['start'] ?? 4);
+$heroName = htmlspecialchars($user['login'] ?? 'Knight');
 
 $sex = (($user['sex'] ?? '1') == '1') ? 'Male' : 'Female';
 
@@ -56,7 +57,7 @@ if ($step <= 6) {
 
     <div class="tophead">
         <span class="tomato">You</span><br>
-        <small><p> Umm, my name is... (can be changed on the next page)</p></small>
+        <small><p> Umm, my name is <span style="color: #ffff00;"><?php echo $heroName; ?></span> (can be changed on the next page)</p></small>
     </div>
 <?php } ?>
 
@@ -66,7 +67,7 @@ if ($step <= 6) {
     <div class="tophead">
         <div class="ohh"><img src="/images/start/girl.png" width="50px" height="50px" alt="Elaine"></div>
         <span class="lime">Elaine</span><br>
-        <small><p>Splendid <?php echo htmlspecialchars($user['login'] ?? 'Knight'); ?> ! Let me show you how things work around our kingdom while your memories recover.</p></small>
+        <small><p>Splendid <span style="color: #ffff00;"><?php echo $heroName; ?></span> ! Let me show you how things work around our kingdom while your memories recover.</p></small>
     </div>
 
     <div class="tophead">
