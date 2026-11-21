@@ -1100,6 +1100,10 @@ span.color { color: #ffffff; }
     max-width: 100%;
 }
 
+.landing-content .enter_button + .title {
+    margin-top: -52px;
+}
+
 .logo img {
     max-width: 320px;
     width: 85%;
