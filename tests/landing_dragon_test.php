@@ -63,6 +63,7 @@ foreach (['missing' => true, '1' => true, '0' => false] as $setting => $visible)
     [$output] = runCase('landing', (string)$setting);
     check(str_contains($output, 'class="dragon-sky"') === $visible, "Dragon markup incorrect for $setting");
     check(str_contains($output, 'class="landing-content"') && str_contains($output, 'class="logo"'), 'Landing page missing');
+    check(str_contains($output, 'class="landing-actions"') && str_contains($output, 'class="landing-login-button"'), 'Landing actions or login button missing');
 }
 
 foreach (['save-off' => '0', 'save-on' => '1'] as $case => $expected) {

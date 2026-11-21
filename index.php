@@ -191,11 +191,11 @@ if (!$uid) {
             <img src="/images/logo.png" width="320" height="213" alt="Logo" fetchpriority="high">
         </picture>
     </div>    
-    <a class="enter_button" href="/?start=1">
-        <img src="/images/button_green.png" width="335" height="88" alt="Battle Button">
-    </a>
-    <div class="title cntr">
-       <span>Got An Account - <a href="/?login=1" id="landing-login-button" class="landing-login-button">Login!</a></span>
+    <div class="landing-actions">
+        <a class="enter_button" href="/?start=1">
+            <img src="/images/button_green.png" width="335" height="88" alt="Battle Button">
+        </a>
+        <a href="/?login=1" id="landing-login-button" class="landing-login-button">Got An Account - Login!</a>
     </div>
 </div>
 <center>
