@@ -1120,6 +1120,9 @@ span.color { color: #ffffff; }
 .vmmo_label .landing-login-button {
     color: inherit;
     padding: 10px;
+    font-size: 1.2rem;
+    position: relative;
+    top: -80px;
     transition: color 0.2s ease;
 }
 
