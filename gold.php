@@ -24,7 +24,7 @@ if (isset($_REQUEST['ok'])) {
     exit();
 }
 
-head("Currency Exchange", $uid);
+head("Ruby Exchange", $uid);
 ?>
 
 <div class="tophead cntr">

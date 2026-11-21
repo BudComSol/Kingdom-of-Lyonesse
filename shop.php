@@ -78,7 +78,7 @@ head("Market Square & Merchants", $uid);
             <div class="main_menu_button_image">
                 <img src="/images/gold.png" width="20px" height="20px" alt="Exchange">
             </div>
-            <div class="main_menu_button_content">Currency Exchange</div>
+            <div class="main_menu_button_content">Ruby Exchange</div>
         </a>
     </div>
 </div>

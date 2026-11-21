@@ -726,13 +726,13 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="sidebar_nav_icon_wrap"><img src="/images/ruby.png" width="22px" height="22px" alt="Rubies"></div>
             <span class="sidebar_nav_text yellow"><b>Buy Rubies</b></span>
         </a>
-        <a class="sidebar_nav_item" href="/gold.php">
-            <div class="sidebar_nav_icon_wrap"><img src="/images/gold.png" width="22px" height="22px" alt="Exchange"></div>
-            <span class="sidebar_nav_text">Currency Exchange</span>
-        </a>
         <a class="sidebar_nav_item" href="/profile.php">
             <div class="sidebar_nav_icon_wrap"><img src="/images/profile.png" width="22px" height="22px" alt="Present Profile"></div>
             <span class="sidebar_nav_text">Present Profile</span>
+        </a>
+        <a class="sidebar_nav_item" href="/gold.php">
+            <div class="sidebar_nav_icon_wrap"><img src="/images/gold.png" width="22px" height="22px" alt="Exchange"></div>
+            <span class="sidebar_nav_text">Ruby Exchange</span>
         </a>
         <a class="sidebar_nav_item" href="/item.php">
             <div class="sidebar_nav_icon_wrap"><img src="/images/snar.png" width="22px" height="22px" alt="Your Equipment"></div>
