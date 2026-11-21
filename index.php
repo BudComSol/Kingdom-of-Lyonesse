@@ -165,19 +165,23 @@ if (!$uid) {
                     <path class="dragon-wing-back" d="M194,122 C188,94 176,70 160,49 L176,59 L179,39 L193,61 L203,43 L205,67 L220,59 L213,77 L205,99 L202,121 Z" />
                     <path class="dragon-body" d="
                         M48,124 Q72,121 96,123 Q126,129 153,124
-                        Q174,114 194,121 Q218,124 235,108
-                        Q247,97 255,86 Q258,81 267,82 L274,82
-                        L279,85 L285,86 L281,88 L285,90 L278,91
-                        Q274,95 268,96 Q260,97 255,99 Q246,109 237,117
+                        Q174,114 194,121 Q218,124 231,108
+                        Q239,97 247,86 Q250,81 259,82 L266,82
+                        L271,85 Q280,85 280,87 L280,90 Q276,92 270,91
+                        Q266,95 260,96 Q252,97 247,99 Q238,109 233,117
                         Q231,123 227,128 L231,143 L241,149 L227,149
                         L219,133 Q202,143 184,138 L173,154 L181,160
                         L167,159 L157,165 L161,150 L170,134
-                        Q145,151 121,148 Q93,133 76,127 Q60,126 48,124 Z" />
-                    <path class="dragon-horns" d="M268,83 L264,75 L271,81 L274,74 L277,83 Z" />
-                    <circle class="dragon-eye" cx="276" cy="85" r="1.1" />
-                    <g class="dragon-fire-breath">
-                        <path class="dragon-flame-outer" d="M281,85 C294,80 296,70 308,65 C305,75 320,77 332,82 C322,86 323,91 334,96 C317,97 306,92 293,97 L281,90 Z" />
-                        <path class="dragon-flame-inner" d="M281,86 C294,85 299,80 310,79 C304,85 316,87 324,88 C309,90 296,92 281,88 Z" />
+                        Q145,138 121,132 Q93,125 76,125 Q60,125 48,124 Z" />
+                    <g transform="translate(-8 0)">
+                        <path class="dragon-horns" d="M268,83 L264,75 L271,81 L274,74 L277,83 Z" />
+                        <circle class="dragon-eye" cx="276" cy="85" r="1.1" />
+                        <g transform="translate(7 0)">
+                            <g class="dragon-fire-breath">
+                                <path class="dragon-flame-outer" d="M281,85 C294,80 305,70 320,65 C320,75 342,77 365,82 C347,86 348,91 367,96 C343,97 318,92 293,97 L281,90 Z" />
+                                <path class="dragon-flame-inner" d="M281,86 C294,85 299,80 320,79 C320,85 338,87 352,88 C330,90 300,92 281,88 Z" />
+                            </g>
+                        </g>
                     </g>
                     <path class="dragon-wing-front" d="M194,124 C187,92 175,54 155,28 L175,43 L179,17 L195,44 L207,19 L208,49 L228,37 L218,61 L239,57 L225,75 L214,99 L204,123 Z" />
                 </g>
@@ -191,11 +195,11 @@ if (!$uid) {
             <img src="/images/logo.png" width="320" height="213" alt="Logo" fetchpriority="high">
         </picture>
     </div>    
-    <div class="landing-actions">
-        <a class="enter_button" href="/?start=1">
-            <img src="/images/button_green.png" width="335" height="88" alt="Battle Button">
-        </a>
-        <a href="/?login=1" id="landing-login-button" class="landing-login-button">Got An Account - Login!</a>
+    <a class="enter_button" href="/?start=1">
+        <img src="/images/button_green.png" width="335" height="88" alt="Battle Button">
+    </a>
+    <div class="title cntr">
+       <span>Got An Account - <a href="/?login=1" id="landing-login-button" class="landing-login-button">Login!</a></span>
     </div>
 </div>
 <center>
