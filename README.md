@@ -61,7 +61,8 @@
 ├── .htaccess                 <- Apache rewrite rules and security protection for config files
 ├── config.php                <- .env parser, PDO connection & session security
 ├── migrate.php               <- Command-line database schema migrations
-├── database.sql (baza.sql)   <- Complete database dump in English (UTF-8)
+├── _sql/
+│   └── database.sql          <- Complete database dump in English (UTF-8)
 │
 ├── core/
 │   ├── func.php              <- Core game engine: head(), foot(), database helpers & UI bars
@@ -182,7 +183,7 @@ Fresh installs start player IDs at 1. Deleting rows from an existing `users` tab
 3. **Import SQL Database Dump:**
    - Open **phpMyAdmin** from cPanel.
    - Select your newly created database on the left sidebar.
-   - Go to the **Import** tab, choose `database.sql` (or `baza.sql`), and click **Import** / **Go**.
+   - Go to the **Import** tab, choose `_sql/database.sql`, and click **Import** / **Go**.
 
 4. **Configure the `.env` File:**
    - In cPanel File Manager, ensure the setting **"Show Hidden Files (dotfiles)"** is checked.
@@ -214,7 +215,7 @@ Fresh installs start player IDs at 1. Deleting rows from an existing `users` tab
 
 2. **Import Database via Terminal:**
    ```bash
-   mysql -u your_username -p your_database_name < /var/www/lyonesse/database.sql
+   mysql -u your_username -p your_database_name < /var/www/lyonesse/_sql/database.sql
    ```
    Configure `.env`; the imported `database.sql` already includes the current schema. No migration command is needed for a fresh install. When upgrading an existing installation, back up the database and run `php migrate.php` from the game directory.
 
@@ -262,7 +263,7 @@ Fresh installs start player IDs at 1. Deleting rows from an existing `users` tab
 2. **Setup Local Database in phpMyAdmin:**
    - Open `http://localhost/phpmyadmin`.
    - Create a database named `set` or `lyonesse`.
-   - Import `database.sql`.
+   - Import `_sql/database.sql`.
 
 3. **Adjust `.env`:**
    ```ini
