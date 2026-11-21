@@ -538,7 +538,7 @@ function head($title, $uid) {
     <meta name="keywords" content="Kingdom, Online Game, Castle Siege, RPG, mobile game, MMORPG">
     <meta name="description" content="Kingdom of Lyonesse modern MMORPG for mobile and desktop. Immerse yourself in a medieval fantasy world and become a legendary Knight so come join us NOW!">
     <title><?php echo $title ? $title . ' - ' . APP_NAME : APP_NAME; ?></title>
-    <?php if ($uid <= 0 && $title === APP_NAME) { ?>
+    <?php if ($uid <= 0 && ($title === APP_NAME || $title === 'A MMORPG Browser Game')) { ?>
     <link rel="preload" as="image" href="/images/logo.webp" fetchpriority="high">
     <?php } ?>
     <link rel="preconnect" href="https://fonts.googleapis.com">

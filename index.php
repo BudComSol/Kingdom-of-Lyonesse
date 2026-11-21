@@ -150,7 +150,7 @@ if ($agreee == 1) {
 }
 
 if (!$uid) {
-    head("Kingdom of Lyonesse", 0);
+    head("A MMORPG Browser Game", 0);
     $dragonSetting = fch(
         "SELECT `setting_value` FROM `site_settings` WHERE `setting_key` = ? LIMIT 1",
         array('landing_dragon_enabled')
