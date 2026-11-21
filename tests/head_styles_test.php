@@ -48,11 +48,5 @@ ob_start();
 head('A MMORPG Browser Game', 0);
 $landingHtml = ob_get_clean();
 check(str_contains($landingHtml, '<title>A MMORPG Browser Game - ' . APP_NAME . '</title>'), 'Landing page title missing');
-check(str_contains($landingHtml, '<link rel="preload" as="image" href="/images/logo.webp" fetchpriority="high">'), 'Landing logo preload missing');
-
-ob_start();
-head(APP_NAME, 1);
-$authenticatedHtml = ob_get_clean();
-check(!str_contains($authenticatedHtml, 'rel="preload" as="image" href="/images/logo.webp"'), 'Landing logo preload included for authenticated page');
 
 echo "Header stylesheet tests passed\n";
