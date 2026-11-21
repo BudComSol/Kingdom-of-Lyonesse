@@ -43,4 +43,15 @@ foreach ([0, 1] as $uid) {
     check(str_contains($links[0][0], 'display=swap'), 'Font swap behavior missing');
 }
 
+$user = false;
+ob_start();
+head(APP_NAME, 0);
+$landingHtml = ob_get_clean();
+check(str_contains($landingHtml, '<link rel="preload" as="image" href="/images/logo.webp" fetchpriority="high">'), 'Landing logo preload missing');
+
+ob_start();
+head(APP_NAME, 1);
+$authenticatedHtml = ob_get_clean();
+check(!str_contains($authenticatedHtml, 'rel="preload" as="image" href="/images/logo.webp"'), 'Landing logo preload included for authenticated page');
+
 echo "Header stylesheet tests passed\n";
