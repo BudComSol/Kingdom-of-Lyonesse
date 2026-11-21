@@ -74,7 +74,7 @@ if ($login == 1 && isset($_GET['enter'])) {
         header("Location: /?r=" . $r);
         exit();
     } else {
-        err("Invalid hero name or password");
+        err("Invalid Hero Name or Password");
         header("Location: /?login=1&r=" . $r);
         exit();
     }
@@ -191,10 +191,7 @@ if (!$uid) {
     </div>
     <?php } ?>
     <div class="logo">
-        <picture>
-            <source type="image/webp" media="(max-resolution: 1dppx)" srcset="/images/logo-272.webp">
-            <img src="/images/logo.png" width="320" height="213" alt="Logo" fetchpriority="high">
-        </picture>
+        <img src="/images/logo.webp" width="320" height="213" alt="Logo" fetchpriority="high">
     </div>    
     <a class="enter_button" href="/?start=1">
         <img src="/images/button_green.png" width="335" height="88" alt="Battle Button">
