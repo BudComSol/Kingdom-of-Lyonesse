@@ -160,26 +160,27 @@ if (!$uid) {
     <?php if (($dragonSetting['setting_value'] ?? '1') === '1') { ?>
     <div class="dragon-sky" aria-hidden="true">
         <div class="dragon-container">
-            <svg class="dragon-svg" viewBox="0 0 360 200" xmlns="http://www.w3.org/2000/svg" focusable="false">
+            <svg class="dragon-svg" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg" focusable="false">
                 <g transform="translate(97 0) scale(0.5 1)">
                     <path class="dragon-wing-back" d="M194,122 C188,94 176,70 160,49 L176,59 L179,39 L193,61 L203,43 L205,67 L220,59 L213,77 L205,99 L202,121 Z" />
                     <path class="dragon-body" d="
                         M48,124 Q72,121 96,123 Q126,129 153,124
                         Q174,114 194,121 Q218,124 231,108
-                        Q239,97 247,86 Q250,81 259,82 L266,82
-                        L271,85 Q280,85 280,87 L280,90 Q276,92 270,91
-                        Q266,95 260,96 Q252,97 247,99 Q238,109 233,117
+                        Q239,97 247,86 Q250,81 259,82 L282,82
+                        Q291,83 302,86 L302,90 Q298,92 292,91
+                        Q286,95 280,96 Q260,97 247,99 Q238,109 233,117
                         Q231,123 227,128 L231,143 L241,149 L227,149
                         L219,133 Q202,143 184,138 L173,154 L181,160
                         L167,159 L157,165 L161,150 L170,134
                         Q145,138 121,132 Q93,125 76,125 Q60,125 48,124 Z" />
+                    <path class="dragon-highlight" d="M75,124 Q83,119 91,123 M101,126 Q109,120 117,126 M128,130 Q136,123 144,128 M254,84 Q268,80 283,84 M261,95 Q274,91 288,91" />
                     <g transform="translate(-8 0)">
                         <path class="dragon-horns" d="M268,83 L264,75 L271,81 L274,74 L277,83 Z" />
                         <circle class="dragon-eye" cx="276" cy="85" r="1.1" />
                         <g transform="translate(7 0)">
                             <g class="dragon-fire-breath">
-                                <path class="dragon-flame-outer" d="M281,85 C294,80 305,70 320,65 C320,75 342,77 365,82 C347,86 348,91 367,96 C343,97 318,92 293,97 L281,90 Z" />
-                                <path class="dragon-flame-inner" d="M281,86 C294,85 299,80 320,79 C320,85 338,87 352,88 C330,90 300,92 281,88 Z" />
+                                <path class="dragon-flame-outer" d="M303,85 C329,78 356,74 389,77 C430,79 482,84 555,81 C520,87 527,90 551,95 C491,94 438,92 390,97 C353,100 326,94 303,91 Z" />
+                                <path class="dragon-flame-inner" d="M303,86 C335,84 360,81 395,82 C438,84 486,88 532,86 C496,89 448,90 400,91 C360,92 329,89 303,88 Z" />
                             </g>
                         </g>
                     </g>
