@@ -52,8 +52,12 @@ $user_q->execute();
 $i = 1;
 while ($users = $user_q->fetch(PDO::FETCH_ASSOC)) {
     $class = ($i % 2 == 0) ? 'list2' : 'list';
+    $minutesSinceActive = max(0, (int)floor((time() - (int)$users['time_on']) / 60));
     echo '<div class="' . $class . '">';
-    echo user_list($users['id']);
+    echo '<table style="width:100%;"><tr>';
+    echo '<td style="width:70%; text-align:left;">' . user_list($users['id']) . '</td>';
+    echo '<td style="width:30%; text-align:right;"><small>Since: ' . $minutesSinceActive . ' min</small></td>';
+    echo '</tr></table>';
     echo '</div>';
     $i++;
 }
