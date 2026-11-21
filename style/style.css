@@ -893,6 +893,12 @@ textarea.mail {
     color: #ff6b6b;
 }
 
+html.guest-page .notify.err {
+    font-size: 1.25rem;
+    font-weight: 700;
+    text-transform: uppercase;
+}
+
 /* =====================================================================
    Colors & Stat Helpers
    ===================================================================== */
