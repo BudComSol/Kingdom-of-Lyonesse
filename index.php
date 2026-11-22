@@ -233,7 +233,7 @@ if (!$uid) {
         text-transform: uppercase;
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9), 0 0 14px var(--gold-glow);
         background: radial-gradient(ellipse at center, rgba(26, 34, 48, 0.96) 0%, rgba(14, 19, 28, 0.9) 72%, rgba(14, 19, 28, 0.76) 100%);
-        border: 1px solid rgba(212, 175, 55, 0.7);
+        border: 3px solid rgba(212, 175, 55, 0.7);
         border-radius: 50%;
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12);
     }
