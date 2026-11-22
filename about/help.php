@@ -72,7 +72,7 @@
 
 <div class="tophead2">
     <div class="title cntr"><span class="color">Helpful Links</span></div>
-    <a href="?rules=1" class="tophead">Game Code of Conduct &amp; Rules</a>
+    <a href="?rules=1" class="tophead">Code of Conduct &amp; Rules</a>
     <a href="/privacy.php" class="tophead">Privacy Policy</a>
     <a href="/about/tour.php" class="tophead">Royal Tournament Guide</a>
     <a href="?agreee=1" class="tophead">Terms of Service &amp; User Agreement</a>
