@@ -253,11 +253,11 @@ if (!$uid) {
     <a class="enter_button" href="/?start=1">
         <img src="/images/button_green.png" width="335" height="88" alt="Battle Button">
     </a>
-    <div class="title cntr">
-       <span>Got An Account - <a href="/?login=1" id="landing-login-button" class="landing-login-button">Login!</a></span>
-    </div>
-    <div class="title cntr landing-help">
-        <a href="/index.php?help=1">How The Mystery Unfolds</a>
+    <div class="title cntr landing-links">
+        <div>Got An Account - <a href="/?login=1" id="landing-login-button" class="landing-login-button">Login!</a></div>
+        <h1 class="landing-help">
+            <a href="/index.php?help=1">Kindom Of Lyoness Saga</a>
+        </h1>
     </div>
 </div>
 <div class="cntr">
