@@ -450,9 +450,14 @@ function UserEnter($uid) {
     }
     session_regenerate_id(true);
     $_SESSION['uid'] = $uid;
+    $_SESSION['online_session_started'] = time();
 }
 
 function UserExit($uid = 0) {
+    if ($uid > 0 && isset($_SESSION['online_session_started'])) {
+        qry("UPDATE `users` SET `session_started` = 0 WHERE `id` = ? AND `session_started` = ? LIMIT 1",
+            array($uid, $_SESSION['online_session_started']));
+    }
     $_SESSION = array();
     if (ini_get("session.use_cookies")) {
         $params = session_get_cookie_params();
@@ -514,7 +519,12 @@ function user_list($users) {
 
 // Update last active timestamp
 if ($uid > 0) {
-    qry("UPDATE `users` SET `time_on` = ? WHERE `id` = ? LIMIT 1", array(time(), $uid));
+    $now = time();
+    if (!isset($_SESSION['online_session_started'])) {
+        $_SESSION['online_session_started'] = $now;
+    }
+    qry("UPDATE `users` SET `time_on` = ?, `session_started` = ? WHERE `id` = ? LIMIT 1",
+        array($now, $_SESSION['online_session_started'], $uid));
 }
 
 // ---------------------------------------------------------------------

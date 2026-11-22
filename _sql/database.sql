@@ -423,6 +423,7 @@ CREATE TABLE `users` (
   `email` varchar(300) NOT NULL,
   `time_reg` int(11) NOT NULL,
   `time_on` int(11) NOT NULL,
+  `session_started` int(11) NOT NULL DEFAULT '0',
   `ip` varchar(300) NOT NULL,
   `class` varchar(30) NOT NULL COMMENT 'Hero Class',
   `sex` varchar(30) NOT NULL COMMENT 'Gender (1=Male, 2=Female)',
