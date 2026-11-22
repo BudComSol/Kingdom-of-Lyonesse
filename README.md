@@ -202,6 +202,10 @@ Fresh installs start player IDs at 1. Deleting rows from an existing `users` tab
 
 6. **Finish setup:** The imported `database.sql` includes the current schema, so no migration command is needed for a fresh install. Register a hero account, then promote it to administrator in phpMyAdmin using the FAQ instructions below. When upgrading an existing installation, back up the database and run `php migrate.php` from a terminal in the game directory. The configured database user needs permission to create tables and alter `users`.
 
+The included `.htaccess` sets frame, MIME-sniffing, referrer, and permissions policies and sends HSTS on HTTPS responses. Enable Apache `mod_headers` and allow `.htaccess` header directives, or enable equivalent LiteSpeed support. Server-level redirects or responses generated before `.htaccess` is processed need the same headers configured at the server or proxy. When TLS terminates at a proxy or CDN, configure HSTS at that HTTPS edge rather than trusting a client-supplied forwarding header. HSTS applies for one year to the current host; enable it only when HTTPS is reliable. Verify the headers on the public HTTPS response.
+
+The game does not enable cross-origin reads by default: `Access-Control-Allow-Origin` is unnecessary for same-origin requests, and a wildcard could expose authenticated game data. Configure a specific trusted origin at the server only if a cross-origin integration is required.
+
 The online list shows last activity and the elapsed duration of the most recently active login session, including idle time. NPCs created by the bot creator have no login session; their uptime is shown from creation instead. Sessions already logged in when this feature is deployed start tracking on their next request. The list continues to show recently active heroes for up to three hours, even after logout; their session duration is unavailable after logout. Refresh the list to see changes to other heroes' activity, logins, and logouts.
 
 ---
@@ -229,6 +233,11 @@ The online list shows last activity and the elapsed duration of the most recentl
        root /var/www/lyonesse;
        index index.php index.html;
 
+       add_header X-Frame-Options "SAMEORIGIN" always;
+       add_header X-Content-Type-Options "nosniff" always;
+       add_header Referrer-Policy "strict-origin-when-cross-origin" always;
+       add_header Permissions-Policy "camera=(), microphone=(), geolocation=()" always;
+
        # Block direct access to sensitive configuration files
        location ~ /\.(env|git|ht) {
            deny all;
@@ -250,6 +259,8 @@ The online list shows last activity and the elapsed duration of the most recentl
        }
    }
    ```
+
+   Repeat these `add_header` directives in the HTTPS server block and add `add_header Strict-Transport-Security "max-age=31536000" always;` there only. Nginx does not inherit server-level `add_header` directives in locations that define their own, so repeat the required headers in those locations. If TLS terminates upstream, configure HSTS at the HTTPS edge instead. See the shared-hosting notes above before enabling HSTS or CORS.
 
 ---
 
@@ -280,6 +291,8 @@ The online list shows last activity and the elapsed duration of the most recentl
 
 5. **Launch Game in Browser:**
    - Visit `http://localhost:7000` or `http://localhost/setst.site`.
+
+PHP's built-in development server does not read `.htaccess`; use a configured web server to verify response headers.
 
 ---
 
