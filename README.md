@@ -202,7 +202,7 @@ Fresh installs start player IDs at 1. Deleting rows from an existing `users` tab
 
 6. **Finish setup:** The imported `database.sql` includes the current schema, so no migration command is needed for a fresh install. Register a hero account, then promote it to administrator in phpMyAdmin using the FAQ instructions below. When upgrading an existing installation, back up the database and run `php migrate.php` from a terminal in the game directory. The configured database user needs permission to create tables and alter `users`.
 
-The online list shows last activity and the elapsed duration of the most recently active login session, including idle time. Sessions already logged in when this feature is deployed start tracking on their next request. The list continues to show recently active heroes for up to three hours, even after logout; their session duration is unavailable after logout. Refresh the list to see changes to other heroes' activity, logins, and logouts.
+The online list shows last activity and the elapsed duration of the most recently active login session, including idle time. NPCs created by the bot creator have no login session; their uptime is shown from creation instead. Sessions already logged in when this feature is deployed start tracking on their next request. The list continues to show recently active heroes for up to three hours, even after logout; their session duration is unavailable after logout. Refresh the list to see changes to other heroes' activity, logins, and logouts.
 
 ---
 
