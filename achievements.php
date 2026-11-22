@@ -137,7 +137,7 @@ head("Hero Achievements & Titles", $uid);
     <div class="hrs"></div>
     <small><font color="#a4b0be">Complete heroic deeds across Lyonesse to unlock prestige titles and treasure rewards!</font></small>
     <br><br>
-    Active Title: <span class="yellow"><b><?php echo !empty($user['title']) ? htmlspecialchars($user['title']) : 'No title equipped'; ?></b></span>
+    Active Title: <span class="yellow"><b><?php echo !empty($user['title']) ? htmlspecialchars($user['title']) : 'No Title Equipped'; ?></b></span>
 </div>
 
 <div style="display: flex; flex-direction: column; gap: 8px; margin: 10px 0;">
