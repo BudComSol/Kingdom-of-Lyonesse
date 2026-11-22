@@ -149,6 +149,20 @@ if ($agreee == 1) {
     exit();
 }
 
+if ($help == 1) {
+    head("How The Mystery Unfolds", $uid);
+    require_once __DIR__ . '/about/help.php';
+    foot($uid);
+    exit();
+}
+
+if ($rules == 1) {
+    head("Game Rules", $uid);
+    require_once __DIR__ . '/about/rules.php';
+    foot($uid);
+    exit();
+}
+
 if (!$uid) {
     head("A MMORPG Browser Game", 0);
     $dragonSetting = fch(
@@ -198,6 +212,9 @@ if (!$uid) {
     </a>
     <div class="title cntr">
        <span>Got An Account - <a href="/?login=1" id="landing-login-button" class="landing-login-button">Login!</a></span>
+    </div>
+    <div class="title cntr">
+        <a class="a" href="/index.php?help=1">How The Mystery Unfolds</a>
     </div>
 </div>
 <center>
@@ -263,20 +280,6 @@ if ($password == 1) {
     foot(0);
     exit();
 } else {
-    if ($rules == 1) {
-        head("Game Rules", $uid);
-        require_once __DIR__ . '/about/rules.php';
-        foot($uid);
-        exit();
-    }
-
-    if ($help == 1) {
-        head("Game Guide & Help", $uid);
-        require_once __DIR__ . '/about/help.php';
-        foot($uid);
-        exit();
-    }
-
     $tutorialStep = (int)($user['start'] ?? 1);
     if ($tutorialStep <= 9 && $tutorialStep != 7 && number($_GET['go'] ?? 0) == 1) {
         qry("UPDATE `users` SET `start` = `start` + ? WHERE `id` = ? LIMIT 1", array(1, $uid));
