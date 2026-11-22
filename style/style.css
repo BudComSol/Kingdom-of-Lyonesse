@@ -1108,6 +1108,19 @@ span.color { color: #ffffff; }
 
 .landing-content .enter_button + .title {
     margin-top: -52px;
+    margin-bottom: 0;
+}
+
+.landing-content .landing-help {
+    margin-top: -30px;
+}
+
+.landing-content .landing-help a {
+    color: #fff;
+}
+
+.landing-content .landing-help a:hover {
+    color: #f1c40f;
 }
 
 .logo img {

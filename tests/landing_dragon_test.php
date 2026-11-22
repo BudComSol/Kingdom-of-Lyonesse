@@ -13,7 +13,7 @@ if (($argv[1] ?? '') === '--child') {
     $notice = '';
     $_SESSION = ['dragon_csrf' => 'test-token'];
     $_SERVER['REQUEST_METHOD'] = in_array($case, ['save-on', 'save-off', 'invalid', 'bad-token', 'non-admin'], true) ? 'POST' : 'GET';
-    $_GET = $uid ? ['dragon' => '1'] : [];
+    $_GET = $case === 'landing-help' ? ['help' => '1'] : ($uid ? ['dragon' => '1'] : []);
     $_POST = [
         'csrf_token' => $case === 'bad-token' ? 'wrong' : 'test-token',
         'dragon_enabled' => $case === 'invalid' ? 'invalid' : ($case === 'save-on' ? '1' : '0'),
@@ -42,6 +42,7 @@ if (($argv[1] ?? '') === '--child') {
         '',
         $source
     );
+    $source = str_replace('__DIR__', var_export(dirname(__DIR__), true), $source);
     eval('?>' . $source);
     exit;
 }
@@ -64,7 +65,11 @@ foreach (['missing' => true, '1' => true, '0' => false] as $setting => $visible)
     check(str_contains($output, 'class="dragon-sky"') === $visible, "Dragon markup incorrect for $setting");
     check(str_contains($output, 'class="landing-content"') && str_contains($output, 'class="logo"'), 'Landing page missing');
     check(str_contains($output, 'Got An Account - <a href="/?login=1" id="landing-login-button"'), 'Landing login link missing');
+    check(str_contains($output, '<a href="/index.php?help=1">How The Mystery Unfolds</a>'), 'Landing help link missing');
 }
+
+[$helpOutput] = runCase('landing-help');
+check(str_contains($helpOutput, '<a href="/" class="tophead cntr">Back to Home</a>'), 'Guest help page missing home link');
 
 foreach (['save-off' => '0', 'save-on' => '1'] as $case => $expected) {
     [, $result] = runCase($case);
