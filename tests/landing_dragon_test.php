@@ -77,7 +77,8 @@ foreach (['missing' => true, '1' => true, '0' => false] as $setting => $visible)
     check(str_contains($output, 'class="landing-content"') && str_contains($output, 'class="logo"'), 'Landing page missing');
     check(str_contains($output, '<header data-game-landing>'), 'Landing page should request game structured data');
     check(str_contains($output, 'Got An Account - <a href="/?login=1" id="landing-login-button"'), 'Landing login link missing');
-    check(str_contains($output, '<a href="/index.php?help=1">How The Mystery Unfolds</a>'), 'Landing help link missing');
+    check(preg_match('~<h1 class="landing-help">\s*<a href="/index.php\?help=1">Kindom Of Lyoness Saga</a>\s*</h1>~', $output) === 1, 'Landing saga heading or help link missing');
+    check(preg_match('~<div class="title cntr landing-links">\s*<div>Got An Account.*?</div>\s*<h1 class="landing-help">.*?Kindom Of Lyoness Saga</a>\s*</h1>\s*</div>~s', $output) === 1, 'Landing links should share one title banner');
     check(!preg_match('/<\/?center\b/i', $output), 'Landing page uses obsolete center markup');
 }
 

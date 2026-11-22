@@ -1111,12 +1111,17 @@ span.color { color: #ffffff; }
     margin-bottom: 0;
 }
 
-.landing-content > .title {
+.landing-content > .landing-links {
     width: min(100%, 335px);
+    padding: 8px 18px;
+    border-left: 1px solid var(--border-gold);
+    border-right: 1px solid var(--border-gold);
+    border-radius: 50%;
 }
 
 .landing-content .landing-help {
-    margin-top: -55px;
+    margin: 0;
+    font: inherit;
 }
 
 .landing-content .landing-help a {
