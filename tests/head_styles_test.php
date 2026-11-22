@@ -1,17 +1,20 @@
 <?php
 
 function checking($value) { return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8'); }
-function fch($sql, $params = []) { return false; }
+function fch($sql, $params = []) { return $GLOBALS['analyticsSetting'] ?? false; }
 function cnt($sql, $params = []) { return 0; }
 function check($condition, $message) {
     if (!$condition) throw new RuntimeException($message);
 }
 
 define('APP_NAME', 'Kingdom of Lyonesse');
+$analyticsSetting = false;
 $sourceStylesheet = file_get_contents(__DIR__ . '/../style/style.css');
 $minifiedStylesheet = file_get_contents(__DIR__ . '/../style/style.min.css');
+$cookieNoticeStylesheet = file_get_contents(__DIR__ . '/../style/cookie-notice.css');
 check($sourceStylesheet !== false, 'Readable stylesheet missing');
 check($minifiedStylesheet !== false, 'Minified stylesheet missing');
+check($cookieNoticeStylesheet !== false, 'Cookie notice stylesheet missing');
 check(strlen($minifiedStylesheet) < strlen($sourceStylesheet), 'Minified stylesheet is not smaller than its source');
 check(!str_contains($minifiedStylesheet, "\n"), 'Minified stylesheet contains line breaks');
 
@@ -31,6 +34,12 @@ foreach ([0, 1] as $uid) {
 
     check(preg_match('/<style>(.*?)<\/style>/s', $html, $matches) === 1, 'Inline stylesheet missing');
     check($matches[1] === $minifiedStylesheet, 'Inline stylesheet differs from minified source');
+    check(
+        $uid <= 0
+            ? str_contains($html, '<style>' . $cookieNoticeStylesheet . '</style>')
+            : !str_contains($html, '<style>' . $cookieNoticeStylesheet . '</style>'),
+        'Cookie notice styles are not limited to guest pages'
+    );
     check(!str_contains($html, 'href="/style/style.css'), 'External game stylesheet still requested');
     check(str_contains($html, "url('/images/start/bg.webp')"), 'Background URL must work on nested routes');
     check(preg_match('/url\(\s*[\'"]?(?!\/|https?:|data:)[a-z.]/i', $matches[1]) === 0, 'Inline CSS has a relative asset URL');
@@ -44,6 +53,19 @@ foreach ([0, 1] as $uid) {
     check(str_contains($links[0][0], 'display=swap'), 'Font swap behavior missing');
 }
 
+$analyticsSetting = ['setting_value' => 'G-ABCDEF1234'];
+$_COOKIE = [];
+ob_start();
+head('Cookie consent test', 0);
+$analyticsBeforeConsent = ob_get_clean();
+check(!str_contains($analyticsBeforeConsent, 'googletagmanager.com'), 'Analytics loaded before cookie consent');
+
+$_COOKIE['lyonesse_cookie_consent'] = 'accepted';
+ob_start();
+head('Cookie consent test', 0);
+$analyticsAfterConsent = ob_get_clean();
+check(str_contains($analyticsAfterConsent, 'googletagmanager.com'), 'Analytics did not load after cookie consent');
+
 $user = false;
 ob_start();
 head('A MMORPG Browser Game', 0);
@@ -54,10 +76,43 @@ $footerStart = strpos($source, 'function foot(');
 $footerEnd = strpos($source, '// ---------------------------------------------------------------------', $footerStart);
 check($footerStart !== false && $footerEnd !== false, 'Footer function missing');
 eval(substr($source, $footerStart, $footerEnd - $footerStart));
+$cookieConsentToken = 'test-consent-token';
+$ref = 0;
 $user = [];
 ob_start();
 foot(1);
 $footerHtml = ob_get_clean();
 check(str_contains($footerHtml, '<a href="/index.php?help=1">Help</a>'), 'Footer help link missing');
+check(!str_contains($footerHtml, 'id="cookie-notice"'), 'Cookie notice should not appear inside the game');
+
+$user = false;
+$_SERVER['PHP_SELF'] = '/index.php';
+$_GET = [];
+$_COOKIE = [];
+ob_start();
+foot(0);
+$guestFooterHtml = ob_get_clean();
+check(str_contains($guestFooterHtml, 'id="cookie-notice"'), 'Cookie notice missing from guest pages');
+check(str_contains($guestFooterHtml, 'Accept cookies to continue to the game'), 'Cookie notice does not require consent before entry');
+check(str_contains($guestFooterHtml, 'name="csrf_token" value="test-consent-token"'), 'Cookie consent form is missing its CSRF token');
+
+$_SERVER['PHP_SELF'] = '/privacy.php';
+ob_start();
+foot(0);
+$otherGuestFooterHtml = ob_get_clean();
+check(!str_contains($otherGuestFooterHtml, 'id="cookie-notice"'), 'Cookie notice should only appear on the landing page');
+
+$user = [];
+ob_start();
+foot(1);
+$loggedInFooterHtml = ob_get_clean();
+check(!str_contains($loggedInFooterHtml, 'id="cookie-notice"'), 'Cookie notice should not appear inside the game');
+
+$_SERVER['PHP_SELF'] = '/index.php';
+$_COOKIE['lyonesse_cookie_consent'] = 'accepted';
+ob_start();
+foot(0);
+$acceptedFooterHtml = ob_get_clean();
+check(!str_contains($acceptedFooterHtml, 'id="cookie-notice"'), 'Cookie notice should be hidden after consent');
 
 echo "Header stylesheet tests passed\n";

@@ -11,10 +11,52 @@ $rules   = number($_GET['rules'] ?? 0);
 $help    = number($_GET['help'] ?? 0);
 $r       = rand(100000, 900000);
 
+if (empty($_SESSION['cookie_consent_token'])) {
+    $_SESSION['cookie_consent_token'] = bin2hex(random_bytes(32));
+}
+$cookieConsentToken = $_SESSION['cookie_consent_token'];
+$hasCookieConsent = ($_COOKIE['lyonesse_cookie_consent'] ?? '') === 'accepted';
+
+if (isset($_GET['accept_cookies'])) {
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
+        http_response_code(405);
+        exit('Cookie acceptance must be submitted from the landing page.');
+    }
+
+    $submittedToken = $_POST['csrf_token'] ?? '';
+    if (!is_string($submittedToken) || !hash_equals($cookieConsentToken, $submittedToken)) {
+        http_response_code(403);
+        exit('Unable to verify cookie acceptance. Please reload the page and try again.');
+    }
+
+    $cookieOptions = [
+        'expires' => time() + 180 * 24 * 60 * 60,
+        'path' => '/',
+        'secure' => (bool)(session_get_cookie_params()['secure'] ?? false),
+        'httponly' => true,
+        'samesite' => 'Lax',
+    ];
+    if (!setcookie('lyonesse_cookie_consent', 'accepted', $cookieOptions)) {
+        throw new RuntimeException('Unable to save cookie consent.');
+    }
+
+    unset($_SESSION['cookie_consent_token']);
+    header('Location: /' . ($ref > 0 ? '?ref=' . $ref : ''));
+    exit();
+}
+
 // Logout Action
 if ($exit == 1) {
     UserExit($uid);
     header('Location: /');
+    exit();
+}
+
+$attemptingGameEntry = ($start == 1 && !$uid)
+    || ($login == 1 && isset($_GET['enter']))
+    || (isset($_GET['id'], $_GET['hash'], $_GET['enter']));
+if (!$hasCookieConsent && $attemptingGameEntry) {
+    header('Location: /' . ($ref > 0 ? '?ref=' . $ref : ''));
     exit();
 }
 

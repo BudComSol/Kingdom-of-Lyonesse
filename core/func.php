@@ -538,6 +538,13 @@ function head($title, $uid) {
     if ($stylesheet === false) {
         throw new RuntimeException('Unable to load the game stylesheet.');
     }
+    $cookieNoticeStylesheet = '';
+    if ($uid <= 0) {
+        $cookieNoticeStylesheet = file_get_contents(__DIR__ . '/../style/cookie-notice.css');
+        if ($cookieNoticeStylesheet === false) {
+            throw new RuntimeException('Unable to load the cookie notice stylesheet.');
+        }
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en" class="<?php echo $uid > 0 ? '' : 'guest-page'; ?>">
@@ -555,6 +562,7 @@ function head($title, $uid) {
         <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&amp;family=Outfit:wght@300;400;500;600;700&amp;display=swap">
     </noscript>
     <style><?php echo $stylesheet; ?></style>
+    <?php if ($cookieNoticeStylesheet !== '') { ?><style><?php echo $cookieNoticeStylesheet; ?></style><?php } ?>
     <script defer src="/style/toast.js?v=2.2.0"></script>
     <script defer src="/style/audio.js?v=2.2.0"></script>
     <meta name="author" content="<?php echo APP_NAME; ?>" />
@@ -564,7 +572,8 @@ function head($title, $uid) {
         array('google_analytics_id')
     );
     $analyticsId = $analyticsSetting['setting_value'] ?? '';
-    if (preg_match('/^G-[A-Z0-9]{10}$/i', $analyticsId)) {
+    $hasCookieConsent = ($_COOKIE['lyonesse_cookie_consent'] ?? '') === 'accepted';
+    if ($hasCookieConsent && preg_match('/^G-[A-Z0-9]{10}$/i', $analyticsId)) {
         $analyticsId = htmlspecialchars($analyticsId, ENT_QUOTES, 'UTF-8');
     ?>
     <script async src="https://www.googletagmanager.com/gtag/js?id=<?php echo $analyticsId; ?>"></script>
@@ -766,8 +775,12 @@ document.addEventListener('DOMContentLoaded', () => {
 // Footer Layout
 // ---------------------------------------------------------------------
 function foot($uid) {
-    global $user;
+    global $user, $cookieConsentToken, $ref;
     $on = cnt("SELECT (id) FROM `users` WHERE `time_on` > ?", array(time() - 10800));
+    $showCookieNotice = $uid <= 0
+        && ($_SERVER['PHP_SELF'] ?? '') === '/index.php'
+        && ($_COOKIE['lyonesse_cookie_consent'] ?? '') !== 'accepted'
+        && !array_intersect(['login', 'password', 'start', 'agreee', 'rules', 'help', 'id', 'hash'], array_keys($_GET));
 
     if ($uid > 0) {
         if (($_SERVER['PHP_SELF'] ?? '') == '/index.php' && isset($user['save']) && $user['save'] >= 2 && $user['id'] == 0) {
@@ -812,14 +825,23 @@ function foot($uid) {
 </nav>
 <div class="hrs"></div>
 
-</body></html>
 <?php
-    } else {
+   }
+   if ($uid <= 0) {
+       echo '</main>';
+   }
 ?>
-</main>
+<?php if ($showCookieNotice) { ?>
+<aside class="cookie-notice" id="cookie-notice" role="region" aria-label="Cookie information">
+    <form class="cookie-notice-form" method="post" action="/?accept_cookies=1<?php echo ($ref ?? 0) > 0 ? '&amp;ref=' . (int)$ref : ''; ?>">
+        <p>Accept cookies to continue to the game. We use an essential session cookie to keep you signed in. If analytics is enabled, Google Analytics may also use cookies. <a href="/privacy.php">Read our Privacy Policy</a>.</p>
+        <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($cookieConsentToken ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+        <button type="submit">Accept cookies</button>
+    </form>
+</aside>
+<?php } ?>
 </body></html>
 <?php
-    }
 }
 
 // ---------------------------------------------------------------------

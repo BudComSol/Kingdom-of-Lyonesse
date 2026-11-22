@@ -8,12 +8,17 @@ if (($argv[1] ?? '') === '--child') {
     $case = $argv[2];
     $stored = $argv[3];
     $user = ['adm' => $case === 'non-admin' ? 0 : 3];
-    $uid = str_starts_with($case, 'landing') ? 0 : 1;
+    $uid = str_starts_with($case, 'landing') || str_starts_with($case, 'entry-no-consent') ? 0 : 1;
     $queries = [];
     $notice = '';
     $_SESSION = ['dragon_csrf' => 'test-token'];
     $_SERVER['REQUEST_METHOD'] = in_array($case, ['save-on', 'save-off', 'invalid', 'bad-token', 'non-admin'], true) ? 'POST' : 'GET';
-    $_GET = $case === 'landing-help' ? ['help' => '1'] : ($uid ? ['dragon' => '1'] : []);
+    $_GET = $case === 'landing-help'
+        ? ['help' => '1']
+        : (in_array($case, ['entry-no-consent-start', 'entry-no-consent-login'], true)
+            ? ($case === 'entry-no-consent-start' ? ['start' => '1'] : ['login' => '1', 'enter' => ''])
+            : ($uid ? ['dragon' => '1'] : []));
+    $_COOKIE = [];
     $_POST = [
         'csrf_token' => $case === 'bad-token' ? 'wrong' : 'test-token',
         'dragon_enabled' => $case === 'invalid' ? 'invalid' : ($case === 'save-on' ? '1' : '0'),
@@ -70,6 +75,12 @@ foreach (['missing' => true, '1' => true, '0' => false] as $setting => $visible)
 
 [$helpOutput] = runCase('landing-help');
 check(str_contains($helpOutput, '<a href="/" class="tophead cntr">Back to Home</a>'), 'Guest help page missing home link');
+
+foreach (['entry-no-consent-start', 'entry-no-consent-login'] as $case) {
+    [$output, $result] = runCase($case);
+    check($output === '', "$case rendered content instead of requiring consent first");
+    check($result['queries'] === [], "$case reached game-entry logic without consent");
+}
 
 foreach (['save-off' => '0', 'save-on' => '1'] as $case => $expected) {
     [, $result] = runCase($case);

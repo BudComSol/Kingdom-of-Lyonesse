@@ -12,7 +12,7 @@ head("Privacy Policy", $uid);
     <b>Information We Process</b><br><br>
     When you create or use a hero, the game processes your hero name, account credentials, and gameplay information such as character progress, settings, messages, and activity needed to provide the service. Passwords are stored as password hashes, not as plain text.<br><br>
     If you save and link a guest hero, you provide an email address. It is stored with your account and used for account recovery. When a guest hero is created, the game also records the IP address supplied by the web server.<br><br>
-    The game uses a session cookie to keep you signed in. It is configured as HttpOnly and SameSite=Lax, and its lifetime depends on the service configuration.
+    The game uses an essential session cookie to keep you signed in. It is configured as HttpOnly and SameSite=Lax, and its lifetime depends on the service configuration. A separate cookie stores your cookie-consent choice for six months.
 </div>
 
 <div class="tophead">
@@ -22,7 +22,7 @@ head("Privacy Policy", $uid);
 
 <div class="tophead">
     <b>Analytics and External Services</b><br><br>
-    The site may load Google Analytics if the game administrator has enabled it. When enabled, Google may receive information through its analytics service according to Google's own privacy terms. The site also loads fonts from Google Fonts; your browser connects to Google to retrieve those font files. These services may receive technical information such as your IP address and browser details.<br><br>
+    The site may load Google Analytics if the game administrator has enabled it and you have accepted cookies. When enabled, Google may receive information through its analytics service according to Google's own privacy terms. The site also loads fonts from Google Fonts; your browser connects to Google to retrieve those font files. These services may receive technical information such as your IP address and browser details.<br><br>
     The hosting provider may process technical request and error logs as part of operating the website. Their contents and retention depend on the hosting provider's configuration.
 </div>
 
