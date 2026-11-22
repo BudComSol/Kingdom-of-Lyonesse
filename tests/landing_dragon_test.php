@@ -78,11 +78,15 @@ foreach (['missing' => true, '1' => true, '0' => false] as $setting => $visible)
     check(str_contains($output, '<header data-game-landing>'), 'Landing page should request game structured data');
     check(str_contains($output, 'Got An Account - <a href="/?login=1" id="landing-login-button"'), 'Landing login link missing');
     check(str_contains($output, '<a href="/index.php?help=1">How The Mystery Unfolds</a>'), 'Landing help link missing');
+    check(!preg_match('/<\/?center\b/i', $output), 'Landing page uses obsolete center markup');
 }
 
 foreach (['landing-login', 'landing-password', 'landing-reset'] as $case) {
     [$output] = runCase($case);
     check(!str_contains($output, '<header data-game-landing>'), "$case should not request game structured data");
+    check(!preg_match('/<\/?center\b/i', $output), "$case uses obsolete center markup");
+    check(str_contains($output, '<div class="cntr">'), "$case is missing its centered wrapper");
+    check(preg_match('/<\/div>\s*<footer>/', $output) === 1, "$case centered wrapper is not closed before the footer");
 }
 
 [$helpOutput] = runCase('landing-help');
