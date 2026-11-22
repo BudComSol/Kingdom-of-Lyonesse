@@ -1,7 +1,3 @@
-<?php if (!$uid) { ?>
-<a href="/" class="tophead cntr">Back to Home</a>
-<?php } ?>
-
 <div class="tophead2">
     <div class="title cntr"><span class="color">Welcome to Lyonesse</span></div>
     <p>Kingdom of Lyonesse is a browser RPG about growing your hero through battles, quests, equipment, and cooperation. Use this guide to learn the main progression loop and find your way around the game.</p>
@@ -81,3 +77,7 @@
     <a href="/about/tour.php" class="tophead">Royal Tournament Guide</a>
     <a href="?agreee=1" class="tophead">Terms of Service &amp; User Agreement</a>
 </div>
+
+<?php if (!$uid) { ?>
+<a href="/" class="tophead cntr">Back to Home</a>
+<?php } ?>
