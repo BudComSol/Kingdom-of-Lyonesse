@@ -260,7 +260,7 @@ if (!$uid) {
         <a href="/index.php?help=1">How The Mystery Unfolds</a>
     </div>
 </div>
-<center>
+<div class="cntr">
 
 <?php
 if ($login == 1) {
@@ -277,6 +277,7 @@ if ($login == 1) {
     <a class="a" href="/?password=1"><u>Forgot Password?</u></a><br />
     <a class="a" href="/?start=1"><u>New Hero Registration</u></a>
 </form>
+</div>
 <?php
     foot(0);
     exit();
@@ -293,6 +294,7 @@ if (isset($_GET['id']) && isset($_GET['hash'])) {
         New Password:<br><input type="password" name="password" required minlength="3" maxlength="32"><br><br>
         <input type="submit" value="Save Password">
     </form>
+</div>
 </div>
 <?php
     foot(0);
@@ -313,12 +315,13 @@ if ($password == 1) {
     </div>
 </form>
 </div>
+</div>
 <?php
     foot(0);
     exit();
 }
 ?>
-</center>
+</div>
 <?php
     foot(0);
     exit();
