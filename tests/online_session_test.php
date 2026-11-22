@@ -8,7 +8,7 @@ if (($argv[1] ?? '') === '--child') {
     $case = $argv[2];
     if ($case === 'render') {
         function number($value) { return abs((int)$value); }
-        function cnt($sql, $params) { return 2; }
+        function cnt($sql, $params) { return 4; }
         function head($title, $uid) {}
         function foot($uid) {}
         function page($num, $size, $count) { return 0; }
@@ -18,8 +18,10 @@ if (($argv[1] ?? '') === '--child') {
             private $rows;
             public function __construct() {
                 $this->rows = [
-                    ['id' => 1, 'time_on' => time() - 120, 'session_started' => time() - 3700],
-                    ['id' => 2, 'time_on' => time() - 60, 'session_started' => 0],
+                    ['id' => 1, 'time_on' => time() - 120, 'session_started' => time() - 3700, 'time_reg' => time() - 86400, 'ip' => '192.0.2.1'],
+                    ['id' => 2, 'time_on' => time() - 60, 'session_started' => 0, 'time_reg' => time() - 86400, 'ip' => '127.0.0.1'],
+                    ['id' => 3, 'time_on' => time() - 7520 + 86400 * 365 * 5, 'session_started' => 0, 'time_reg' => time() - 7520, 'ip' => '127.0.0.1'],
+                    ['id' => 4, 'time_on' => time() + 86400 * 365 * 5, 'session_started' => 0, 'time_reg' => time(), 'ip' => '192.0.2.1'],
                 ];
             }
             public function bindValue($name, $value, $type) {}
@@ -107,6 +109,7 @@ fclose($pipes[1]);
 fclose($pipes[2]);
 check(proc_close($process) === 0, "Render failed: $errors");
 check(str_contains($output, 'Since: 2 min') && str_contains($output, '>1h 1m</span>'), 'Session or activity was rendered incorrectly');
-check(str_contains($output, 'Session: unavailable'), 'Missing sessions should be shown as unavailable');
+check(preg_match('/Uptime: <span class="session-duration" data-seconds="75[2-4][0-9]">2h 5m<\/span>/', $output) === 1, 'NPC uptime was not rendered from creation');
+check(substr_count($output, 'Session: unavailable') === 2, 'Players without sessions should be shown as unavailable');
 
 echo "Online session tests passed\n";
