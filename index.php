@@ -248,7 +248,7 @@ if (!$uid) {
     }
 
     .landing-content .landing-help a:hover {
-        color: #f1c40f;
+        color: #ff0000;
     }
 </style>
 <div class="landing-content">
