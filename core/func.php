@@ -806,7 +806,7 @@ function foot($uid) {
         <a href="/news.php"><?php if (isset($user['news']) && $user['news'] != 0) echo '<span class="lime">'; ?>News<?php if (isset($user['news']) && $user['news'] != 0) echo '</span>'; ?></a>
         <a href="/chat.php"><?php if (isset($user['chat_check']) && $user['chat_check'] != 0) echo '<span class="lime">'; ?>Chat<?php if (isset($user['chat_check']) && $user['chat_check'] != 0) echo '</span>'; ?></a>
         <a href="/online.php">Online: <?php echo $on; ?></a>
-        <a href="/index.php?help=1">How The Mystery Unfolds</a>
+        <a href="/index.php?help=1">Help</a>
         <a href="/settings.php">Settings</a>
     </div>
 </nav>

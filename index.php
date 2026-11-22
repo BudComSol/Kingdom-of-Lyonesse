@@ -213,8 +213,8 @@ if (!$uid) {
     <div class="title cntr">
        <span>Got An Account - <a href="/?login=1" id="landing-login-button" class="landing-login-button">Login!</a></span>
     </div>
-    <div class="title cntr">
-        <a class="a" href="/index.php?help=1">How The Mystery Unfolds</a>
+    <div class="title cntr landing-help">
+        <a href="/index.php?help=1">How The Mystery Unfolds</a>
     </div>
 </div>
 <center>

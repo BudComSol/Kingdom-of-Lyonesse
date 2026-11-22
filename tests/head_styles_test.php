@@ -2,6 +2,7 @@
 
 function checking($value) { return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8'); }
 function fch($sql, $params = []) { return false; }
+function cnt($sql, $params = []) { return 0; }
 function check($condition, $message) {
     if (!$condition) throw new RuntimeException($message);
 }
@@ -48,5 +49,15 @@ ob_start();
 head('A MMORPG Browser Game', 0);
 $landingHtml = ob_get_clean();
 check(str_contains($landingHtml, '<title>A MMORPG Browser Game - ' . APP_NAME . '</title>'), 'Landing page title missing');
+
+$footerStart = strpos($source, 'function foot(');
+$footerEnd = strpos($source, '// ---------------------------------------------------------------------', $footerStart);
+check($footerStart !== false && $footerEnd !== false, 'Footer function missing');
+eval(substr($source, $footerStart, $footerEnd - $footerStart));
+$user = [];
+ob_start();
+foot(1);
+$footerHtml = ob_get_clean();
+check(str_contains($footerHtml, '<a href="/index.php?help=1">Help</a>'), 'Footer help link missing');
 
 echo "Header stylesheet tests passed\n";
