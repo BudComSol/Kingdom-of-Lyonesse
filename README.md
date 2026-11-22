@@ -121,9 +121,9 @@ All game settings are managed through the `.env` file located in the root direct
 # Application Configuration
 # =====================================================================
 APP_NAME="Kingdom of Lyonesse"
-APP_ENV=production
-APP_DEBUG=false
-APP_KEY=replace_with_a_unique_random_secret_key
+APP_ENV=development
+APP_DEBUG=true
+APP_KEY=[replace_with_a_unique_random_secret_key]
 
 # Use 'auto' for automatic URL detection, or specify your full domain (e.g., https://yourdomain.com)
 BASE_URL=auto
@@ -133,9 +133,9 @@ BASE_URL=auto
 # =====================================================================
 DB_HOST=localhost
 DB_PORT=3306
-DB_NAME=your_database_name
-DB_USER=your_database_user
-DB_PASS=your_secure_password
+DB_NAME=[your_database_name]
+DB_USER=[your_database_user]
+DB_PASS=[your_secure_password]
 DB_CHARSET=utf8mb4
 
 # =====================================================================
