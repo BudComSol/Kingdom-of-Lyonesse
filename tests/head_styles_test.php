@@ -34,6 +34,8 @@ foreach ([0, 1] as $uid) {
     $html = ob_get_clean();
 
     check(!str_contains($html, 'application/ld+json'), 'Structured data should not appear on ordinary pages');
+    check(!str_contains($html, 'property="og:'), 'Social metadata should not appear on ordinary pages');
+    check(!str_contains($html, 'name="twitter:'), 'Twitter metadata should not appear on ordinary pages');
     check(preg_match('/<style>(.*?)<\/style>/s', $html, $matches) === 1, 'Inline stylesheet missing');
     check($matches[1] === $minifiedStylesheet, 'Inline stylesheet differs from minified source');
     check(
@@ -73,6 +75,13 @@ ob_start();
 head('A MMORPG Browser Game', 0, true);
 $landingHtml = ob_get_clean();
 check(str_contains($landingHtml, '<title>A MMORPG Browser Game - ' . APP_NAME . '</title>'), 'Landing page title missing');
+check(str_contains($landingHtml, '<meta property="og:title" content="A MMORPG Browser Game - ' . APP_NAME . '">'), 'Open Graph title missing');
+check(str_contains($landingHtml, '<meta property="og:description" content="Kingdom of Lyonesse modern MMORPG for mobile and desktop.'), 'Open Graph description missing');
+check(str_contains($landingHtml, '<meta property="og:url" content="' . BASE_URL . '/">'), 'Open Graph URL missing');
+check(str_contains($landingHtml, '<meta property="og:image" content="' . BASE_URL . '/images/logo.webp">'), 'Open Graph image missing');
+check(str_contains($landingHtml, '<meta name="twitter:card" content="summary_large_image">'), 'Twitter card type missing');
+check(str_contains($landingHtml, '<meta name="twitter:title" content="A MMORPG Browser Game - ' . APP_NAME . '">'), 'Twitter title missing');
+check(str_contains($landingHtml, '<meta name="twitter:image" content="' . BASE_URL . '/images/logo.webp">'), 'Twitter image missing');
 check(preg_match('/<script type="application\/ld\+json">(.*?)<\/script>/s', $landingHtml, $schemaMatch) === 1, 'Landing page structured data missing');
 $schema = json_decode($schemaMatch[1], true, 512, JSON_THROW_ON_ERROR);
 check($schema['@context'] === 'https://schema.org' && $schema['@type'] === 'VideoGame', 'Incorrect structured data type');

@@ -556,6 +556,18 @@ function head($title, $uid, $gameLanding = false) {
     <meta name="description" content="Kingdom of Lyonesse modern MMORPG for mobile and desktop. Immerse yourself in a medieval fantasy world and become a legendary Knight so come join us NOW!">
     <title><?php echo $title ? $title . ' - ' . APP_NAME : APP_NAME; ?></title>
     <?php if ($gameLanding && $uid <= 0) { ?>
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="<?php echo checking(APP_NAME); ?>">
+    <meta property="og:title" content="<?php echo $title ? $title . ' - ' . checking(APP_NAME) : checking(APP_NAME); ?>">
+    <meta property="og:description" content="Kingdom of Lyonesse modern MMORPG for mobile and desktop. Immerse yourself in a medieval fantasy world and become a legendary Knight so come join us NOW!">
+    <meta property="og:url" content="<?php echo checking(rtrim(BASE_URL, '/') . '/'); ?>">
+    <meta property="og:image" content="<?php echo checking(rtrim(BASE_URL, '/') . '/images/logo.webp'); ?>">
+    <meta property="og:image:alt" content="Kingdom of Lyonesse medieval fantasy MMORPG">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="<?php echo $title ? $title . ' - ' . checking(APP_NAME) : checking(APP_NAME); ?>">
+    <meta name="twitter:description" content="Kingdom of Lyonesse modern MMORPG for mobile and desktop. Immerse yourself in a medieval fantasy world and become a legendary Knight so come join us NOW!">
+    <meta name="twitter:image" content="<?php echo checking(rtrim(BASE_URL, '/') . '/images/logo.webp'); ?>">
+    <meta name="twitter:image:alt" content="Kingdom of Lyonesse medieval fantasy MMORPG">
     <script type="application/ld+json"><?php echo json_encode([
         '@context' => 'https://schema.org',
         '@type' => 'VideoGame',
