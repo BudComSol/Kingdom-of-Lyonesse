@@ -80,6 +80,9 @@ $privacyPosition = strpos($helpOutput, '>Privacy Policy</a>');
 $royalPosition = strpos($helpOutput, '>Royal Tournament Guide</a>');
 $termsPosition = strpos($helpOutput, '>Terms of Service &amp; User Agreement</a>');
 check($privacyPosition !== false && $royalPosition !== false && $termsPosition !== false && $privacyPosition < $royalPosition && $royalPosition < $termsPosition, 'Helpful links are not in alphabetical order');
+$homePosition = strpos($helpOutput, '<a href="/" class="tophead cntr">Back to Home</a>');
+$termsLabelPosition = strpos($helpOutput, '>Terms of Service &amp; User Agreement</a>');
+check($homePosition !== false && $termsLabelPosition !== false && $homePosition > $termsLabelPosition, 'Back to Home link is not at the bottom of the guest help page');
 
 foreach (['entry-no-consent-start', 'entry-no-consent-login'] as $case) {
     [$output, $result] = runCase($case);
