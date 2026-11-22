@@ -75,6 +75,11 @@ foreach (['missing' => true, '1' => true, '0' => false] as $setting => $visible)
 
 [$helpOutput] = runCase('landing-help');
 check(str_contains($helpOutput, '<a href="/" class="tophead cntr">Back to Home</a>'), 'Guest help page missing home link');
+check(str_contains($helpOutput, '<a href="/privacy.php" class="tophead">Privacy Policy</a>'), 'Privacy Policy link missing from help page');
+$privacyPosition = strpos($helpOutput, '>Privacy Policy</a>');
+$royalPosition = strpos($helpOutput, '>Royal Tournament Guide</a>');
+$termsPosition = strpos($helpOutput, '>Terms of Service &amp; User Agreement</a>');
+check($privacyPosition !== false && $royalPosition !== false && $termsPosition !== false && $privacyPosition < $royalPosition && $royalPosition < $termsPosition, 'Helpful links are not in alphabetical order');
 
 foreach (['entry-no-consent-start', 'entry-no-consent-login'] as $case) {
     [$output, $result] = runCase($case);
