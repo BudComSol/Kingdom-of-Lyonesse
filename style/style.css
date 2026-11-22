@@ -1111,8 +1111,12 @@ span.color { color: #ffffff; }
     margin-bottom: 0;
 }
 
+.landing-content > .title {
+    width: min(100%, 335px);
+}
+
 .landing-content .landing-help {
-    margin-top: -30px;
+    margin-top: -55px;
 }
 
 .landing-content .landing-help a {
