@@ -218,6 +218,7 @@ try {
 
         $userCols = $BaseConnect->query("SHOW COLUMNS FROM `users`")->fetchAll(PDO::FETCH_COLUMN);
         $newCols = [
+            'session_started'  => "ALTER TABLE `users` ADD COLUMN `session_started` int(11) NOT NULL DEFAULT 0",
             'id_clan'          => "ALTER TABLE `users` ADD COLUMN `id_clan` int(11) NOT NULL DEFAULT 0",
             'daily_streak'     => "ALTER TABLE `users` ADD COLUMN `daily_streak` int(11) NOT NULL DEFAULT 0",
             'daily_last_claim' => "ALTER TABLE `users` ADD COLUMN `daily_last_claim` int(11) NOT NULL DEFAULT 0",

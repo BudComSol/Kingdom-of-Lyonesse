@@ -60,6 +60,7 @@ foreach (['clans', 'clan_members', 'clan_boss', 'achievements_user', 'arena_chal
     check(str_contains($sql, "CREATE TABLE IF NOT EXISTS `$table`"), "Missing $table migration");
 }
 check(str_contains($sql, 'ADD COLUMN `daily_streak`'), 'Missing user column migration');
+check(str_contains($sql, 'ADD COLUMN `session_started`'), 'Missing online session migration');
 check(!str_contains($sql, 'ADD COLUMN `id_clan`') && !str_contains($sql, 'ADD COLUMN `title`'), 'Existing columns were added again');
 
 [$status, $queries, $errors] = runCase('fail');

@@ -50,13 +50,24 @@ $user_q->bindValue(':limit', (int)$str, PDO::PARAM_INT);
 $user_q->execute();
 
 $i = 1;
+$now = time();
 while ($users = $user_q->fetch(PDO::FETCH_ASSOC)) {
     $class = ($i % 2 == 0) ? 'list2' : 'list';
-    $minutesSinceActive = max(0, (int)floor((time() - (int)$users['time_on']) / 60));
+    $minutesSinceActive = max(0, (int)floor(($now - (int)$users['time_on']) / 60));
+    $sessionStarted = (int)$users['session_started'];
     echo '<div class="' . $class . '">';
     echo '<table style="width:100%;"><tr>';
     echo '<td style="width:70%; text-align:left;">' . user_list($users['id']) . '</td>';
-    echo '<td style="width:30%; text-align:right;"><small>Since: ' . $minutesSinceActive . ' min</small></td>';
+    echo '<td style="width:30%; text-align:right;"><small>Since: ' . $minutesSinceActive . ' min';
+    if ($sessionStarted > 0) {
+        $sessionSeconds = max(0, $now - $sessionStarted);
+        $sessionMinutes = intdiv($sessionSeconds, 60);
+        echo '<br>Session: <span class="session-duration" data-seconds="' . $sessionSeconds . '">'
+            . intdiv($sessionMinutes, 60) . 'h ' . ($sessionMinutes % 60) . 'm</span>';
+    } else {
+        echo '<br>Session: unavailable';
+    }
+    echo '</small></td>';
     echo '</tr></table>';
     echo '</div>';
     $i++;
@@ -64,6 +75,20 @@ while ($users = $user_q->fetch(PDO::FETCH_ASSOC)) {
 
 ppage($url, $num, $str, $result);
 ?>
+<script>
+(() => {
+    const started = performance.now();
+    const durations = document.querySelectorAll('.session-duration');
+    function updateDurations() {
+        const elapsed = Math.floor((performance.now() - started) / 1000);
+        durations.forEach((element) => {
+            const minutes = Math.floor((Number(element.dataset.seconds) + elapsed) / 60);
+            element.textContent = Math.floor(minutes / 60) + 'h ' + (minutes % 60) + 'm';
+        });
+    }
+    if (durations.length) setInterval(updateDurations, 1000);
+})();
+</script>
 <a href="?search=2" class="tophead cntr">🔍 Search for Hero</a>
 <?php
 foot($uid);
