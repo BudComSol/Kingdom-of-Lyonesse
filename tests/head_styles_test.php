@@ -8,6 +8,7 @@ function check($condition, $message) {
 }
 
 define('APP_NAME', 'Kingdom of Lyonesse');
+define('BASE_URL', 'https://example.test');
 $analyticsSetting = false;
 $sourceStylesheet = file_get_contents(__DIR__ . '/../style/style.css');
 $minifiedStylesheet = file_get_contents(__DIR__ . '/../style/style.min.css');
@@ -32,6 +33,7 @@ foreach ([0, 1] as $uid) {
     head('Style test', $uid);
     $html = ob_get_clean();
 
+    check(!str_contains($html, 'application/ld+json'), 'Structured data should not appear on ordinary pages');
     check(preg_match('/<style>(.*?)<\/style>/s', $html, $matches) === 1, 'Inline stylesheet missing');
     check($matches[1] === $minifiedStylesheet, 'Inline stylesheet differs from minified source');
     check(
@@ -68,9 +70,19 @@ check(str_contains($analyticsAfterConsent, 'googletagmanager.com'), 'Analytics d
 
 $user = false;
 ob_start();
-head('A MMORPG Browser Game', 0);
+head('A MMORPG Browser Game', 0, true);
 $landingHtml = ob_get_clean();
 check(str_contains($landingHtml, '<title>A MMORPG Browser Game - ' . APP_NAME . '</title>'), 'Landing page title missing');
+check(preg_match('/<script type="application\/ld\+json">(.*?)<\/script>/s', $landingHtml, $schemaMatch) === 1, 'Landing page structured data missing');
+$schema = json_decode($schemaMatch[1], true, 512, JSON_THROW_ON_ERROR);
+check($schema['@context'] === 'https://schema.org' && $schema['@type'] === 'VideoGame', 'Incorrect structured data type');
+check($schema['name'] === APP_NAME && $schema['url'] === BASE_URL . '/', 'Incorrect game identity or URL');
+check($schema['image'] === BASE_URL . '/images/logo.webp', 'Incorrect game image URL');
+check(!empty($schema['description']) && $schema['genre'] === 'MMORPG' && $schema['gamePlatform'] === 'Web browser', 'Game details missing');
+
+ob_start();
+head('In-game page', 1, true);
+check(!str_contains(ob_get_clean(), 'application/ld+json'), 'Structured data should not appear inside the game');
 
 $footerStart = strpos($source, 'function foot(');
 $footerEnd = strpos($source, '// ---------------------------------------------------------------------', $footerStart);

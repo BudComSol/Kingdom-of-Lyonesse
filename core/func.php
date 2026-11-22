@@ -530,7 +530,7 @@ if ($uid > 0) {
 // ---------------------------------------------------------------------
 // Header Layout
 // ---------------------------------------------------------------------
-function head($title, $uid) {
+function head($title, $uid, $gameLanding = false) {
     global $user;
     $title = checking($title);
     require_once __DIR__ . "/level.php";
@@ -555,6 +555,19 @@ function head($title, $uid) {
     <meta name="keywords" content="Kingdom, Online Game, Castle Siege, RPG, mobile game, MMORPG">
     <meta name="description" content="Kingdom of Lyonesse modern MMORPG for mobile and desktop. Immerse yourself in a medieval fantasy world and become a legendary Knight so come join us NOW!">
     <title><?php echo $title ? $title . ' - ' . APP_NAME : APP_NAME; ?></title>
+    <?php if ($gameLanding && $uid <= 0) { ?>
+    <script type="application/ld+json"><?php echo json_encode([
+        '@context' => 'https://schema.org',
+        '@type' => 'VideoGame',
+        'name' => APP_NAME,
+        'url' => rtrim(BASE_URL, '/') . '/',
+        'image' => rtrim(BASE_URL, '/') . '/images/logo.webp',
+        'description' => 'A medieval fantasy browser MMORPG about growing your hero through battles, quests, equipment, and cooperation.',
+        'genre' => 'MMORPG',
+        'gamePlatform' => 'Web browser',
+        'inLanguage' => 'en',
+    ], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON_THROW_ON_ERROR); ?></script>
+    <?php } ?>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&amp;family=Outfit:wght@300;400;500;600;700&amp;display=swap" media="print" onload="this.onload=null;this.media='all'">

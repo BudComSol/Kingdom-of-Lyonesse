@@ -13,11 +13,15 @@ if (($argv[1] ?? '') === '--child') {
     $notice = '';
     $_SESSION = ['dragon_csrf' => 'test-token'];
     $_SERVER['REQUEST_METHOD'] = in_array($case, ['save-on', 'save-off', 'invalid', 'bad-token', 'non-admin'], true) ? 'POST' : 'GET';
-    $_GET = $case === 'landing-help'
-        ? ['help' => '1']
-        : (in_array($case, ['entry-no-consent-start', 'entry-no-consent-login'], true)
-            ? ($case === 'entry-no-consent-start' ? ['start' => '1'] : ['login' => '1', 'enter' => ''])
-            : ($uid ? ['dragon' => '1'] : []));
+    $_GET = match ($case) {
+        'landing-help' => ['help' => '1'],
+        'landing-login' => ['login' => '1'],
+        'landing-password' => ['password' => '1'],
+        'landing-reset' => ['id' => '1', 'hash' => 'test'],
+        'entry-no-consent-start' => ['start' => '1'],
+        'entry-no-consent-login' => ['login' => '1', 'enter' => ''],
+        default => $uid ? ['dragon' => '1'] : [],
+    };
     $_COOKIE = [];
     $_POST = [
         'csrf_token' => $case === 'bad-token' ? 'wrong' : 'test-token',
@@ -31,8 +35,10 @@ if (($argv[1] ?? '') === '--child') {
         return $stored === 'missing' ? false : ['setting_value' => $stored];
     }
     function qry($sql, $params = []) { $GLOBALS['queries'][] = [$sql, $params]; }
-    function head($title, $uid) { echo '<header></header>'; }
+    function head($title, $uid, $gameLanding = false) { echo $gameLanding ? '<header data-game-landing></header>' : '<header></header>'; }
     function foot($uid) { echo '<footer></footer>'; }
+    function logs() { return ''; }
+    function checking($value) { return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8'); }
     function msg($message) { $GLOBALS['notice'] = $message; }
     function err($message) { $GLOBALS['notice'] = $message; }
 
@@ -69,8 +75,14 @@ foreach (['missing' => true, '1' => true, '0' => false] as $setting => $visible)
     [$output] = runCase('landing', (string)$setting);
     check(str_contains($output, 'class="dragon-sky"') === $visible, "Dragon markup incorrect for $setting");
     check(str_contains($output, 'class="landing-content"') && str_contains($output, 'class="logo"'), 'Landing page missing');
+    check(str_contains($output, '<header data-game-landing>'), 'Landing page should request game structured data');
     check(str_contains($output, 'Got An Account - <a href="/?login=1" id="landing-login-button"'), 'Landing login link missing');
     check(str_contains($output, '<a href="/index.php?help=1">How The Mystery Unfolds</a>'), 'Landing help link missing');
+}
+
+foreach (['landing-login', 'landing-password', 'landing-reset'] as $case) {
+    [$output] = runCase($case);
+    check(!str_contains($output, '<header data-game-landing>'), "$case should not request game structured data");
 }
 
 [$helpOutput] = runCase('landing-help');
