@@ -1,6 +1,6 @@
 /**
  * Kingdom of Lyonesse - RPG Audio & Sound FX Engine
- * Pure Web Audio API procedural sound engine: zero dependencies, zero loading lag, 100% offline & online reliability.
+ * Web Audio API sound effects with a looping background music track.
  */
 
 (function () {
@@ -9,16 +9,18 @@
     class RPGAudioEngine {
         constructor() {
             this.ctx = null;
-            this.bgmGain = null;
             this.sfxGain = null;
             this.masterGain = null;
             this.isBgmPlaying = false;
-            this.bgmInterval = null;
 
             // Settings from localStorage
             this.musicEnabled = localStorage.getItem('lyonesse_music_enabled') !== 'false';
             this.sfxEnabled = localStorage.getItem('lyonesse_sfx_enabled') !== 'false';
             this.volume = parseFloat(localStorage.getItem('lyonesse_volume') || '0.5');
+            this.bgmAudio = new Audio('/audio/first-memory.wav');
+            this.bgmAudio.loop = true;
+            this.bgmAudio.preload = 'none';
+            this.bgmAudio.volume = this.volume * 0.35;
 
             this.initOnFirstInteraction = this.initOnFirstInteraction.bind(this);
             this.attachEventListeners();
@@ -35,17 +37,10 @@
                 this.masterGain.gain.setValueAtTime(this.volume, this.ctx.currentTime);
                 this.masterGain.connect(this.ctx.destination);
 
-                this.bgmGain = this.ctx.createGain();
-                this.bgmGain.gain.setValueAtTime(this.musicEnabled ? 0.35 : 0, this.ctx.currentTime);
-                this.bgmGain.connect(this.masterGain);
-
                 this.sfxGain = this.ctx.createGain();
                 this.sfxGain.gain.setValueAtTime(this.sfxEnabled ? 0.8 : 0, this.ctx.currentTime);
                 this.sfxGain.connect(this.masterGain);
 
-                if (this.musicEnabled) {
-                    this.startAmbientBGM();
-                }
             } else if (this.ctx.state === 'suspended') {
                 this.ctx.resume();
             }
@@ -53,6 +48,7 @@
 
         initOnFirstInteraction() {
             this.initContext();
+            if (this.musicEnabled) this.startAmbientBGM();
             document.removeEventListener('click', this.initOnFirstInteraction);
             document.removeEventListener('keydown', this.initOnFirstInteraction);
             document.removeEventListener('touchstart', this.initOnFirstInteraction);
@@ -219,80 +215,21 @@
         }
 
         // =================================================================
-        // Background Music (Ambient Fantasy Synthesis)
+        // Background Music
         // =================================================================
 
         startAmbientBGM() {
-            if (!this.musicEnabled || !this.ctx || this.isBgmPlaying) return;
+            if (!this.musicEnabled || this.isBgmPlaying) return;
             this.isBgmPlaying = true;
-
-            // Ambient Medieval chords progression (D minor, F major, C major, G minor)
-            const chordProgressions = [
-                [146.83, 220.00, 261.63, 349.23], // Dm9
-                [174.61, 261.63, 329.63, 392.00], // Fmaj7
-                [130.81, 196.00, 246.94, 329.63], // Cmaj9
-                [196.00, 293.66, 349.23, 440.00]  // Gm9
-            ];
-
-            let chordIndex = 0;
-
-            const playNextChord = () => {
-                if (!this.isBgmPlaying || !this.ctx) return;
-
-                const chord = chordProgressions[chordIndex];
-                const now = this.ctx.currentTime;
-                const duration = 5.5;
-
-                chord.forEach((freq, i) => {
-                    const osc = this.ctx.createOscillator();
-                    const gain = this.ctx.createGain();
-                    const filter = this.ctx.createBiquadFilter();
-
-                    osc.type = i % 2 === 0 ? 'sine' : 'triangle';
-                    osc.frequency.setValueAtTime(freq, now);
-
-                    filter.type = 'lowpass';
-                    filter.frequency.setValueAtTime(650 + (i * 120), now);
-
-                    // Soft ambient fade in and fade out
-                    gain.gain.setValueAtTime(0.001, now);
-                    gain.gain.linearRampToValueAtTime(0.035, now + 1.5);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + duration);
-
-                    osc.connect(filter);
-                    filter.connect(gain);
-                    gain.connect(this.bgmGain);
-
-                    osc.start(now);
-                    osc.stop(now + duration);
-                });
-
-                // Gentle plucked harp note over chord
-                const harpNote = chord[Math.floor(Math.random() * chord.length)] * 2;
-                const harpOsc = this.ctx.createOscillator();
-                const harpGain = this.ctx.createGain();
-                harpOsc.type = 'sine';
-                harpOsc.frequency.setValueAtTime(harpNote, now + 0.8);
-                harpGain.gain.setValueAtTime(0.02, now + 0.8);
-                harpGain.gain.exponentialRampToValueAtTime(0.0001, now + 2.8);
-                harpOsc.connect(harpGain);
-                harpGain.connect(this.bgmGain);
-                harpOsc.start(now + 0.8);
-                harpOsc.stop(now + 2.8);
-
-                chordIndex = (chordIndex + 1) % chordProgressions.length;
-            };
-
-            playNextChord();
-            this.bgmInterval = setInterval(playNextChord, 5200);
+            this.bgmAudio.play().catch((error) => {
+                this.isBgmPlaying = false;
+                console.error('Unable to play background music:', error);
+            });
         }
 
         stopAmbientBGM() {
             this.isBgmPlaying = false;
-            if (this.bgmInterval) {
-                clearInterval(this.bgmInterval);
-                this.bgmInterval = null;
-            }
+            this.bgmAudio.pause();
         }
 
         // =================================================================
@@ -303,9 +240,6 @@
             this.initContext();
             this.musicEnabled = !this.musicEnabled;
             localStorage.setItem('lyonesse_music_enabled', this.musicEnabled);
-            if (this.bgmGain && this.ctx) {
-                this.bgmGain.gain.setValueAtTime(this.musicEnabled ? 0.35 : 0, this.ctx.currentTime);
-            }
             if (this.musicEnabled) {
                 this.startAmbientBGM();
             } else {

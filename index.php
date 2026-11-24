@@ -407,10 +407,11 @@ if ($password == 1) {
     }
 
     $pageTitle = match ($tutorialStep) {
+        1 => 'First Memory',
         2 => 'First Encounter',
         3 => 'Battle With The Dragon',
         4, 5, 6, 7, 8, 9 => 'My Time With Elaine',
-        default => $tutorialStep <= 3 ? 'Wandering the Forest' : 'The Town Square',
+        default => 'The Town Square',
     };
     head($pageTitle, $uid);
 
