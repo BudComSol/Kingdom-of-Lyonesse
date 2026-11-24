@@ -13,7 +13,7 @@ if (!$users) {
     exit();
 }
 
-$title = $users['login'];
+$title = $users['login'] . ' Profile';
 $profileCombatStats = effectiveCombatStats($users);
 head($title, $uid);
 
