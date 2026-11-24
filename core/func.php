@@ -859,7 +859,7 @@ function foot($uid) {
 <?php if ($showCookieNotice) { ?>
 <aside class="cookie-notice" id="cookie-notice" role="region" aria-label="Cookie information">
     <form class="cookie-notice-form" method="post" action="/?accept_cookies=1<?php echo ($ref ?? 0) > 0 ? '&amp;ref=' . (int)$ref : ''; ?>">
-        <p>Accept cookies to continue to the game. We use an essential session cookie to keep you signed in. If analytics is enabled, Google Analytics may also use cookies. <a href="/privacy.php">Read our Privacy Policy</a>.</p>
+        <p>Accept cookies to continue to the game. We use an essential session cookie to keep you signed in. If analytics is enabled, Google Analytics may also use cookies. <a href="/privacy.php">Read Privacy Policy</a>.</p>
         <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($cookieConsentToken ?? '', ENT_QUOTES, 'UTF-8'); ?>">
         <button type="submit">Accept cookies</button>
     </form>
