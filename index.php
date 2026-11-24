@@ -299,7 +299,7 @@ if (!$uid) {
     <div class="landing-links">
         <div>Got An Account - <a href="/?login=1" id="landing-login-button" class="landing-login-button">Login!</a></div>
         <h1 class="landing-help">
-            <a href="/index.php?help=1">Kindom Of Lyoness Saga</a>
+            <a href="/index.php?help=1">Kingdom Of Lyoness Story</a>
         </h1>
     </div>
 </div>

@@ -81,8 +81,8 @@ foreach (['missing' => true, '1' => true, '0' => false] as $setting => $visible)
     check(str_contains($output, '0 0 18px var(--gold-glow)'), 'Front page oval should have a gold border glow');
     check(str_contains($output, 'src="/images/button_green.webp"'), 'Landing page should use the WebP battle button');
     check(str_contains($output, 'Got An Account - <a href="/?login=1" id="landing-login-button"'), 'Landing login link missing');
-    check(preg_match('~<h1 class="landing-help">\s*<a href="/index.php\?help=1">Kindom Of Lyoness Saga</a>\s*</h1>~', $output) === 1, 'Landing saga heading or help link missing');
-    check(preg_match('~<div class="landing-links">\s*<div>Got An Account.*?</div>\s*<h1 class="landing-help">.*?Kindom Of Lyoness Saga</a>\s*</h1>\s*</div>~s', $output) === 1, 'Landing links should share one oval banner without generic title styles');
+    check(preg_match('~<h1 class="landing-help">\s*<a href="/index.php\?help=1">Kingdom Of Lyoness Story</a>\s*</h1>~', $output) === 1, 'Landing story heading or help link missing');
+    check(preg_match('~<div class="landing-links">\s*<div>Got An Account.*?</div>\s*<h1 class="landing-help">.*?Kingdom Of Lyoness Story</a>\s*</h1>\s*</div>~s', $output) === 1, 'Landing links should share one oval banner without generic title styles');
     check(!preg_match('/<\/?center\b/i', $output), 'Landing page uses obsolete center markup');
 }
 
