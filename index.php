@@ -406,7 +406,13 @@ if ($password == 1) {
         exit();
     }
 
-    $pageTitle = (int)($user['start'] ?? 1) <= 3 ? 'Wandering the Forest' : 'Kingdom of Lyonesse';
+    $tutorialStep = (int)($user['start'] ?? 1);
+    $pageTitle = match ($tutorialStep) {
+        2 => 'First Encounter',
+        3 => 'Battle With The Dragon',
+        4, 5, 6, 7, 8, 9 => 'My Time With Elaine',
+        default => $tutorialStep <= 3 ? 'Wandering the Forest' : 'Kingdom of Lyonesse',
+    };
     head($pageTitle, $uid);
 
     // Step 1: Tutorial onboarding
