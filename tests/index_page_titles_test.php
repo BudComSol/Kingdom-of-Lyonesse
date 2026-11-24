@@ -27,7 +27,7 @@ if (($argv[1] ?? '') === '--child') {
 }
 
 foreach ([
-    1 => 'Wandering the Forest',
+    1 => 'First Memory',
     2 => 'First Encounter',
     3 => 'Battle With The Dragon',
     4 => 'My Time With Elaine',

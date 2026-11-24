@@ -34,7 +34,7 @@
 | **Database Engine** | MySQL 5.7+ / MariaDB 10.3+ via PDO (`utf8mb4` charset) |
 | **Required PHP Extensions** | `pdo_mysql`, `mbstring`, `json`, `session`, `filter` |
 | **Frontend Technologies** | Semantic HTML5, Vanilla CSS3 (Dark Fantasy Glassmorphism), Vanilla JavaScript |
-| **Audio Engine** | Procedural Web Audio API Synthesizer (`audio.js`) for SFX and background music |
+| **Audio Engine** | Web Audio API sound effects and a looping background music track (`audio.js`) |
 | **Authentication Engine** | `password_hash()` utilizing **BCrypt** with automatic legacy MD5 migration |
 | **Compatible Web Servers** | Apache 2.4+, Nginx, LiteSpeed, OpenLiteSpeed, PHP Built-in Server |
 

@@ -589,7 +589,7 @@ function head($title, $uid, $gameLanding = false) {
     <style><?php echo $stylesheet; ?></style>
     <?php if ($cookieNoticeStylesheet !== '') { ?><style><?php echo $cookieNoticeStylesheet; ?></style><?php } ?>
     <script defer src="/style/toast.js?v=2.2.0"></script>
-    <script defer src="/style/audio.js?v=2.2.0"></script>
+    <script defer src="/style/audio.js?v=2.2.1"></script>
     <meta name="author" content="<?php echo APP_NAME; ?>" />
     <?php
     $analyticsSetting = fch(
