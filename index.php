@@ -214,21 +214,25 @@ if (!$uid) {
     );
 ?>
 <style>
+    .landing-content {
+        gap: 0;
+    }
+
     .landing-content > .landing-links {
         box-sizing: border-box;
         display: flex;
         flex-direction: column;
         justify-content: center;
         gap: 2px;
-        width: min(100%, 335px);
-        min-height: 92px;
-        margin: -52px 0 0;
-        padding: 12px 24px;
+        width: min(100%, 270px);
+        min-height: 84px;
+        margin: 0;
+        padding: 10px 18px;
         font-family: var(--font-heading);
-        font-size: clamp(1rem, 3.8vw, 1.15rem);
+        font-size: clamp(0.85rem, 3.4vw, 1rem);
         font-weight: 700;
-        line-height: 1.2;
-        letter-spacing: 0.06em;
+        line-height: 1.15;
+        letter-spacing: 0.04em;
         color: #fff;
         text-transform: uppercase;
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9), 0 0 14px var(--gold-glow);
