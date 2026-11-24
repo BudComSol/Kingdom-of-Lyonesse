@@ -5,7 +5,7 @@ $title = array(
     '',
     'First Memory',
     'First Encounter',
-    'Battle with the Dragon',
+    'Battle With The Dragon',
     ''
 );
 
