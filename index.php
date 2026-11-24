@@ -227,12 +227,13 @@ if (!$uid) {
         width: min(100%, 270px);
         min-height: 84px;
         margin: 0;
-        padding: 10px 18px;
+        padding: 10px 20px;
         font-family: var(--font-heading);
-        font-size: clamp(0.85rem, 3.4vw, 1rem);
+        font-size: clamp(0.68rem, 2.7vw, 0.78rem);
         font-weight: 700;
         line-height: 1.15;
         letter-spacing: 0.04em;
+        white-space: nowrap;
         color: #fff;
         text-transform: uppercase;
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9), 0 0 14px var(--gold-glow);
