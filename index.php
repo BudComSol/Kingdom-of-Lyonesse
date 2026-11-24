@@ -232,13 +232,12 @@ if (!$uid) {
         font-size: clamp(0.68rem, 2.7vw, 0.78rem);
         font-weight: 700;
         line-height: 1.15;
-        letter-spacing: 0.04em;
         white-space: nowrap;
         color: #fff;
         text-transform: uppercase;
         text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9), 0 0 14px var(--gold-glow);
         background: radial-gradient(ellipse at center, rgba(26, 34, 48, 0.96) 0%, rgba(14, 19, 28, 0.9) 72%, rgba(14, 19, 28, 0.76) 100%);
-        border: 3px solid rgba(212, 175, 55, 0.7);
+        border: 2px solid rgba(212, 175, 55, 0.7);
         border-radius: 50%;
         box-shadow: 0 0 18px var(--gold-glow), 0 6px 20px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12);
     }
