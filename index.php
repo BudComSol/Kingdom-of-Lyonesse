@@ -240,7 +240,7 @@ if (!$uid) {
         background: radial-gradient(ellipse at center, rgba(26, 34, 48, 0.96) 0%, rgba(14, 19, 28, 0.9) 72%, rgba(14, 19, 28, 0.76) 100%);
         border: 3px solid rgba(212, 175, 55, 0.7);
         border-radius: 50%;
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+        box-shadow: 0 0 18px var(--gold-glow), 0 6px 20px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12);
     }
 
     .landing-content .landing-help {
@@ -294,7 +294,7 @@ if (!$uid) {
         <img src="/images/logo.webp" width="320" height="213" alt="Logo" fetchpriority="high">
     </div>    
     <a class="enter_button" href="/?start=1">
-        <img src="/images/button_green.png" width="335" height="88" alt="Battle Button">
+        <img src="/images/button_green.webp" width="335" height="88" alt="Battle Button">
     </a>
     <div class="landing-links">
         <div>Got An Account - <a href="/?login=1" id="landing-login-button" class="landing-login-button">Login!</a></div>
