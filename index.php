@@ -207,7 +207,7 @@ if ($rules == 1) {
 
 if (!$uid) {
     $gameLanding = $login != 1 && $password != 1 && !(isset($_GET['id']) && isset($_GET['hash']));
-    head("A MMORPG Browser Game", 0, $gameLanding);
+    head("Wandering Through The Forest", 0, $gameLanding);
     $dragonSetting = fch(
         "SELECT `setting_value` FROM `site_settings` WHERE `setting_key` = ? LIMIT 1",
         array('landing_dragon_enabled')
