@@ -207,7 +207,7 @@ if ($rules == 1) {
 
 if (!$uid) {
     $gameLanding = $login != 1 && $password != 1 && !(isset($_GET['id']) && isset($_GET['hash']));
-    head("Wandering Through The Forest", 0, $gameLanding);
+    head("A MMORPG Browser Game", 0, $gameLanding);
     $dragonSetting = fch(
         "SELECT `setting_value` FROM `site_settings` WHERE `setting_key` = ? LIMIT 1",
         array('landing_dragon_enabled')
@@ -406,7 +406,8 @@ if ($password == 1) {
         exit();
     }
 
-    head("Kingdom of Lyonesse", $uid);
+    $pageTitle = (int)($user['start'] ?? 1) <= 3 ? 'Wandering the Forest' : 'Kingdom of Lyonesse';
+    head($pageTitle, $uid);
 
     // Step 1: Tutorial onboarding
     if (($user['start'] ?? 1) <= 3) {

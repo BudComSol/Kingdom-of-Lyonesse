@@ -72,15 +72,15 @@ check(str_contains($analyticsAfterConsent, 'googletagmanager.com'), 'Analytics d
 
 $user = false;
 ob_start();
-head('Wandering Through The Forest', 0, true);
+head('A MMORPG Browser Game', 0, true);
 $landingHtml = ob_get_clean();
-check(str_contains($landingHtml, '<title>Wandering Through The Forest - ' . APP_NAME . '</title>'), 'Landing page title missing');
-check(str_contains($landingHtml, '<meta property="og:title" content="Wandering Through The Forest - ' . APP_NAME . '">'), 'Open Graph title missing');
+check(str_contains($landingHtml, '<title>A MMORPG Browser Game - ' . APP_NAME . '</title>'), 'Landing page title missing');
+check(str_contains($landingHtml, '<meta property="og:title" content="A MMORPG Browser Game - ' . APP_NAME . '">'), 'Open Graph title missing');
 check(str_contains($landingHtml, '<meta property="og:description" content="Kingdom of Lyonesse modern MMORPG for mobile and desktop.'), 'Open Graph description missing');
 check(str_contains($landingHtml, '<meta property="og:url" content="' . BASE_URL . '/">'), 'Open Graph URL missing');
 check(str_contains($landingHtml, '<meta property="og:image" content="' . BASE_URL . '/images/logo.webp">'), 'Open Graph image missing');
 check(str_contains($landingHtml, '<meta name="twitter:card" content="summary_large_image">'), 'Twitter card type missing');
-check(str_contains($landingHtml, '<meta name="twitter:title" content="Wandering Through The Forest - ' . APP_NAME . '">'), 'Twitter title missing');
+check(str_contains($landingHtml, '<meta name="twitter:title" content="A MMORPG Browser Game - ' . APP_NAME . '">'), 'Twitter title missing');
 check(str_contains($landingHtml, '<meta name="twitter:image" content="' . BASE_URL . '/images/logo.webp">'), 'Twitter image missing');
 check(preg_match('/<script type="application\/ld\+json">(.*?)<\/script>/s', $landingHtml, $schemaMatch) === 1, 'Landing page structured data missing');
 $schema = json_decode($schemaMatch[1], true, 512, JSON_THROW_ON_ERROR);
