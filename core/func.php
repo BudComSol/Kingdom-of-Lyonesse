@@ -829,10 +829,10 @@ function foot($uid) {
     <table style="width:100%;">
         <tr>
             <td style="width: 50%;" class="cntr">
-                <a class="tophead" href="/" title="The Tutorial"><img src="/style/homes.png" width="65px" height="59px" alt="The Tutorial"></a>
+                <a class="tophead" href="/" title="The Tutorial"><img src="/style/homes.png" width="45px" height="40px" alt="The Tutorial"></a>
             </td>
             <td style="width: 50%;" class="cntr">
-                <a class="tophead" href="/profile.php" title="Your Statistics"><img src="/style/profils.png" width="65px" height="59px" alt="Your Statistics"></a>
+                <a class="tophead" href="/profile.php" title="Your Statistics"><img src="/style/profils.png" width="45px" height="40px" alt="Your Statistics"></a>
             </td>
         </tr>
     </table>
