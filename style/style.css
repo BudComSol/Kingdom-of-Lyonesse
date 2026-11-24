@@ -1114,7 +1114,8 @@ span.color { color: #ffffff; }
 .landing-content > .landing-links {
     width: min(100%, 335px);
     padding: 8px 18px;
-    border: 3px solid var(--border-gold);
+    min-height: 4px;
+    border: 2px solid var(--border-gold);
     border-radius: 50%;
 }
 
