@@ -34,6 +34,11 @@
             </div>
         </a>
 
+        <a class="main_menu_button" href="/exploration.php">
+            <div class="main_menu_button_image"><img src="/images/fight1.png" width="20px" height="20px" alt=""></div>
+            <div class="main_menu_button_content">Expedition Map</div>
+        </a>
+
         <a class="main_menu_button" href="/task.php">
             <div class="main_menu_button_image">
                 <img src="/images/task.png" width="20px" height="20px" alt="">

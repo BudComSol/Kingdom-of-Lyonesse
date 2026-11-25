@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/core/func.php';
+require_once __DIR__ . '/core/exploration.php';
 
 header('Content-Type: application/json; charset=utf-8');
 
@@ -110,6 +111,7 @@ if ($power >= $lec_fight['bot_hp']) {
         $rewardExp = clanRewardAmount($uid, intval($res_rand_win / 2));
         $rewardCoins = clanRewardAmount($uid, $res_rand_win);
         qry("UPDATE `users` SET `exp` = `exp` + ?, `silver` = `silver` + ?, `tour` = `tour` + 1 WHERE `id` = ? LIMIT 1", array($rewardExp, $rewardCoins, $uid));
+        explorationRecordVictory($uid, $lec_fight);
         qry("DELETE FROM `lec_fight` WHERE `id_user` = ?", array($uid));
 
         $droppedItem = null;
@@ -139,6 +141,7 @@ if ($power >= $lec_fight['bot_hp']) {
     echo json_encode([
         'success' => true,
         'status' => 'victory',
+        'exploration' => (int)($lec_fight['exploration_node'] ?? 0) > 0,
         'hero_hp' => max(0, $lec_fight['hp']),
         'hero_max_hp' => max(1, $combatStats['health']),
         'monster_hp' => 0,
@@ -167,6 +170,7 @@ if ($power_opp >= $lec_fight['hp'] && $act8 == 0 && $act9 == 0 && $act14 == 0 &&
     echo json_encode([
         'success' => true,
         'status' => 'defeat',
+        'exploration' => (int)($lec_fight['exploration_node'] ?? 0) > 0,
         'hero_hp' => 0,
         'hero_max_hp' => max(1, $combatStats['health']),
         'monster_hp' => max(0, $lec_fight['bot_hp']),

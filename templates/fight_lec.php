@@ -129,14 +129,40 @@ if (isset($_GET['attack_get'])) {
         $resource = "";
         $matType = $lec_fight['type'];
 
-        qry("UPDATE `users` SET `{$matType}` = `{$matType}` + 1, `kills_boss` = `kills_boss` + 1 WHERE `id` = ? LIMIT 1", array($uid));
-        qry("UPDATE `lec_user` SET `{$matType}` = `{$matType}` + 1 WHERE `id_user` = ? LIMIT 1", array($uid));
-        $resource = "<img src='/images/" . $matType . ".png' width='16' height='16'> +1";
+        $isExploration = (int)($lec_fight['exploration_node'] ?? 0) > 0;
+        if ($isExploration) {
+            require_once __DIR__ . '/../core/exploration.php';
+        }
+        try {
+            if ($isExploration) {
+                $BaseConnect->beginTransaction();
+            }
+            qry("UPDATE `users` SET `{$matType}` = `{$matType}` + 1, `kills_boss` = `kills_boss` + 1 WHERE `id` = ? LIMIT 1", array($uid));
+            qry("UPDATE `lec_user` SET `{$matType}` = `{$matType}` + 1 WHERE `id_user` = ? LIMIT 1", array($uid));
+            $resource = "<img src='/images/" . $matType . ".png' width='16' height='16'> +1";
 
-        $rewardExp = clanRewardAmount($uid, intval($res_rand_win / 2));
-        $rewardCoins = clanRewardAmount($uid, $res_rand_win);
-        qry("UPDATE `users` SET `exp` = `exp` + ?, `silver` = `silver` + ?, `tour` = `tour` + 1 WHERE `id` = ? LIMIT 1", array($rewardExp, $rewardCoins, $uid));
-        qry("DELETE FROM `lec_fight` WHERE `id_user` = ?", array($uid));
+            $rewardExp = clanRewardAmount($uid, intval($res_rand_win / 2));
+            $rewardCoins = clanRewardAmount($uid, $res_rand_win);
+            qry("UPDATE `users` SET `exp` = `exp` + ?, `silver` = `silver` + ?, `tour` = `tour` + 1 WHERE `id` = ? LIMIT 1", array($rewardExp, $rewardCoins, $uid));
+            if ($isExploration) {
+                explorationRecordVictory($uid, $lec_fight);
+            }
+            qry("DELETE FROM `lec_fight` WHERE `id_user` = ?", array($uid));
+            if ($isExploration) {
+                $BaseConnect->commit();
+            }
+        } catch (Throwable $e) {
+            if (!$isExploration) {
+                throw $e;
+            }
+            if ($BaseConnect->inTransaction()) {
+                $BaseConnect->rollBack();
+            }
+            error_log('Forest victory failed: ' . $e->getMessage());
+            err2("Could not complete combat. Please try again.");
+            header('Location: /lec.php');
+            exit();
+        }
 
         msg2("<div class='b-notice trsmgr'><div class='notify-inner'><center>
             <b>Victory! Monster Defeated!</b><br>
@@ -144,7 +170,7 @@ if (isset($_GET['attack_get'])) {
             <img src='/images/gold.png' width='15px' height='15px'> " . $rewardCoins . " Coins &nbsp;|&nbsp;
             <img src='/images/exp.png' width='15px' height='15px'> " . $rewardExp . " Exp
         </center></div></div>");
-        header('Location: /lec.php');
+        header('Location: ' . ($isExploration ? '/exploration.php' : '/lec.php'));
         exit();
     } elseif ($power_opp >= $lec_fight['hp'] && $act8 == 0 && $act9 == 0 && $act14 == 0 && ($lec_fight['clon_hp'] ?? 0) <= 0) { // Defeat
         qry("DELETE FROM `lec_fight` WHERE `id_user` = ?", array($uid));
@@ -157,7 +183,7 @@ if (isset($_GET['attack_get'])) {
             Consolation: <img src='/images/gold.png' width='15px' height='15px'> " . $rewardCoins . " Coins &nbsp;
             <img src='/images/exp.png' width='15px' height='15px'> " . $rewardExp . " Exp
         </center>");
-        header('Location: /lec.php');
+        header('Location: ' . ((int)($lec_fight['exploration_node'] ?? 0) > 0 ? '/exploration.php' : '/lec.php'));
         exit();
     }
 
@@ -340,13 +366,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (data.status === 'victory') {
                 if (window.showToast) window.showToast('🏆 Victory! Monster Slain!', 'success');
                 setTimeout(() => {
-                    window.location.href = '/lec.php';
+                    window.location.href = data.exploration ? '/exploration.php' : '/lec.php';
                 }, 1000);
                 return;
             } else if (data.status === 'defeat') {
                 if (window.showToast) window.showToast('💀 Defeat! Retreating to heal...', 'error');
                 setTimeout(() => {
-                    window.location.href = '/lec.php';
+                    window.location.href = data.exploration ? '/exploration.php' : '/lec.php';
                 }, 1000);
                 return;
             }

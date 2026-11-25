@@ -43,6 +43,7 @@
 ## ⚔️ Key Gameplay Features
 
 * **Dynamic Real-Time Combat (AJAX):** Turn-based Dark Forest encounters featuring floating combat text (`-120 💥 CRIT!`, `+45 💚`), smooth health bar transitions, tactile audio effects, and direct boss loot drops without full-page reloads. Dropped equipment retains its item's set rarity and slot.
+* **Expedition Map:** Discover five Dark Forest landmarks in order. Expeditions use Forest Energy and existing combat; victories permanently reveal each player's map and its stories.
 * **Guild & Clan System:** Clan creation, Clan Hall, member hierarchy (Leader, Officer, Member), passive clan buffs (`+5%` to `+25%` earned Coins and Exp), and cooperative battles against the **Weekly Clan Raid Boss** (*Ancient Abyssal Leviathan*).
 * **Inventory & Crafting Hub:** 8 equipment slots, 5 rarity tiers (Common, Rare, Epic, Legendary, Mythic), blacksmith forging (+1 to +10), rune socketing, 1-click batch item dismantling, and working **4-Piece / 8-Piece Set Resonance Bonuses** to Power and Health (plus Critical Strike at 8 pieces).
 * **Daily Engagement & Progression:** 7-day progressive daily login streak calendar, real-time energy ticker countdowns, and a 10-tier Hero Achievement & Equipable Title system.
@@ -75,6 +76,7 @@
 ├── item.php                  <- Equipment manager, stat inspector & Set Resonance indicators
 ├── bag.php                   <- Backpack inventory, item comparison & 1-click batch dismantle
 ├── lec.php                   <- Dark Forest hunting grounds & zone monster selector
+├── exploration.php           <- Persistent Dark Forest expedition map
 ├── arena.php                 <- Asynchronous player challenges, duel results & rewards
 ├── daily.php                 <- 7-Day progressive daily login rewards calendar
 ├── achievements.php          <- Hero achievement tracker & equipable title registry
@@ -200,7 +202,7 @@ Fresh installs start player IDs at 1. Deleting rows from an existing `users` tab
    - In cPanel $\rightarrow$ **Select PHP Version** (or MultiPHP Manager), set PHP to **8.1 or 8.2**.
    - Verify that `pdo_mysql`, `mbstring`, and `json` extensions are enabled.
 
-6. **Finish setup:** The imported `database.sql` includes the current schema, so no migration command is needed for a fresh install. Register a hero account, then promote it to administrator in phpMyAdmin using the FAQ instructions below. When upgrading an existing installation, back up the database and run `php migrate.php` from a terminal in the game directory. The configured database user needs permission to create tables and alter `users`.
+6. **Finish setup:** The imported `database.sql` includes the current schema, so no migration command is needed for a fresh install. Register a hero account, then promote it to administrator in phpMyAdmin using the FAQ instructions below. When upgrading an existing installation, back up the database and run `php migrate.php` from a terminal in the game directory. The configured database user needs permission to create tables and alter `users` and `lec_fight`.
 
 The included `.htaccess` sets frame, MIME-sniffing, referrer, and permissions policies and sends HSTS on HTTPS responses. Enable Apache `mod_headers` and allow `.htaccess` header directives, or enable equivalent LiteSpeed support. Server-level redirects or responses generated before `.htaccess` is processed need the same headers configured at the server or proxy. When TLS terminates at a proxy or CDN, configure HSTS at that HTTPS edge rather than trusting a client-supplied forwarding header. HSTS applies for one year to the current host; enable it only when HTTPS is reliable. Verify the headers on the public HTTPS response.
 

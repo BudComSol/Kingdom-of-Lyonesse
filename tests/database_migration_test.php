@@ -51,16 +51,17 @@ function runCase($case) {
 }
 
 [$status, $queries, $errors] = runCase('request');
-check($status === 0 && count($queries) === 1 && str_starts_with($queries[0], 'SET NAMES'), "Request ran schema work: $errors");
+check($status === 0 && $queries === ['SET NAMES utf8mb4', "SET time_zone = '+09:30'"], "Request ran schema work: $errors");
 
 [$status, $queries, $errors] = runCase('migrate');
 check($status === 0 && is_array($queries), "Migration failed: $errors");
 $sql = implode("\n", $queries);
-foreach (['clans', 'clan_members', 'clan_boss', 'achievements_user', 'arena_challenges', 'site_settings', 'paypal_orders'] as $table) {
+foreach (['clans', 'clan_members', 'clan_boss', 'achievements_user', 'arena_challenges', 'site_settings', 'paypal_orders', 'exploration_progress'] as $table) {
     check(str_contains($sql, "CREATE TABLE IF NOT EXISTS `$table`"), "Missing $table migration");
 }
 check(str_contains($sql, 'ADD COLUMN `daily_streak`'), 'Missing user column migration');
 check(str_contains($sql, 'ADD COLUMN `session_started`'), 'Missing online session migration');
+check(str_contains($sql, 'ADD COLUMN `exploration_node`'), 'Missing exploration fight migration');
 check(!str_contains($sql, 'ADD COLUMN `id_clan`') && !str_contains($sql, 'ADD COLUMN `title`'), 'Existing columns were added again');
 
 [$status, $queries, $errors] = runCase('fail');

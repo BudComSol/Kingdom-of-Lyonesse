@@ -231,6 +231,18 @@ try {
             if (!in_array($col, $userCols)) {
                 $BaseConnect->exec($alterSql);
             }
+            $fightCols = $BaseConnect->query("SHOW COLUMNS FROM `lec_fight`")->fetchAll(PDO::FETCH_COLUMN);
+            if (!in_array('exploration_node', $fightCols, true)) {
+                $BaseConnect->exec("ALTER TABLE `lec_fight` ADD COLUMN `exploration_node` int(11) NOT NULL DEFAULT 0");
+            }
+            $BaseConnect->exec("
+                CREATE TABLE IF NOT EXISTS `exploration_progress` (
+                  `user_id` int(11) NOT NULL,
+                  `node_id` int(11) NOT NULL,
+                  `discovered_at` int(11) NOT NULL,
+                  PRIMARY KEY (`user_id`, `node_id`)
+                ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+            ");
         }
         $BaseConnect->exec("
             CREATE TABLE IF NOT EXISTS `arena_challenges` (

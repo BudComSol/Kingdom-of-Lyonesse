@@ -27,7 +27,7 @@ function fch($sql, $params = []) {
 if (($argv[1] ?? '') === '--child') {
     $case = $argv[2];
     $uid = 1;
-    $user = ['id' => 1, 'login' => 'Knight'];
+    $user = ['id' => 1, 'login' => 'Knight', 'lec' => 1];
     $fight = [
         'id' => 1, 'id_bot' => 1, 'name' => 'Monster', 'type' => 'metal',
         'bot_power' => 12, 'bot_block' => 10, 'bot_hp' => 1000, 'power' => 120,
@@ -35,6 +35,7 @@ if (($argv[1] ?? '') === '--child') {
         's2' => 1, 'fight_time' => 0,
     ];
     $_GET = [];
+    if ($case === 'active-attack') $_GET['attack'] = 1;
     if (in_array($case, ['strike', 'victory', 'defeat', 'cooldown'], true)) $_GET['attack_get'] = '';
     if (in_array($case, ['invalid-skill', 'full-health', 'skill'], true)) $_GET['skill'] = 1;
     if ($case === 'victory') $fight['bot_hp'] = 1;
@@ -64,7 +65,7 @@ function check($condition, $message) {
     if (!$condition) throw new RuntimeException($message);
 }
 
-foreach (['strike', 'victory', 'defeat', 'cooldown', 'invalid-skill', 'full-health', 'skill', 'expired', 'view'] as $case) {
+foreach (['strike', 'victory', 'defeat', 'cooldown', 'invalid-skill', 'full-health', 'skill', 'expired', 'view', 'active-attack'] as $case) {
     $process = proc_open([PHP_BINARY, '-d', 'xdebug.mode=off', '-d', 'output_buffering=0', __FILE__, '--child', $case],
         [1 => ['pipe', 'w'], 2 => ['pipe', 'w']], $pipes);
     check(is_resource($process), "Could not start $case");
@@ -77,10 +78,11 @@ foreach (['strike', 'victory', 'defeat', 'cooldown', 'invalid-skill', 'full-heal
     $result = json_decode($matches[1], true);
     check(is_array($result), "$case returned invalid result");
     check(!str_contains($errors, 'Warning') && !str_contains($errors, 'Fatal error'), "$case emitted an error: $errors");
-    if ($case === 'view') {
+    if ($case === 'view' || $case === 'active-attack') {
         check(str_contains($output, '<header>Combat header</header>'), 'Combat header missing');
         check(str_contains($output, 'URL=lec.php?attack_get'), 'Automatic attack refresh missing');
         check(str_contains($output, 'id="monster-card"') && str_contains($output, '<footer>Combat footer</footer>'), 'Combat view incomplete');
+        if ($case === 'active-attack') check(count($result['queries']) === 0, 'An active fight was replaced');
         continue;
     }
 
