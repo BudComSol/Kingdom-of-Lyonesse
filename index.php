@@ -253,7 +253,7 @@ if (!$uid) {
         gap: 2px;
         width: min(100%, 270px);
         min-height: 48px;
-        margin: 8px 0 0;
+        margin: 40px 0 0;
         padding: 6px 20px;
         font-family: var(--font-heading);
         font-size: clamp(0.68rem, 2.7vw, 0.78rem);
