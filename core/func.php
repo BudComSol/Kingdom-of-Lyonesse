@@ -693,6 +693,10 @@ if ($user && isset($user['start']) && $user['start'] >= 4) {
             <div class="sidebar_nav_icon_wrap"><img src="/images/records.png" width="22px" height="22px" alt="Achievements"></div>
             <span class="sidebar_nav_text">Achievements</span>
         </a>
+        <a class="sidebar_nav_item" href="/bag.php">
+            <div class="sidebar_nav_icon_wrap"><img src="/images/bag.png" width="22px" height="22px" alt="Backpack"></div>
+            <span class="sidebar_nav_text">Backpack</span>
+        </a>
         <a class="sidebar_nav_item" href="/clan.php">
             <div class="sidebar_nav_icon_wrap"><img src="/style/clan.png" width="22px" height="22px" alt="Clan"></div>
             <span class="sidebar_nav_text">Clan Castle</span>
@@ -700,10 +704,6 @@ if ($user && isset($user['start']) && $user['start'] >= 4) {
         <a class="sidebar_nav_item" href="/daily.php">
             <div class="sidebar_nav_icon_wrap"><img src="/images/cup.png" width="22px" height="22px" alt="Daily"></div>
             <span class="sidebar_nav_text">Daily Rewards</span>
-        </a>
-        <a class="sidebar_nav_item" href="/privacy.php">
-            <div class="sidebar_nav_icon_wrap" aria-hidden="true">🛡️</div>
-            <span class="sidebar_nav_text">Privacy Page</span>
         </a>
         <a class="sidebar_nav_item" href="/index.php">
             <div class="sidebar_nav_icon_wrap"><img src="/style/home.png" width="22px" height="22px" alt="Town Hall"></div>
