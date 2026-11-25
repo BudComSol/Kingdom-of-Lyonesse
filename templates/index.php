@@ -10,18 +10,18 @@
         </a>
     </div>
 
+    <a class="tower-preview-btn edge-offset" href="/bordello.php" style="background-image: url('/images/bordello.svg');">
+        <div class="tower-preview-btn__title button-2019 button-2019_tower">
+            <div class="button-2019__content">Bordello</div>
+        </div>
+    </a>
+
     <a class="tower-preview-btn2 edge-offset" id="tower2" href="/tavern.php">
         <div class="tower-preview-btn__icon icon-tower">
             <div class="icon-tower__content"></div>
         </div>
         <div class="tower-preview-btn__title button-2019 button-2019_tower">
             <div class="button-2019__content">Tavern</div>
-        </div>
-    </a>
-
-    <a class="tower-preview-btn edge-offset" href="/bordello.php" style="background-image: url('/images/bordello.svg');">
-        <div class="tower-preview-btn__title button-2019 button-2019_tower">
-            <div class="button-2019__content">Bordello</div>
         </div>
     </a>
 </div>
