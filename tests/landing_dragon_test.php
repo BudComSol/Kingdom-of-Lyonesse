@@ -83,8 +83,9 @@ foreach (['missing' => true, '1' => true, '0' => false] as $setting => $visible)
     check(preg_match('/\.logo-art-slot\s+\.css-logo\s*\{[^}]*position:\s*absolute;[^}]*transform:\s*scaleY\(0\.85\);/s', $output) === 1, 'CSS artwork must fit inside the original logo slot');
     check(str_contains($output, 'class="dragon-snort"'), 'CSS logo breath missing');
     check(str_contains($output, '<header data-game-landing>'), 'Landing page should request game structured data');
-    check(preg_match('/\.landing-content\s*\{\s*gap:\s*0;?\s*\}/', $output) === 1, 'Front page landing content should have no flex gap');
-    check(preg_match('/\.landing-content\s*>\s*\.landing-links\s*\{[^}]*width:\s*min\(100%,\s*270px\);[^}]*margin:\s*0;[^}]*font-size:\s*clamp\(0\.68rem,\s*2\.7vw,\s*0\.78rem\);[^}]*white-space:\s*nowrap;/s', $output) === 1, 'Front page oval links should be 270px wide with smaller, single-line text and sit directly beneath the button');
+    check(preg_match('/\.landing-content\s*\{\s*gap:\s*8px;?\s*\}/', $output) === 1, 'Front page should have an 8px gap between the logo and Play As Guest button');
+    check(preg_match('/\.landing-content\s*>\s*\.enter_button\s*\{\s*width:\s*min\(100%,\s*270px\);\s*height:\s*48px;?\s*\}/', $output) === 1, 'Play As Guest button should match the oval links width and height');
+    check(preg_match('/\.landing-content\s*>\s*\.landing-links\s*\{[^}]*width:\s*min\(100%,\s*270px\);[^}]*margin:\s*8px\s+0\s+0;[^}]*font-size:\s*clamp\(0\.68rem,\s*2\.7vw,\s*0\.78rem\);[^}]*white-space:\s*nowrap;/s', $output) === 1, 'Front page oval links should have a 16px gap below the button and remain 270px wide with smaller, single-line text');
     check(preg_match('/\.landing-content\s*>\s*\.landing-links\s*\{[^}]*border:\s*2px\s+solid/s', $output) === 1, 'Front page oval links should have a 2px border');
     check(!preg_match('/\.landing-content\s*>\s*\.landing-links\s*\{[^}]*letter-spacing:/s', $output), 'Front page oval links should not set letter spacing');
     check(str_contains($output, '0 0 18px var(--gold-glow)'), 'Front page oval should have a gold border glow');
