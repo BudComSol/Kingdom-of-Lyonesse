@@ -1,0 +1,506 @@
+.preview-page,
+.preview-page * {
+    box-sizing: border-box;
+}
+
+html.logo-preview,
+html.logo-preview body {
+    min-height: 100%;
+    margin: 0;
+}
+
+html.logo-preview body {
+    background: #242025;
+}
+
+.preview-page {
+    display: grid;
+    min-height: 100vh;
+    min-height: 100svh;
+    place-items: center;
+    overflow: hidden;
+    background:
+        radial-gradient(ellipse at 50% 43%, rgba(160, 101, 57, 0.24), transparent 52%),
+        radial-gradient(ellipse at center, #433a39 0%, #242025 75%);
+}
+
+.css-logo {
+    position: relative;
+    width: min(90vw, 440px);
+    aspect-ratio: 1.277 / 1;
+    isolation: isolate;
+    container-type: inline-size;
+    filter: drop-shadow(0 7px 10px rgba(0, 0, 0, 0.6));
+}
+
+.css-logo .dragon {
+    position: absolute;
+    inset: 0 0 42%;
+    z-index: 3;
+    filter: drop-shadow(0 2px 2px #280c0b);
+}
+
+.css-logo .wing {
+    position: absolute;
+    z-index: 1;
+    filter: drop-shadow(1px 2px 1px #44070b);
+}
+
+.css-logo .wing::after {
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse at 30% 25%, rgba(255, 197, 149, 0.6), transparent 40%),
+        repeating-radial-gradient(ellipse at 30% 20%, transparent 0 3px, rgba(48, 0, 5, 0.14) 4px 5px);
+    mix-blend-mode: soft-light;
+    content: "";
+}
+
+.css-logo .wing-left {
+    top: 0;
+    left: 0;
+    width: 47%;
+    height: 61%;
+    background:
+        radial-gradient(ellipse 4% 8% at 0% 99%, #fff8df 0%, #efd0a9 45%, transparent 100%),
+        radial-gradient(ellipse 3% 7% at 32% 67%, #fff8df 0%, #efd0a9 45%, transparent 100%),
+        radial-gradient(ellipse 3% 7% at 53% 71%, #fff8df 0%, #efd0a9 45%, transparent 100%),
+        radial-gradient(ellipse 3% 7% at 73% 80%, #fff8df 0%, #efd0a9 45%, transparent 100%),
+        radial-gradient(ellipse 3% 7% at 91% 91%, #fff8df 0%, #efd0a9 45%, transparent 100%),
+        linear-gradient(153deg, transparent 42%, rgba(255, 143, 97, 0.65) 43%, #77131b 45%, transparent 47%),
+        linear-gradient(126deg, transparent 57%, rgba(255, 127, 80, 0.4) 58%, #6f1018 60%, transparent 62%),
+        radial-gradient(ellipse at 68% 12%, #f56c4a, #b91820 47%, #5d0b13 100%);
+    clip-path: polygon(0 99%, 4% 76%, 11% 57%, 20% 39%, 30% 23%, 42% 10%, 54% 2%, 64% 0, 72% 5%, 77% 3%, 81% 6%, 83% 12%, 82% 18%, 88% 30%, 100% 59%, 91% 91%, 85% 72%, 82% 68%, 78% 68%, 75% 72%, 73% 80%, 71% 67%, 68% 60%, 64% 57%, 59% 58%, 55% 63%, 53% 71%, 51% 59%, 48% 53%, 44% 51%, 39% 52%, 35% 58%, 32% 67%, 30% 57%, 27% 53%, 23% 53%, 18% 58%, 11% 71%, 5% 87%);
+}
+
+.css-logo .wing-right {
+    top: 0;
+    right: 0;
+    width: 52%;
+    height: 100%;
+    background:
+        radial-gradient(ellipse 3% 5% at 27% 63%, #fff8df 0%, #efd0a9 45%, transparent 100%),
+        radial-gradient(ellipse 3% 5% at 45% 62%, #fff8df 0%, #efd0a9 45%, transparent 100%),
+        radial-gradient(ellipse 3% 5% at 63% 65%, #fff8df 0%, #efd0a9 45%, transparent 100%),
+        radial-gradient(ellipse 3% 5% at 89% 92%, #fff8df 0%, #efd0a9 45%, transparent 100%),
+        radial-gradient(ellipse 3% 5% at 95% 70%, #fff8df 0%, #efd0a9 45%, transparent 100%),
+        radial-gradient(ellipse 3% 5% at 100% 54%, #fff8df 0%, #efd0a9 45%, transparent 100%),
+        linear-gradient(26deg, transparent 48%, rgba(255, 132, 92, 0.6) 49%, #6d1017 50%, transparent 52%),
+        linear-gradient(43deg, transparent 55%, rgba(255, 137, 90, 0.6) 56%, #6b0d16 57%, transparent 59%),
+        linear-gradient(62deg, transparent 59%, rgba(255, 136, 88, 0.52) 60%, #720d15 61%, transparent 63%),
+        radial-gradient(ellipse at 22% 12%, #f77554 0%, #d22427 36%, #790d16 79%, #47090f 100%);
+    clip-path: polygon(0 58%, 10% 41%, 17% 27%, 21% 15%, 21% 8%, 18% 5%, 21% 2%, 25% 1%, 30% 4%, 38% 4%, 52% 7%, 67% 13%, 79% 22%, 89% 32%, 96% 43%, 100% 54%, 96% 50%, 91% 46%, 88% 44%, 90% 51%, 93% 60%, 95% 70%, 91% 65%, 87% 61%, 84% 61%, 86% 69%, 88% 80%, 89% 92%, 86% 82%, 83% 73%, 79% 65%, 75% 59%, 71% 56%, 67% 56%, 64% 59%, 63% 65%, 60% 58%, 57% 54%, 53% 52%, 49% 53%, 46% 57%, 45% 62%, 42% 56%, 39% 52%, 35% 50%, 31% 52%, 28% 57%, 27% 63%, 23% 55%, 20% 53%, 16% 58%, 10% 73%, 5% 85%);
+}
+
+.css-logo .wing-spine-tip {
+    position: absolute;
+    top: -5%;
+    z-index: 2;
+    width: 5%;
+    height: 13%;
+    background: linear-gradient(165deg, #fff7db 4%, #edc79b 22%, #df5b40 40%, #a91a20 75%, #6f1018 100%);
+    clip-path: polygon(8% 0, 38% 14%, 58% 32%, 65% 62%, 78% 100%, 34% 100%, 36% 63%, 32% 38%, 23% 20%);
+}
+
+.css-logo .wing-spine-tip-left {
+    left: 34.5%;
+}
+
+.css-logo .wing-spine-tip-right {
+    left: 56.5%;
+    transform: scaleX(-1);
+}
+
+.css-logo .dragon-body {
+    position: absolute;
+    top: 49%;
+    left: 47%;
+    z-index: 4;
+    width: 23%;
+    height: 31%;
+    border-radius: 50% 48% 47% 54%;
+    background:
+        radial-gradient(ellipse at 30% 22%, rgba(255, 162, 103, 0.72), transparent 30%),
+        repeating-radial-gradient(ellipse at 55% 25%, transparent 0 3px, rgba(67, 8, 12, 0.32) 4px 5px, transparent 6px 8px),
+        linear-gradient(140deg, #e95c3d, #a5161c 60%, #4c090e);
+    box-shadow: inset 2px 2px 3px #f1845a, inset -5px -5px 7px #47070d;
+    transform: rotate(35deg);
+}
+
+.css-logo .dragon-body::after {
+    position: absolute;
+    top: 12%;
+    left: 10%;
+    width: 80%;
+    height: 64%;
+    border-top: 2px solid rgba(255, 188, 120, 0.65);
+    border-radius: 50%;
+    content: "";
+    transform: rotate(4deg);
+}
+
+.css-logo .dragon-back-spines {
+    position: absolute;
+    top: 53%;
+    left: 59%;
+    z-index: 5;
+    width: 14%;
+    height: 24%;
+    background: linear-gradient(140deg, #f8ad72, #bc3127 45%, #6e0d15);
+    clip-path: polygon(0 0, 17% 12%, 28% 7%, 26% 19%, 43% 17%, 38% 29%, 55% 28%, 48% 40%, 67% 42%, 57% 51%, 77% 55%, 64% 62%, 83% 70%, 69% 73%, 88% 84%, 65% 81%, 46% 65%, 31% 52%, 10% 40%);
+}
+
+.css-logo .tail {
+    position: absolute;
+    top: 55%;
+    left: 59%;
+    z-index: 3;
+    width: 22%;
+    height: 32%;
+    background: linear-gradient(160deg, #f1935b 0%, #c7342b 40%, #7a1018 70%, #e39b66 100%);
+    clip-path: polygon(0 0, 20% 8%, 37% 20%, 50% 35%, 60% 54%, 67% 71%, 75% 80%, 85% 84%, 100% 80%, 94% 88%, 84% 95%, 72% 96%, 62% 91%, 52% 80%, 43% 63%, 34% 49%, 23% 39%, 10% 33%, 0 33%);
+}
+
+.css-logo .dragon-neck {
+    position: absolute;
+    top: 29%;
+    left: 34%;
+    z-index: 5;
+    width: 25%;
+    height: 45%;
+    background:
+        radial-gradient(ellipse at 57% 83%, #f1ac6d 0%, transparent 28%),
+        repeating-radial-gradient(ellipse at 44% 51%, transparent 0 4px, rgba(255, 184, 124, 0.2) 5px 6px, transparent 7px 9px),
+        linear-gradient(145deg, #f58b57, #b52022 45%, #50090f);
+    clip-path: polygon(0 50%, 9% 36%, 20% 24%, 32% 16%, 44% 14%, 56% 17%, 66% 25%, 73% 38%, 77% 51%, 81% 66%, 89% 77%, 100% 83%, 93% 100%, 78% 96%, 68% 87%, 61% 74%, 56% 61%, 52% 47%, 48% 39%, 42% 34%, 34% 35%, 26% 40%, 15% 57%, 8% 64%);
+}
+
+.css-logo .dragon-chest {
+    position: absolute;
+    top: 55%;
+    left: 49%;
+    z-index: 6;
+    width: 10%;
+    height: 20%;
+    border-radius: 35% 50% 50% 50%;
+    background:
+        repeating-linear-gradient(165deg, transparent 0 3px, rgba(102, 41, 25, 0.28) 4px 5px),
+        linear-gradient(100deg, #d98b5b, #a82f25 65%, #711117);
+    transform: rotate(-23deg);
+}
+
+.css-logo .dragon-shoulder {
+    position: absolute;
+    top: 57%;
+    left: 43%;
+    z-index: 5;
+    width: 13%;
+    height: 18%;
+    border-radius: 50% 45% 45% 55%;
+    background: linear-gradient(135deg, #ed8656, #a91c20 55%, #5b0d13);
+    box-shadow: inset 1px 2px 3px rgba(255, 183, 120, 0.6);
+    transform: rotate(-28deg);
+}
+
+.css-logo .dragon-spines {
+    position: absolute;
+    top: 28%;
+    left: 33%;
+    z-index: 6;
+    width: 25%;
+    height: 24%;
+    background: linear-gradient(145deg, #f9d09b 0%, #e7744c 23%, #a0151b 65%, #600c13);
+    clip-path: polygon(0 80%, 8% 55%, 8% 34%, 15% 46%, 20% 11%, 24% 36%, 34% 0, 33% 29%, 48% 1%, 43% 27%, 57% 7%, 52% 31%, 67% 17%, 61% 39%, 75% 29%, 68% 49%, 81% 43%, 76% 61%, 89% 57%, 84% 74%, 100% 84%, 96% 100%, 74% 82%, 62% 59%, 48% 47%, 34% 46%, 18% 68%, 8% 100%);
+}
+
+.css-logo .dragon-leg {
+    position: absolute;
+    top: 65%;
+    z-index: 5;
+    width: 13%;
+    height: 26%;
+    background:
+        radial-gradient(ellipse 6% 9% at 20% 94%, #fff0cb 0%, #e7c39a 60%, transparent 100%),
+        radial-gradient(ellipse 6% 9% at 37% 95%, #fff0cb 0%, #e7c39a 60%, transparent 100%),
+        radial-gradient(ellipse 6% 8% at 51% 89%, #fff0cb 0%, #e7c39a 60%, transparent 100%),
+        radial-gradient(ellipse at 43% 25%, #f08e5b, transparent 30%),
+        linear-gradient(115deg, #df6143, #a71c20 55%, #570b10);
+    clip-path: polygon(34% 0, 78% 3%, 84% 17%, 75% 30%, 57% 40%, 43% 52%, 34% 66%, 37% 72%, 47% 68%, 54% 74%, 56% 84%, 51% 91%, 48% 81%, 42% 79%, 38% 86%, 38% 97%, 31% 91%, 30% 81%, 25% 80%, 22% 86%, 21% 96%, 15% 89%, 15% 77%, 23% 61%, 27% 45%, 39% 27%, 25% 21%);
+    filter: drop-shadow(1px 2px 1px #44090e);
+}
+
+.css-logo .dragon-leg-back {
+    left: 61%;
+    transform: rotate(18deg);
+}
+
+.css-logo .dragon-leg-front {
+    left: 39%;
+    top: 60%;
+    transform: rotate(12deg);
+}
+
+.css-logo .dragon-leg-middle {
+    left: 51%;
+    top: 68%;
+    transform: rotate(10deg);
+}
+
+.css-logo .dragon-head {
+    position: absolute;
+    top: 40%;
+    left: 31.5%;
+    z-index: 7;
+    width: 13.5%;
+    height: 17%;
+    border-radius: 32% 60% 48% 35%;
+    background:
+        radial-gradient(ellipse at 34% 26%, #efa36c, transparent 27%),
+        linear-gradient(155deg, #e88255, #a72120 50%, #520a10);
+    box-shadow: inset 1px 1px 2px #efb47d, inset -2px -3px 4px #4e0a0f;
+    transform: rotate(-17deg);
+}
+
+.css-logo .dragon-head::before {
+    position: absolute;
+    top: 38%;
+    left: 16%;
+    width: 39%;
+    height: 15%;
+    border-top: 2px solid #692019;
+    border-radius: 50%;
+    content: "";
+    transform: rotate(-8deg);
+}
+
+.css-logo .dragon-horn {
+    position: absolute;
+    top: -53%;
+    right: -25%;
+    width: 112%;
+    height: 78%;
+    background: linear-gradient(145deg, #fff0ba, #e5a56d 37%, #9a3022 88%);
+    clip-path: polygon(0 100%, 8% 36%, 13% 73%, 34% 9%, 29% 72%, 56% 0, 47% 70%, 83% 6%, 65% 80%, 100% 39%, 79% 100%);
+}
+
+.css-logo .dragon-eye {
+    position: absolute;
+    z-index: 4;
+    top: 37.5%;
+    left: 22%;
+    width: 12%;
+    height: 9%;
+    border-radius: 50%;
+    background: radial-gradient(ellipse at center, #ffdd61 0 25%, #664019 30%, #1b0908 45% 100%);
+}
+
+.css-logo .dragon-snout {
+    position: absolute;
+    z-index: 3;
+    top: 36%;
+    left: -17%;
+    width: 65%;
+    height: 56%;
+    background: linear-gradient(165deg, #f3ad7a, #bd3829 48%, #671016);
+    clip-path: polygon(0 59%, 9% 37%, 28% 22%, 58% 10%, 100% 0, 96% 67%, 72% 79%, 44% 93%, 17% 100%, 5% 84%);
+}
+
+.css-logo .dragon-snout::before,
+.css-logo .dragon-snout::after {
+    position: absolute;
+    width: 8%;
+    height: 10%;
+    border-radius: 50%;
+    background: #3d0c0d;
+    box-shadow: 0 1px 0 rgba(255, 170, 114, 0.55);
+    content: "";
+}
+
+.css-logo .dragon-snout::before {
+    top: 54%;
+    left: 9%;
+}
+
+.css-logo .dragon-snout::after {
+    top: 44%;
+    left: 20%;
+}
+
+.css-logo .dragon-snort {
+    position: absolute;
+    z-index: 4;
+    top: 35%;
+    left: -72%;
+    width: 65%;
+    height: 65%;
+    background:
+        radial-gradient(ellipse 18% 12% at 91% 49%, rgba(255, 255, 255, 0.85), transparent 100%),
+        radial-gradient(ellipse 24% 19% at 72% 45%, rgba(255, 255, 255, 0.7), transparent 100%),
+        radial-gradient(ellipse 27% 28% at 52% 38%, rgba(255, 255, 255, 0.6), transparent 100%),
+        radial-gradient(ellipse 25% 35% at 30% 42%, rgba(255, 255, 255, 0.48), transparent 100%),
+        radial-gradient(ellipse 25% 29% at 16% 29%, rgba(255, 255, 255, 0.3), transparent 100%),
+        radial-gradient(ellipse 23% 26% at 19% 60%, rgba(255, 255, 255, 0.27), transparent 100%);
+    filter: blur(0.5px);
+    pointer-events: none;
+}
+
+.css-logo .dragon-jaw {
+    position: absolute;
+    z-index: 2;
+    top: 68%;
+    left: 0;
+    width: 74%;
+    height: 86%;
+    background: linear-gradient(155deg, #f2a270, #ba3228 48%, #641016);
+    clip-path: polygon(100% 0, 94% 24%, 77% 45%, 59% 64%, 39% 85%, 22% 100%, 8% 98%, 3% 89%, 18% 79%, 33% 65%, 52% 46%, 73% 26%, 89% 9%);
+    transform: rotate(-8deg);
+    transform-origin: 100% 0;
+}
+
+.css-logo .dragon-mouth {
+    position: absolute;
+    z-index: 1;
+    top: 67%;
+    left: 0;
+    width: 74%;
+    height: 86%;
+    background: linear-gradient(145deg, #2d070a 10%, #641315 65%, #a63831);
+    clip-path: polygon(3% 3%, 100% 0, 91% 19%, 74% 37%, 54% 57%, 34% 77%, 12% 94%, 7% 72%);
+    transform: rotate(-8deg);
+    transform-origin: 100% 0;
+}
+
+.css-logo .dragon-mouth::before,
+.css-logo .dragon-mouth::after {
+    position: absolute;
+    background: #fff0c8;
+    content: "";
+}
+
+.css-logo .dragon-mouth::before {
+    top: 3%;
+    left: 12%;
+    width: 71%;
+    height: 26%;
+    clip-path: polygon(0 0, 17% 0, 11% 70%, 27% 0, 43% 0, 37% 100%, 56% 0, 72% 0, 65% 70%, 85% 0, 100% 0);
+}
+
+.css-logo .dragon-mouth::after {
+    top: 29%;
+    left: 19%;
+    width: 57%;
+    height: 53%;
+    clip-path: polygon(0 100%, 10% 70%, 19% 84%, 31% 50%, 40% 62%, 54% 28%, 62% 40%, 79% 4%, 84% 17%, 100% 0, 84% 31%, 65% 53%, 45% 72%, 25% 92%, 7% 100%);
+}
+
+.css-logo .wordmark {
+    position: absolute;
+    inset: 40% 2% 0;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    padding: 4% 3% 9%;
+    border: 2px solid #a3631d;
+    background:
+        linear-gradient(180deg, #38251a, #1d1411 65%, #25180f);
+    box-shadow:
+        inset 0 0 0 2px #261308,
+        inset 0 0 16px rgba(250, 169, 40, 0.42),
+        0 0 9px rgba(255, 177, 52, 0.38);
+    clip-path: polygon(0 5%, 10% 12%, 24% 3%, 50% 11%, 76% 3%, 90% 12%, 100% 5%, 96% 90%, 72% 94%, 50% 100%, 28% 94%, 4% 90%);
+    font-family: Georgia, "Times New Roman", serif;
+    line-height: 0.84;
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.css-logo .wordmark::after {
+    position: absolute;
+    left: 13%;
+    width: 74%;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #e5b24a 16%, #fff0a4 50%, #e5b24a 84%, transparent);
+    content: "";
+}
+
+.css-logo .wordmark::after {
+    bottom: 13%;
+}
+
+.css-logo .kingdom,
+.css-logo .lyonesse {
+    display: block;
+    color: #f7d983;
+    background: linear-gradient(180deg, #fff7cf 0%, #ffd768 34%, #cf822b 60%, #ffe18a 78%, #c97921 100%);
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    text-shadow: none;
+    filter: drop-shadow(1px 2px 1px #4d210b);
+    font-weight: 900;
+    letter-spacing: -0.055em;
+    white-space: nowrap;
+}
+
+.css-logo .kingdom {
+    margin-top: 2%;
+    background-image: linear-gradient(180deg, #fffdf0 0%, #e2d6c3 38%, #9a8065 59%, #f8ebd3 78%, #ab8a66 100%);
+    font-size: 12.727cqw;
+}
+
+.css-logo .of {
+    position: relative;
+    display: block;
+    margin: 2% 0;
+    color: #ffe4a0;
+    font-size: 3.455cqw;
+    font-weight: 700;
+    letter-spacing: 0.35em;
+    line-height: 1;
+}
+
+.css-logo .of::before,
+.css-logo .of::after {
+    position: absolute;
+    top: 50%;
+    width: 10.455cqw;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #e8ba5b);
+    content: "";
+}
+
+.css-logo .of::before {
+    right: calc(100% + 8px);
+}
+
+.css-logo .of::after {
+    left: calc(100% + 8px);
+    transform: scaleX(-1);
+}
+
+.css-logo .lyonesse {
+    font-size: 13.091cqw;
+    letter-spacing: -0.07em;
+}
+
+.css-logo .crest {
+    position: absolute;
+    bottom: 5%;
+    left: 50%;
+    width: 15px;
+    height: 15px;
+    border: 1px solid #f4cd6d;
+    background: linear-gradient(135deg, #f7e29b, #b85b19 54%, #f7e29b);
+    box-shadow: 0 0 7px rgba(255, 208, 98, 0.7);
+    transform: translateX(-50%) rotate(45deg) scale(0.72);
+}
+
+@media (max-width: 360px) {
+    .css-logo {
+        width: 94vw;
+    }
+
+}
