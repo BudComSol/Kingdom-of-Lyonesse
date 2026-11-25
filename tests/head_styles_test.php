@@ -3,6 +3,8 @@
 function checking($value) { return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8'); }
 function fch($sql, $params = []) { return $GLOBALS['analyticsSetting'] ?? false; }
 function cnt($sql, $params = []) { return 0; }
+function effectiveCombatStats($user) { return ['power' => 1, 'block' => 1, 'health' => 1]; }
+function logs() { return ''; }
 function check($condition, $message) {
     if (!$condition) throw new RuntimeException($message);
 }
@@ -57,6 +59,24 @@ foreach ([0, 1] as $uid) {
     check(str_contains($links[0][0], 'display=swap'), 'Font swap behavior missing');
 }
 
+foreach ([0, 1, 3] as $adminLevel) {
+    $user = ['start' => 10, 'adm' => $adminLevel, 'level' => 1, 'exp' => 0, 'sex' => 1, 'avatar' => 1];
+    ob_start();
+    head('Sidebar test', 1);
+    $sidebarHtml = ob_get_clean();
+    $rightSidebar = substr($sidebarHtml, strpos($sidebarHtml, 'comp_menu_right'), strpos($sidebarHtml, '<script>', strpos($sidebarHtml, 'comp_menu_right')) - strpos($sidebarHtml, 'comp_menu_right'));
+    $leftSidebar = substr($sidebarHtml, strpos($sidebarHtml, 'comp_menu_left'));
+    $gap = '<div class="sidebar_nav_item" aria-hidden="true" style="visibility: hidden;"><div class="sidebar_nav_icon_wrap"></div></div>';
+    check(str_contains($leftSidebar, $gap . "\n        " . '<a class="sidebar_nav_item" href="/index.php?exit=1">'), 'Logout link or its gap missing from left sidebar');
+    check(str_contains($leftSidebar, '>Logout</span>'), 'Logout label missing');
+    check(str_contains($rightSidebar, 'href="/update.php"') === ($adminLevel === 3), 'Admin link visibility does not match admin panel access');
+    if ($adminLevel === 3) {
+        check(str_contains($rightSidebar, $gap . "\n        " . '<a class="sidebar_nav_item" href="/update.php">'), 'Admin link gap missing from right sidebar');
+        check(str_contains($rightSidebar, '>Admin</span>'), 'Admin label missing');
+    }
+}
+
+$user = false;
 $analyticsSetting = ['setting_value' => 'G-ABCDEF1234'];
 $_COOKIE = [];
 ob_start();

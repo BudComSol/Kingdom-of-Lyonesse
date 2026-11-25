@@ -713,6 +713,13 @@ if ($user && isset($user['start']) && $user['start'] >= 4) {
             <div class="sidebar_nav_icon_wrap"><img src="/style/home.png" width="22px" height="22px" alt="Town Hall"></div>
             <span class="sidebar_nav_text">Town Hall</span>
         </a>
+        <?php if (($user['adm'] ?? 0) == 3) { ?>
+        <div class="sidebar_nav_item" aria-hidden="true" style="visibility: hidden;"><div class="sidebar_nav_icon_wrap"></div></div>
+        <a class="sidebar_nav_item" href="/update.php">
+            <div class="sidebar_nav_icon_wrap"><img src="/images/key.png" width="22px" height="22px" alt=""></div>
+            <span class="sidebar_nav_text">Admin</span>
+        </a>
+        <?php } ?>
     </div>
 
 </div>
@@ -785,6 +792,11 @@ document.addEventListener('DOMContentLoaded', () => {
         <a class="sidebar_nav_item" href="/item.php">
             <div class="sidebar_nav_icon_wrap"><img src="/images/snar.png" width="22px" height="22px" alt="Your Equipment"></div>
             <span class="sidebar_nav_text">Your Equipment</span>
+        </a>
+        <div class="sidebar_nav_item" aria-hidden="true" style="visibility: hidden;"><div class="sidebar_nav_icon_wrap"></div></div>
+        <a class="sidebar_nav_item" href="/index.php?exit=1">
+            <div class="sidebar_nav_icon_wrap" aria-hidden="true">→</div>
+            <span class="sidebar_nav_text">Logout</span>
         </a>
     </div>
 
