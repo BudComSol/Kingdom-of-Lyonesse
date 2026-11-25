@@ -101,7 +101,8 @@ CREATE TABLE `inv` (
   `yes` int(11) DEFAULT '0',
   `level` int(11) DEFAULT '0',
   `rune` int(11) DEFAULT '0',
-  `rune_param` int(11) DEFAULT '0'
+  `rune_param` int(11) DEFAULT '0',
+  `image_key` varchar(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -121,7 +122,8 @@ CREATE TABLE `items` (
   `health` int(11) DEFAULT '0',
   `max_smitch` int(11) DEFAULT '0',
   `level` int(11) DEFAULT '0',
-  `res` int(11) DEFAULT '10'
+  `res` int(11) DEFAULT '10',
+  `image_key` varchar(32) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

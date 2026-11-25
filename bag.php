@@ -137,7 +137,7 @@ if (isset($_GET['view'])) {
 ?>
     <div class="tophead">
         <div class="ohh">
-            <img class="imgItem<?php echo $item['set']; ?>" src="/images/items/<?php echo $item['set']; ?>/<?php echo $item['type']; ?>.png" width="50" height="50" alt="">
+            <img class="imgItem<?php echo $item['set']; ?>" src="<?php echo itemImageUrl($item); ?>" width="50" height="50" alt="">
         </div>
         <a href="?view=<?php echo $item['id']; ?>"><font color="<?php echo $color[$item['set']] ?? '#fff'; ?>"><b><?php echo htmlspecialchars($item['name']); ?></b></font></a>
         <small>(<?php echo $item['smitch']; ?>/<?php echo $item['max_smitch']; ?>)</small>
@@ -212,7 +212,7 @@ while ($msg = $msg_q->fetch(PDO::FETCH_ASSOC)) {
 ?>
     <div class="tophead item-bag-card">
         <div class="ohh">
-            <img class="imgItem<?php echo $msg['set']; ?>" src="/images/items/<?php echo $msg['set']; ?>/<?php echo $msg['type']; ?>.png" width="48" height="48" alt="">
+            <img class="imgItem<?php echo $msg['set']; ?>" src="<?php echo itemImageUrl($msg); ?>" width="48" height="48" alt="">
         </div>
         <a href="?view=<?php echo $msg['id']; ?>"><font color="<?php echo $color[$msg['set']] ?? '#fff'; ?>"><b><?php echo htmlspecialchars($msg['name']); ?></b></font></a>
         <small>(+<?php echo $msg['smitch']; ?> Forge)</small>

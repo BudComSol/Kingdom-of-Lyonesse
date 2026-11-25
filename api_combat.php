@@ -118,12 +118,12 @@ if ($power >= $lec_fight['bot_hp']) {
         if (rand(1, 100) <= 35) {
             $randomItem = fch("SELECT * FROM `items` WHERE `level` <= ? ORDER BY RAND() LIMIT 1", array((int)($user['level'] ?? 1)));
             if ($randomItem) {
-                qry("INSERT INTO `inv` (`id_user`, `set`, `name`, `type`, `level`, `power`, `block`, `health`, `energy`, `max_smitch`, `smitch`, `yes`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0, ?, 0, 0)",
-                    array($uid, $randomItem['set'], $randomItem['name'], $randomItem['type'], $randomItem['level'], $randomItem['power'], $randomItem['block'], $randomItem['health'], $randomItem['max_smitch']));
+                qry("INSERT INTO `inv` (`id_user`, `set`, `name`, `type`, `level`, `power`, `block`, `health`, `energy`, `max_smitch`, `smitch`, `yes`, `image_key`) VALUES (?, ?, ?, ?, ?, ?, ?, ?, 0, ?, 0, 0, ?)",
+                    array($uid, $randomItem['set'], $randomItem['name'], $randomItem['type'], $randomItem['level'], $randomItem['power'], $randomItem['block'], $randomItem['health'], $randomItem['max_smitch'], $randomItem['image_key'] ?? null));
                 $droppedItem = [
                     'name' => $randomItem['name'],
                     'quality' => (int)$randomItem['set'],
-                    'icon' => "/images/items/" . $randomItem['set'] . "/" . $randomItem['type'] . ".png"
+                    'icon' => itemImageUrl($randomItem)
                 ];
             }
         }

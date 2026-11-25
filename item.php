@@ -72,7 +72,7 @@ if (isset($_GET['view'])) {
 ?>
     <div class="tophead">
         <div class="ohh">
-            <img class="imgItem<?php echo $item['set']; ?>" src="/images/items/<?php echo $item['set']; ?>/<?php echo $item['type']; ?>.png" width="50" height="50" alt="">
+            <img class="imgItem<?php echo $item['set']; ?>" src="<?php echo itemImageUrl($item); ?>" width="50" height="50" alt="">
         </div>
         <a href="?id=<?php echo $id; ?>&view=<?php echo $item['id']; ?>"><font color="<?php echo $color[$item['set']] ?? '#fff'; ?>"><b><?php echo htmlspecialchars($item['name']); ?></b></font></a>
         <small>(<?php echo $item['smitch']; ?>/<?php echo $item['max_smitch']; ?>)</small>
@@ -131,7 +131,7 @@ for ($i = 1; $i <= 8; $i++) {
 ?>
         <div class="tophead">
             <div class="ohh">
-                <img class="imgItem<?php echo $item['set']; ?>" src="/images/items/<?php echo $item['set']; ?>/<?php echo $item['type']; ?>.png" width="50" height="50" alt="">
+                <img class="imgItem<?php echo $item['set']; ?>" src="<?php echo itemImageUrl($item); ?>" width="50" height="50" alt="">
             </div>
             <a href="?id=<?php echo $id; ?>&view=<?php echo $item['id']; ?>"><font color="<?php echo $color[$item['set']] ?? '#fff'; ?>"><u><?php echo htmlspecialchars($item['name']); ?></u></font></a>
             <small>(+<?php echo $item['smitch']; ?> Forge)

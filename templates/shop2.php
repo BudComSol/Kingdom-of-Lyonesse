@@ -85,7 +85,7 @@ if ($id >= 1) {
 ?>
     <div class="tophead">
         <div class="ohh">
-            <img class="imgItem<?php echo $sm['set']; ?>" src="/images/items/<?php echo $sm['set']; ?>/<?php echo $sm['type']; ?>.png" width="50" height="50" alt="">
+            <img class="imgItem<?php echo $sm['set']; ?>" src="<?php echo itemImageUrl($sm); ?>" width="50" height="50" alt="">
         </div>
         <font color="<?php echo $color[$sm['set']] ?? '#fff'; ?>"><b><?php echo htmlspecialchars($sm['name']); ?></b></font>
         <small>(<?php echo $sm['smitch']; ?>/<?php echo $sm['max_smitch']; ?>)</small>
@@ -150,7 +150,7 @@ for ($i = 1; $i <= 8; $i++) {
 ?>
         <div class="tophead">
             <div class="ohh">
-                <img class="imgItem<?php echo $item['set']; ?>" src="/images/items/<?php echo $item['set']; ?>/<?php echo $item['type']; ?>.png" width="50" height="50" alt="">
+                <img class="imgItem<?php echo $item['set']; ?>" src="<?php echo itemImageUrl($item); ?>" width="50" height="50" alt="">
             </div>
             <font color="<?php echo $color[$item['set']] ?? '#fff'; ?>"><u><?php echo htmlspecialchars($item['name']); ?></u></font>
             <small>(<?php echo $item['smitch']; ?>/<?php echo $item['max_smitch']; ?>)</small>

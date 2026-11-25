@@ -47,8 +47,8 @@ if ($type >= 1 && $type <= 5) {
             qry("UPDATE `users` SET `metal` = `metal` - ?, `tkan` = `tkan` - ? WHERE `id` = ? LIMIT 1", array($res, $res, $uid));
         }
 
-        qry("INSERT INTO `inv` SET `id_user` = ?, `set` = ?, `power` = ?, `block` = ?, `health` = ?, `smitch` = '0', `max_smitch` = ?, `yes` = '0', `type` = ?, `name` = ?, `level` = ?", 
-            array($uid, $item['set'], $item['power'], $item['block'], $item['health'], $item['max_smitch'], $item['type'], $item['name'], $item['level']));
+        qry("INSERT INTO `inv` SET `id_user` = ?, `set` = ?, `power` = ?, `block` = ?, `health` = ?, `smitch` = '0', `max_smitch` = ?, `yes` = '0', `type` = ?, `name` = ?, `level` = ?, `image_key` = ?",
+            array($uid, $item['set'], $item['power'], $item['block'], $item['health'], $item['max_smitch'], $item['type'], $item['name'], $item['level'], $item['image_key'] ?? null));
 
         msg("Item purchased and placed in your backpack!");
         header('Location: ?loc=1&type=' . $item['set']);
@@ -81,7 +81,7 @@ if ($type >= 1 && $type <= 5) {
 ?>
         <div class="tophead">
             <div class="ohh">
-                <img class="imgItem<?php echo $item['set']; ?>" src="/images/items/<?php echo $item['set']; ?>/<?php echo $item['type']; ?>.png" width="50" height="50" alt="">
+                <img class="imgItem<?php echo $item['set']; ?>" src="<?php echo itemImageUrl($item); ?>" width="50" height="50" alt="">
             </div>
             <font color="<?php echo $type_color[$item['set']] ?? '#fff'; ?>"><?php echo htmlspecialchars($item['name']); ?></font>
             <small>(0/<?php echo $item['max_smitch']; ?>)</small>
@@ -149,7 +149,7 @@ if ($type >= 1 && $type <= 5) {
 ?>
         <div class="tophead">
             <div class="ohh">
-                <img class="imgItem<?php echo $item['set']; ?>" src="/images/items/<?php echo $item['set']; ?>/<?php echo $item['type']; ?>.png" width="50" height="50" alt="">
+                <img class="imgItem<?php echo $item['set']; ?>" src="<?php echo itemImageUrl($item); ?>" width="50" height="50" alt="">
             </div>
             <a href="?loc=1&type=<?php echo $type; ?>&view=<?php echo $item['id']; ?>"><font color="<?php echo $type_color[$item['set']] ?? '#fff'; ?>"><u><?php echo htmlspecialchars($item['name']); ?></u></font></a>
             <small>(0/<?php echo $item['max_smitch']; ?>)</small>
