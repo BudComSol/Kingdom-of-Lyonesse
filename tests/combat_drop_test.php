@@ -10,6 +10,7 @@ if (($argv[1] ?? '') === '--child') {
 
     $source = file_get_contents(__DIR__ . '/../api_combat.php');
     $source = str_replace("require_once __DIR__ . '/core/func.php';", '', $source);
+    $source = str_replace("__DIR__ . '/core/exploration.php'", var_export(__DIR__ . '/../core/exploration.php', true), $source);
     eval('?>' . $source);
     exit;
 }

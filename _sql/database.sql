@@ -225,6 +225,7 @@ CREATE TABLE `lec_fight` (
   `id` int(11) NOT NULL,
   `id_user` int(11) DEFAULT '0',
   `id_bot` int(11) DEFAULT '0',
+  `exploration_node` int(11) NOT NULL DEFAULT '0',
   `name` varchar(100) DEFAULT NULL,
   `default2` int(11) DEFAULT '0',
   `default` int(11) DEFAULT '0',
@@ -242,6 +243,15 @@ CREATE TABLE `lec_fight` (
   `s11` int(11) DEFAULT '0',
   `type` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+CREATE TABLE IF NOT EXISTS `exploration_progress` (
+  `user_id` int(11) NOT NULL,
+  `node_id` int(11) NOT NULL,
+  `discovered_at` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`, `node_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 

@@ -26,7 +26,7 @@ if ($level == 2 && ($lec['level'] ?? 1) <= 3) {
 
 // Attack boss action
 $attack = abs(intval($_GET['attack'] ?? 0));
-if ($attack >= 1 && ($user['lec'] ?? 0) >= 1) {
+if (!$lec_fight && $attack >= 1 && ($user['lec'] ?? 0) >= 1) {
     $check = fch("SELECT * FROM `lec_boss` WHERE `id` = ? LIMIT 1", array($attack));
     if (!$check) {
         header('Location: /lec.php');
@@ -111,6 +111,10 @@ $currentZone = (int)($lec['level'] ?? 1);
     <div class="ohh"><img class="img4" src="/images/lec/nps.png" width="50px" height="50px" alt="Guard"></div>
     <span class="lime">City Gate Guard</span><br>
     <small><p>Take heed and venture forth with great caution hardy traveller, as only the most seasoned warriors and brave, survive the terrifying monstrous creatures lurking in yonder Dark Forest.</p></small>
+</div>
+
+<div class="tophead2 cntr">
+    <a class="button" href="/exploration.php">Explore the Expedition Map</a>
 </div>
 
 <div class="tophead2 cntr">
