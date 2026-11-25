@@ -347,9 +347,7 @@ if (!$uid) {
             </div>
         </div>
     </div>
-    <a class="enter_button" href="/?start=1">
-        <img src="/images/button_green.webp" width="335" height="88" alt="Battle Button">
-    </a>
+    <a class="enter_button" href="/?start=1">Play As Guest</a>
     <div class="landing-links">
         <div>Got An Account - <a href="/?login=1" id="landing-login-button" class="landing-login-button">Login!</a></div>
         <h1 class="landing-help">

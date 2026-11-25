@@ -88,7 +88,13 @@ foreach (['missing' => true, '1' => true, '0' => false] as $setting => $visible)
     check(preg_match('/\.landing-content\s*>\s*\.landing-links\s*\{[^}]*border:\s*2px\s+solid/s', $output) === 1, 'Front page oval links should have a 2px border');
     check(!preg_match('/\.landing-content\s*>\s*\.landing-links\s*\{[^}]*letter-spacing:/s', $output), 'Front page oval links should not set letter spacing');
     check(str_contains($output, '0 0 18px var(--gold-glow)'), 'Front page oval should have a gold border glow');
-    check(str_contains($output, 'src="/images/button_green.webp"'), 'Landing page should use the WebP battle button');
+    check(str_contains($output, '<a class="enter_button" href="/?start=1">Play As Guest</a>'), 'Landing page CSS battle button missing');
+    check(!str_contains($output, 'button_green.webp'), 'Landing page should not use the battle button image');
+    $stylesheet = file_get_contents(__DIR__ . '/../style/style.css');
+    $minifiedStylesheet = file_get_contents(__DIR__ . '/../style/style.min.css');
+    foreach ([$stylesheet, $minifiedStylesheet] as $buttonStyles) {
+        check(str_contains($buttonStyles, '.landing-content > .enter_button::before') && str_contains($buttonStyles, '.landing-content > .enter_button::after'), 'CSS battle button frame missing');
+    }
     check(str_contains($output, 'Got An Account - <a href="/?login=1" id="landing-login-button"'), 'Landing login link missing');
     check(preg_match('~<h1 class="landing-help">\s*<a href="/index.php\?help=1">Kingdom Of Lyoness Story</a>\s*</h1>~', $output) === 1, 'Landing story heading or help link missing');
     check(preg_match('~<div class="landing-links">\s*<div>Got An Account.*?</div>\s*<h1 class="landing-help">.*?Kingdom Of Lyoness Story</a>\s*</h1>\s*</div>~s', $output) === 1, 'Landing links should share one oval banner without generic title styles');

@@ -1106,6 +1106,64 @@ span.color { color: #ffffff; }
     max-width: 100%;
 }
 
+.landing-content > .enter_button {
+    position: relative;
+    isolation: isolate;
+    display: grid;
+    place-items: center;
+    width: min(335px, 100%);
+    height: 88px;
+    margin: 0;
+    border: 4px solid transparent;
+    background:
+        linear-gradient(180deg, #697586 0%, #394456 15%, #202a3a 38%, #202a3a 66%, #3a4556 88%, #151d2b 100%) padding-box,
+        linear-gradient(180deg, #f3e9b3 0%, #92916c 15%, #3d473e 48%, #b9b27b 82%, #eee4ad 100%) border-box;
+    box-shadow: 0 0 0 2px #171d28, 0 0 0 3px #928c60, 0 7px 12px rgba(0, 0, 0, 0.7), inset 0 0 8px rgba(0, 0, 0, 0.85);
+    color: #f0eee8;
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: clamp(1.25rem, 6vw, 1.75rem);
+    font-weight: 700;
+    line-height: 1;
+    text-align: center;
+    text-shadow: 0 2px 1px #141927, 0 0 8px rgba(230, 233, 238, 0.35);
+}
+
+.landing-content > .enter_button::before,
+.landing-content > .enter_button::after {
+    position: absolute;
+    top: 50%;
+    z-index: -1;
+    width: 35px;
+    height: 42px;
+    background: linear-gradient(135deg, #e7dda4 0%, #74785a 42%, #252d32 56%, #c1b273 100%);
+    content: '';
+    transform: translateY(-50%);
+}
+
+.landing-content > .enter_button::before {
+    left: -20px;
+    clip-path: polygon(100% 0, 100% 100%, 0 50%, 24% 50%);
+}
+
+.landing-content > .enter_button::after {
+    right: -20px;
+    clip-path: polygon(0 0, 0 100%, 100% 50%, 76% 50%);
+}
+
+.landing-content > .enter_button:hover {
+    filter: brightness(1.14);
+    transform: translateY(-2px);
+}
+
+.landing-content > .enter_button:active {
+    transform: translateY(1px) scale(0.99);
+}
+
+.landing-content > .enter_button:focus-visible {
+    outline: 2px solid #fff;
+    outline-offset: 6px;
+}
+
 .landing-content .enter_button + .title {
     margin-top: -52px;
     margin-bottom: 0;
