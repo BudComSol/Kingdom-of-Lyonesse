@@ -30,7 +30,7 @@
 
 | Requirement | Specification |
 | :--- | :--- |
-| **Backend Language** | PHP 8.0, 8.1, 8.2, 8.3+ (Fully typed, compatible with `short_open_tag = Off`) |
+| **Backend Language** | PHP 8.0+ (compatible with `short_open_tag = Off`) |
 | **Database Engine** | MySQL 5.7+ / MariaDB 10.3+ via PDO (`utf8mb4` charset) |
 | **Required PHP Extensions** | `pdo_mysql`, `mbstring`, `json`, `session`, `filter` |
 | **Frontend Technologies** | Semantic HTML5, Vanilla CSS3 (Dark Fantasy Glassmorphism), Vanilla JavaScript |
@@ -84,6 +84,10 @@
 ├── ban_user.php              <- User moderation and ban management
 ├── bot_create.php            <- Administrative NPC bot creation
 ├── premium.php / settings.php<- Premium account and player settings
+├── task.php / tavern.php     <- Recurring task and tavern quest flows
+├── gold.php / skill.php      <- Currency exchange and hero skills
+├── news.php / ip_user.php    <- News and player IP lookup
+├── history_ban.php / privacy.php <- Ban history and privacy information
 │
 ├── _sql/
 │   └── database.sql          <- Database schema and seed data
@@ -103,7 +107,8 @@
 │   ├── start2.php            <- Prologue continuation
 │   ├── shop1.php - shop5.php <- Merchant-specific UI templates
 │   ├── tavern/               <- Tavern screens and quest chapters
-│   ├── statistic.php         <- Character and battle statistics
+│   ├── statistic.php         <- Character statistics
+│   ├── statistic2.php        <- Battle statistics
 │   └── smiles.php            <- Chat and emoji display helpers
 │
 ├── about/                    <- Rules, help, agreement, and tour pages
@@ -139,7 +144,7 @@
 
 ## 🛠️ Configuration Guide (`.env`)
 
-All game settings are managed through the `.env` file located in the root directory. **Do not hardcode database credentials into PHP files.**
+Environment, database, and session settings are read from the `.env` file in the project root; some game and integration settings are managed in the database through the Admin Panel. **Do not hardcode database credentials into PHP files.**
 
 ### Example `.env` Configuration:
 
@@ -169,13 +174,15 @@ DB_CHARSET=utf8mb4
 # Security & Session Configuration
 # =====================================================================
 SESSION_LIFETIME=2592000
-SESSION_SECURE=false
+SESSION_SECURE=true
 SESSION_SAMESITE=Lax
 SESSION_NAME=LYONESSE_SESSID
 ```
 
 > [!TIP]
-> **Automatic Base URL (`BASE_URL=auto`):** Keeping this setting on `auto` enables the game to automatically identify whether it is running on `http://localhost:7000`, in a subfolder, or on a live production domain with HTTPS, eliminating the need for manual URL updates across environments.
+> **Automatic Base URL (`BASE_URL=auto`):** The application derives the scheme and host from the current request. It does not detect an installation subfolder; deploy at the web root or configure routing and asset paths for your subfolder deployment. For production HTTPS, ensure your web server or trusted proxy reports the correct scheme, or set `BASE_URL` explicitly.
+
+For local development over plain HTTP, set `SESSION_SECURE=false`; use `true` for HTTPS deployments so browsers send the session cookie only over HTTPS.
 
 ### PayPal Checkout
 
@@ -224,8 +231,9 @@ Fresh installs start player IDs at 1. Deleting rows from an existing `users` tab
      ```
 
 5. **Verify PHP Version:**
-   - In cPanel $\rightarrow$ **Select PHP Version** (or MultiPHP Manager), set PHP to **8.1 or 8.2**.
+   - In cPanel $\rightarrow$ **Select PHP Version** (or MultiPHP Manager), select PHP **8.0 or newer**. The included `.htaccess` may contain a cPanel-generated PHP handler; update or remove that handler to match the version selected in cPanel.
    - Verify that `pdo_mysql`, `mbstring`, and `json` extensions are enabled.
+   - Before production, remove or disable the legacy `php_flag display_errors on` directive in `.htaccess`; displaying PHP errors publicly can expose sensitive details, and the directive may not be supported by PHP-FPM.
 
 6. **Finish setup:** The imported `database.sql` includes the current schema, so no migration command is needed for a fresh install. Register a hero account, then promote it to administrator in phpMyAdmin using the FAQ instructions below. When upgrading an existing installation, back up the database and run `php migrate.php` from a terminal in the game directory. The configured database user needs permission to create tables and alter `users` and `lec_fight`.
 
@@ -270,7 +278,7 @@ The online list shows last activity and the elapsed duration of the most recentl
            deny all;
        }
 
-       location ~ \.(sql|log)$ {
+       location ~ \.(sql|log|bak|example)$ {
            deny all;
        }
 
@@ -344,10 +352,10 @@ To ensure recurring world events operate autonomously, configure the included sc
 
 ## 🛡️ Security & Optimization
 
-1. **Password Protection:** Passwords are encrypted using **BCrypt** ($2y$) via `password_hash()`. Any legacy MD5 hashes are automatically and transparently upgraded to modern BCrypt upon user login.
-2. **Confidential File Shielding:** The [.htaccess](file:///c:/Users/Equipo/Downloads/Nueva%20carpeta%20(3)/setst/setst.site/.htaccess) configuration forbids public HTTP access to `.env`, `.env.example`, `.sql` dumps, and error logs.
-3. **Hardened Session Management:** Session cookies are configured with `HttpOnly = true`, `SameSite = Lax`, and `use_strict_mode = 1` to prevent cross-site scripting (XSS) and session hijacking.
-4. **Self-Healing Schema Migrations:** The database engine automatically creates missing tables (`clans`, `clan_members`, `clan_boss`, `achievements_user`, `arena_challenges`) and columns on initial database connection.
+1. **Password Protection:** Passwords are hashed using **BCrypt** ($2y$) via `password_hash()`. Supported legacy single- and double-MD5 password hashes are upgraded to BCrypt after a successful login.
+2. **Confidential File Shielding:** The [`.htaccess`](.htaccess) configuration denies public HTTP access to `.env` files, `.sql` dumps, and files ending in `.log`, `.bak`, or `.example`. Configure equivalent protections when using Nginx.
+3. **Session Management:** Session cookies use `HttpOnly`, `SameSite=Lax`, and PHP's strict session mode to reduce exposure to client-side scripts, cross-site requests, and session fixation.
+4. **Schema Migrations:** Schema changes are applied by running `php migrate.php` from the game directory using the command line. They do not run automatically during a web request; back up the database before upgrading.
 5. **Render-blocking Styles:** `head()` inlines `style/style.min.css`, generated from the readable `style/style.css`, so the first render does not wait for a separate stylesheet request. Keep CSS asset URLs root-relative so they work on every route. Google Fonts load asynchronously with `display=swap` and a no-JavaScript fallback. Inlining preserves the initial layout but includes the stylesheet in every HTML response instead of caching it separately.
 
 ---
@@ -363,29 +371,13 @@ Verify that the database credentials in `.env` (`DB_HOST`, `DB_NAME`, `DB_USER`,
 - Log in to access the **Admin Panel** (`/update.php`) to create item sets, configure PayPal and Ruby packs, spawn NPC bots, broadcast news announcements, and manage bans.
 
 #### 3. Why are CSS changes not appearing in the browser?
-Press `Ctrl + F5` (or `Cmd + Shift + R` on macOS) to bypass browser caching. The stylesheet includes versioning parameters (`v=2.2.0`) to handle asset cache invalidation automatically.
+Press `Ctrl + F5` (or `Cmd + Shift + R` on macOS) to reload the page and bypass browser caching. The main stylesheet is inlined into each HTML response; JavaScript assets use versioned URLs for cache invalidation.
 
 ---
 
 ## 📄 License
 
-This project is open-source and distributed under the **[MIT License](file:///c:/Users/Equipo/Downloads/Nueva%20carpeta%20(3)/setst/setst.site/LICENSE)**.
-
-```text
-MIT License
-
-Copyright (c) 2026 Kingdom of Lyonesse Contributors
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-```
+This project is open-source and distributed under the [MIT License](LICENSE).
 
 ---
 
