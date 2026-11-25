@@ -21,8 +21,9 @@
    - [C. Local Development (PHP Built-in Server / XAMPP / Laragon)](#c-local-development-php-built-in-server--xampp--laragon)
 6. [Automated Scheduled Tasks (`game_cron`)](#-automated-scheduled-tasks-game_cron)
 7. [Security & Optimization](#-security--optimization)
-8. [Frequently Asked Questions & Administration](#-frequently-asked-questions--administration)
-9. [License](#-license)
+8. [What I Have Done](#-what-i-have-done)
+9. [Frequently Asked Questions & Administration](#-frequently-asked-questions--administration)
+10. [License](#-license)
 
 ---
 
@@ -357,6 +358,20 @@ To ensure recurring world events operate autonomously, configure the included sc
 3. **Session Management:** Session cookies use `HttpOnly`, `SameSite=Lax`, and PHP's strict session mode to reduce exposure to client-side scripts, cross-site requests, and session fixation.
 4. **Schema Migrations:** Schema changes are applied by running `php migrate.php` from the game directory using the command line. They do not run automatically during a web request; back up the database before upgrading.
 5. **Render-blocking Styles:** `head()` inlines `style/style.min.css`, generated from the readable `style/style.css`, so the first render does not wait for a separate stylesheet request. Keep CSS asset URLs root-relative so they work on every route. Google Fonts load asynchronously with `display=swap` and a no-JavaScript fallback. Inlining preserves the initial layout but includes the stylesheet in every HTML response instead of caching it separately.
+
+---
+
+## ✅ What I Have Done
+
+- **Expanded gameplay systems:** Added arena combat and gameplay bonuses, improved combat inventory drops and redirects, and implemented a persistent five-landmark forest exploration map with monster selection and existing battle progression ([#9](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/9), [#16](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/16), [#38](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/38), [#42](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/42), [#127](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/127)).
+- **Added the Ruby economy:** Integrated PayPal Ruby pack purchases, Ruby exchange naming and balances, VIP benefits, and configurable purchase amounts ([#41](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/41), [#75](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/75), [#90](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/90)).
+- **Improved account and player experience:** Added clearer login and password recovery feedback, login form validation, persistent login cleanup, moderation and profile improvements, and accurate player activity and NPC uptime displays ([#14](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/14), [#30](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/30), [#61](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/61), [#89](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/89), [#91](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/91), [#92](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/92)).
+- **Modernized navigation and onboarding:** Reworked the sidebar and footer navigation, Town Hall and Ruby links, tutorial and logged-in page titles, helpful-links navigation, and the complete hero onboarding flow ([#62](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/62), [#64](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/64), [#88](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/88), [#93](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/93), [#117](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/117), [#126](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/126)).
+- **Redesigned the landing page:** Updated the landing layout, login and Ruby calls to action, social metadata, accessibility, dragon artwork, fire effects, oval banners, titles, and a configurable administrator toggle ([#68](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/68), [#70](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/70), [#81](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/81), [#100](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/100), [#114](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/114), [#123](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/123)).
+- **Added privacy and consent features:** Added a privacy page, cookie consent before game entry, visible policy links, and responsive cookie/privacy copy ([#39](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/39), [#95](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/95), [#97](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/97), [#125](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/125)).
+- **Strengthened security and deployment:** Added HTTP security headers, moved migrations out of request bootstrap, protected current database installation, standardized fresh-install IDs and timezone behavior, and documented secure environment and session settings ([#57](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/57), [#60](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/60), [#65](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/65), [#71](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/71), [#96](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/96), [#129](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/129)).
+- **Improved performance and SEO:** Removed render-blocking stylesheet requests, minified and inlined CSS, optimized font and homepage image loading, added structured game metadata and social previews, and fixed mobile viewport behavior ([#24](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/24), [#28](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/28), [#53](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/53), [#54](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/54), [#55](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/55), [#101](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/101), [#103](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/103)).
+- **Modernized documentation and project structure:** Moved the database dump under `_sql/`, refreshed the README directory tree, and corrected setup, PHP, environment, session, migration, server-protection, caching, and license guidance ([#79](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/79), [#128](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/128), [#129](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/129)).
 
 ---
 
