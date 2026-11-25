@@ -22,6 +22,7 @@
     <p><b>Expedition Map:</b> Explore the forest outskirts in order. Each expedition costs one Forest Energy; victory reveals a landmark and its story permanently, while defeat leaves it unexplored. You can continue ordinary forest hunts separately.</p>
     <p><b>Combat:</b> Forest fights run in rounds. Your hero and the monster exchange attacks automatically, while you can activate equipped abilities when they are ready. Abilities can deal damage, heal, or change combat stats. Choose your battle deck before entering the forest, and pay attention to cooldowns and your health.</p>
     <p><b>Story quests:</b> The Tavern continues the game's guided story with chapters and quests. Follow the character prompts and complete each step to advance.</p>
+    <p><b>Bordello:</b> Seek a companion for 100 Coins to gain 5% Power for one hour, or buy a companion's secret for 50 Coins to read it whenever you return. Company becomes available again when morale expires. Forest and Tavern fights use the bonus when started; Arena challengers use it when sending a challenge and opponents when accepting. Saved combat stats remain unchanged afterward.</p>
     <p><b>Daily activity:</b> Daily Quests track repeatable objectives and offer rewards when completed. They also provide keys for the Common and Rare Chests; each chest can be opened once per day after collecting enough keys.</p>
     <p><b>Player Arena:</b> Challenge an active hero within five levels of yours. A challenge waits for the other player to accept or decline; the sent challenge records your stats at the time it is made, while the accepting player's current stats are used. Arena battles are limited and the Arena page shows your remaining attempts.</p>
     <p><b>Royal Tournament:</b> Earn tournament points through activities such as quests and battles, then check the weekly standings and rewards. The Tournament page links to details of the rewards and reset schedule.</p>
@@ -42,12 +43,13 @@
 
 <div class="tophead2">
     <div class="title cntr"><span class="color">What the Main Links Do</span></div>
-    <p>Use the Town Square as your hub. The large Arena and Tavern buttons sit above the main activity links. On smaller screens the side menus may appear above or below the page content.</p>
+    <p>Use the Town Square as your hub. The large Arena, Tavern, and Bordello buttons sit above the main activity links. On smaller screens the side menus may appear above or below the page content.</p>
     <ul>
         <li><a href="/index.php">Town Square / Town Hall</a> — return to the hub and open the main activities.</li>
         <li><a href="/lec.php">Dark Forest</a> — choose a zone and fight monsters for progression and materials.</li>
         <li><a href="/exploration.php">Expedition Map</a> — uncover forest landmarks through expeditions.</li>
         <li><a href="/tavern.php">Tavern</a> — follow story chapters and quests.</li>
+        <li><a href="/bordello.php">Bordello</a> — seek company and purchase companions' stories.</li>
         <li><a href="/arena.php">Arena</a> — send or respond to player challenges and view recent results.</li>
         <li><a href="/task.php">Daily Quests</a> — track daily objectives, claim quest rewards, and open chests.</li>
         <li><a href="/daily.php">Daily Rewards</a> — claim the current login-streak reward.</li>

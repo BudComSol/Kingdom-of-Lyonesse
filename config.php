@@ -225,7 +225,8 @@ try {
             'title'            => "ALTER TABLE `users` ADD COLUMN `title` varchar(50) NOT NULL DEFAULT ''",
             'kills_boss'       => "ALTER TABLE `users` ADD COLUMN `kills_boss` int(11) NOT NULL DEFAULT 0",
             'kills_pvp'        => "ALTER TABLE `users` ADD COLUMN `kills_pvp` int(11) NOT NULL DEFAULT 0",
-            'forged_items'     => "ALTER TABLE `users` ADD COLUMN `forged_items` int(11) NOT NULL DEFAULT 0"
+            'forged_items'     => "ALTER TABLE `users` ADD COLUMN `forged_items` int(11) NOT NULL DEFAULT 0",
+            'morale_until'     => "ALTER TABLE `users` ADD COLUMN `morale_until` int(11) NOT NULL DEFAULT 0"
         ];
         foreach ($newCols as $col => $alterSql) {
             if (!in_array($col, $userCols)) {
@@ -244,6 +245,14 @@ try {
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
             ");
         }
+        $BaseConnect->exec("
+            CREATE TABLE IF NOT EXISTS `bordello_secrets` (
+              `user_id` int(11) NOT NULL,
+              `secret_id` varchar(32) NOT NULL,
+              `unlocked_at` int(11) NOT NULL,
+              PRIMARY KEY (`user_id`, `secret_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+        ");
         $BaseConnect->exec("
             CREATE TABLE IF NOT EXISTS `arena_challenges` (
               `id` int(11) NOT NULL AUTO_INCREMENT,
