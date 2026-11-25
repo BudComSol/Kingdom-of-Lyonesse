@@ -5,6 +5,7 @@
  */
 
 require_once __DIR__ . '/../config.php';
+require_once __DIR__ . '/item_images.php';
 
 // Route segment helper
 function is($i) {

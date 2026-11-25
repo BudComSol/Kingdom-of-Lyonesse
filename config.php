@@ -245,6 +245,12 @@ try {
                 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
             ");
         }
+        foreach (['items', 'inv'] as $table) {
+            $columns = $BaseConnect->query("SHOW COLUMNS FROM `$table`")->fetchAll(PDO::FETCH_COLUMN);
+            if (!in_array('image_key', $columns, true)) {
+                $BaseConnect->exec("ALTER TABLE `$table` ADD COLUMN `image_key` varchar(32) DEFAULT NULL");
+            }
+        }
         $BaseConnect->exec("
             CREATE TABLE IF NOT EXISTS `bordello_secrets` (
               `user_id` int(11) NOT NULL,

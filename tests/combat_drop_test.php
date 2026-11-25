@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../core/item_images.php';
 
 if (($argv[1] ?? '') === '--child') {
     $BaseConnect = new PDO('sqlite:' . $argv[2], null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
@@ -30,6 +31,8 @@ function checking($value) { return $value; }
 function number($value) { return (int)$value; }
 function effectiveCombatStats($user) { return ['health' => $user['health'], 'critical_chance' => 0]; }
 function clanRewardAmount($uid, $amount) { return $amount; }
+
+
 
 function check($condition, $message) {
     if (!$condition) {
@@ -67,7 +70,7 @@ function runCase($wantDrop, $eligibleItem, $failInsert = false) {
             INSERT INTO lec_fight VALUES (1, 1, 'metal', 12, 10, 120, 10, 1, 100, 100);
             CREATE TABLE skills (id_user INTEGER, type INTEGER);
             CREATE TABLE items (id INTEGER PRIMARY KEY, `set` INTEGER, name TEXT, type INTEGER, level INTEGER, power INTEGER, block INTEGER, health INTEGER, max_smitch INTEGER);
-            CREATE TABLE inv (id INTEGER PRIMARY KEY, id_user INTEGER, `set` INTEGER DEFAULT 0, name TEXT NOT NULL, type INTEGER DEFAULT 0, power INTEGER DEFAULT 0, block INTEGER DEFAULT 0, health INTEGER DEFAULT 0, energy INTEGER NOT NULL, max_smitch INTEGER DEFAULT 0, smitch INTEGER DEFAULT 0, `yes` INTEGER DEFAULT 0, level INTEGER DEFAULT 0, rune INTEGER DEFAULT 0, rune_param INTEGER DEFAULT 0);
+            CREATE TABLE inv (id INTEGER PRIMARY KEY, id_user INTEGER, `set` INTEGER DEFAULT 0, name TEXT NOT NULL, type INTEGER DEFAULT 0, power INTEGER DEFAULT 0, block INTEGER DEFAULT 0, health INTEGER DEFAULT 0, energy INTEGER NOT NULL, max_smitch INTEGER DEFAULT 0, smitch INTEGER DEFAULT 0, `yes` INTEGER DEFAULT 0, level INTEGER DEFAULT 0, rune INTEGER DEFAULT 0, rune_param INTEGER DEFAULT 0, image_key TEXT);
         ");
         $level = $eligibleItem ? 5 : 6;
         $db->exec("INSERT INTO items VALUES (7, 2, 'Warrior Sword', 5, $level, 90, 80, 70, 20)");

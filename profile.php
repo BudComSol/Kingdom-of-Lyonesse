@@ -44,7 +44,7 @@ if (($users['id_clan'] ?? 0) > 0) {
                     if (!$it) {
                         echo '<div class="items-icons"></div>';
                     } else {
-                        echo '<img class="tophead" src="/images/items/' . $it['set'] . '/' . $it['type'] . '.png" width="45" height="45" alt="Item">';
+                        echo '<img class="tophead" src="' . itemImageUrl($it) . '" width="45" height="45" alt="Item">';
                     }
                     echo '<br>';
                 }
@@ -66,7 +66,7 @@ if (($users['id_clan'] ?? 0) > 0) {
                     if (!$it) {
                         echo '<div class="items-icons"></div>';
                     } else {
-                        echo '<img class="tophead" src="/images/items/' . $it['set'] . '/' . $it['type'] . '.png" width="45" height="45" alt="Item">';
+                        echo '<img class="tophead" src="' . itemImageUrl($it) . '" width="45" height="45" alt="Item">';
                     }
                     echo '<br>';
                 }

@@ -261,7 +261,7 @@ $count_d1  = cnt("SELECT (id) FROM `users` WHERE `time_on` > ?", array(time() - 
 $count_d31 = cnt("SELECT (id) FROM `users` WHERE `time_on` > ?", array(time() - 86400 * 31));
 ?>
 
-<div class="tophead">
+<div class="tophead cntr">
     <b>Online Activity:</b><br>
     Online in past 1 min: <?php echo $count_m3; ?><br>
     Online in past 10 min: <?php echo $count_m10; ?><br>
@@ -269,7 +269,7 @@ $count_d31 = cnt("SELECT (id) FROM `users` WHERE `time_on` > ?", array(time() - 
     Active in past 31 days: <?php echo $count_d31; ?><br>
 </div>
 
-<div class="tophead">
+<div class="tophead cntr">
     <b>Database Metrics:</b><br>
     Registered Heroes: <?php echo $count_users; ?><br>
     Mail Messages: <?php echo $count_mail; ?><br>
