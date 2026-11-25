@@ -162,7 +162,7 @@ while ($boss = $user_q->fetch(PDO::FETCH_ASSOC)) {
             <a href="?coll=1"><span class="orange">(Refill Now)</span></a>
         <?php } ?>
         <br>
-        <font color="#888">Defeat monsters in the Dark Forest to gather rare materials for equipment crafting and runes.</font>
+        <font color="#888">Defeat monsters in the Dark Forest to earn rare materials for equipment crafting and runes.</font>
     </small>
 </div>
 
