@@ -57,57 +57,82 @@
 ## 📂 Project Directory & File Structure
 
 ```text
-├── .env                      <- Database credentials and environment configuration
-├── .env.example              <- Template configuration file
-├── .htaccess                 <- Apache rewrite rules and security protection for config files
-├── config.php                <- .env parser, PDO connection & session security
-├── migrate.php               <- Command-line database schema migrations
+.
+├── .env.example              <- Template for application, database, and session settings
+├── .htaccess                 <- Apache security headers and protected-file rules
+├── config.php                <- Environment parsing, PDO setup, sessions, and shared constants
+├── migrate.php               <- Command-line database schema migration and setup
+├── index.php                 <- Landing page, registration, login, and onboarding entry point
+├── save.php                  <- Account registration and login-linking flows
+├── profile.php               <- Hero profile, attributes, titles, and clan details
+├── bag.php / item.php        <- Inventory, equipment, crafting, and item inspection
+├── lec.php                   <- Dark Forest hunting grounds and monster selection
+├── exploration.php           <- Expedition map and landmark progression
+├── arena.php                 <- PvP challenges, arena combat, and tournament flows
+├── daily.php                 <- Daily login streak and reward calendar
+├── achievements.php          <- Achievement and equipable-title system
+├── clan.php                  <- Clan Castle, members, buffs, and clan raid
+├── shop.php                  <- Armory, forge, runes, trainer, and trader
+├── paywk.php                 <- Royal Treasury and PayPal voucher checkout
+├── chat.php / mail.php       <- Global, clan, and private player messaging
+├── contacts.php / ref.php    <- Friends and referral features
+├── avatar.php                <- Hero portrait selection
+├── top.php / tour.php        <- Leaderboards and Royal Tournament
+├── update.php                <- Administrative control panel
+├── api_combat.php            <- AJAX combat and loot JSON endpoint
+├── create_item.php           <- Administrative item creation
+├── ban_user.php              <- User moderation and ban management
+├── bot_create.php            <- Administrative NPC bot creation
+├── premium.php / settings.php<- Premium account and player settings
+│
 ├── _sql/
-│   └── database.sql          <- Complete database dump in English (UTF-8)
+│   └── database.sql          <- Database schema and seed data
 │
 ├── core/
-│   ├── func.php              <- Core game engine: head(), foot(), database helpers & UI bars
-│   ├── level.php             <- Hero experience progression tables
-│   └── us_level.php          <- Stat calculation and leveling formulas
-│
-├── api_combat.php            <- JSON API endpoint for dynamic combat and boss loot rolls
-├── index.php                 <- Landing portal, quick guest registration, login & tutorial
-├── profile.php               <- Hero character sheet, masteries, attributes, titles & clan info
-├── item.php                  <- Equipment manager, stat inspector & Set Resonance indicators
-├── bag.php                   <- Backpack inventory, item comparison & 1-click batch dismantle
-├── lec.php                   <- Dark Forest hunting grounds & zone monster selector
-├── exploration.php           <- Persistent Dark Forest expedition map
-├── arena.php                 <- Asynchronous player challenges, duel results & rewards
-├── daily.php                 <- 7-Day progressive daily login rewards calendar
-├── achievements.php          <- Hero achievement tracker & equipable title registry
-├── clan.php                  <- Clan Castle, guild buffs, member roster & Weekly Raid Boss
-├── shop.php                  <- Town market: armory, blacksmith forge, runes, masteries, trader
-├── paywk.php                 <- Royal Treasury, PayPal Ruby purchases & promo voucher redemption
-├── chat.php                  <- Global world chat and private clan chat
-├── mail.php / contacts.php   <- Player-to-player messaging and friends list
-├── save.php                  <- Account registration & linking (+10 Rubies & VIP bonus)
-├── avatar.php                <- Interactive hero portrait selector
-├── top.php / tour.php        <- Leaderboards, Hall of Fame & Royal Tournament
-├── update.php                <- Administrative control panel for news broadcasts & metrics
+│   ├── func.php              <- Shared helpers, page head/foot, and UI rendering
+│   ├── level.php             <- Hero experience progression
+│   ├── us_level.php          <- Hero stat and leveling calculations
+│   ├── arena_combat.php      <- Arena combat resolution
+│   ├── exploration.php       <- Expedition domain logic
+│   └── paypal.php            <- PayPal checkout and credential handling
 │
 ├── templates/
-│   ├── fight_lec.php         <- Dynamic combat interface for monster encounters
-│   ├── index.php             <- Main Town Square hub after completing onboarding
-│   ├── start.php / start2.php<- Guided prologue tutorial for new heroes
-│   ├── shop1.php - shop5.php <- Individual merchant templates (Forge, Runes, Trainer, Market)
-│   └── tavern/               <- Storyline quests and narrative tavern chapters
+│   ├── index.php             <- Main Town Square page
+│   ├── fight_lec.php         <- Monster encounter interface
+│   ├── start.php             <- New-player tutorial
+│   ├── start2.php            <- Prologue continuation
+│   ├── shop1.php - shop5.php <- Merchant-specific UI templates
+│   ├── tavern/               <- Tavern screens and quest chapters
+│   ├── statistic.php         <- Character and battle statistics
+│   └── smiles.php            <- Chat and emoji display helpers
 │
-├── game_cron/                <- Automated background cron jobs
-│   ├── tour.php              <- Weekly Royal Tournament reset and rewards payout
-│   ├── sunduk.php / sunduk2.php <- Daily common and rare treasure chest respawns
-│   └── clear_inactive.php    <- Session cleanup and stale cache purges
+├── about/                    <- Rules, help, agreement, and tour pages
+├── chat/                     <- Chat route entry point
+├── clan/                     <- Clan route entry point
+├── contacts/                 <- Contacts route entry point
+├── news/                     <- News route entry point
+├── online/                   <- Online-player route entry point
+├── paywk/                    <- Payment route entry point
+├── top/                      <- Top-player route entry point
+├── game_cron/
+│   ├── arena.php             <- Scheduled arena tournament processing
+│   ├── sunduk2.php           <- Scheduled rare chest processing
+│   └── task.php              <- Scheduled recurring task processing
 │
-└── style/
-    ├── style.css             <- Readable source for the Dark Fantasy RPG stylesheet
-    ├── style.min.css         <- Minified stylesheet inlined by head()
-    ├── toast.js              <- Client-side animated toast notification engine
-    ├── audio.js              <- Web Audio API sound synthesizer engine
-    └── favicon.ico           <- Official game favicon
+├── tests/
+│   ├── *_test.php            <- Standalone PHP regression and integration tests
+│   └── database_seed_test.php <- Database seed verification
+│
+├── style/
+│   ├── style.css             <- Readable Dark Fantasy RPG stylesheet
+│   ├── style.min.css         <- Minified stylesheet
+│   ├── exploration.css       <- Expedition-map layout and effects
+│   ├── cookie-notice.css     <- Cookie notice styles
+│   ├── audio.js              <- Web Audio API sound synthesizer
+│   └── toast.js              <- Animated toast notification engine
+│
+├── images/                   <- Character, item, skill, arena, emoji, and UI assets
+└── robots.txt, sitemap.xml   <- Search-engine directives and site map
 ```
 
 ---
@@ -300,20 +325,20 @@ PHP's built-in development server does not read `.htaccess`; use a configured we
 
 ## ⏱️ Automated Scheduled Tasks (`game_cron`)
 
-To ensure recurring world events, weekly tournaments, and daily chest respawns operate autonomously, configure the following cron jobs via cPanel or Linux `crontab -e`:
+To ensure recurring world events operate autonomously, configure the included scripts via cPanel or Linux `crontab -e`. Adjust schedules to match the desired reset cadence:
 
 ```bash
-# Weekly Royal Tournament Reset (Every Monday at 00:00)
-0 0 * * 1 php /absolute/path/to/game_cron/tour.php >/dev/null 2>&1
+# Reset arena and forest battle limits
+0 */6 * * * php /absolute/path/to/game_cron/arena.php >/dev/null 2>&1
 
-# Common Daily Chest Respawn (Every 6 Hours)
-0 */6 * * * php /absolute/path/to/game_cron/sunduk.php >/dev/null 2>&1
+# Reset daily tasks, keys, common chest, and forest resources
+0 0 * * * php /absolute/path/to/game_cron/task.php >/dev/null 2>&1
 
-# Rare Daily Chest Respawn (Every 12 Hours)
-0 */12 * * * php /absolute/path/to/game_cron/sunduk2.php >/dev/null 2>&1
+# Reset rare keys/chest and conclude weekly tournament rewards
+0 0 * * 1 php /absolute/path/to/game_cron/sunduk2.php >/dev/null 2>&1
 ```
 
-*(On cPanel, replace `/absolute/path/to/` with your home directory path, e.g., `/home/username/public_html/game_cron/tour.php`).*
+*(On cPanel, replace `/absolute/path/to/` with the game's absolute path, e.g., `/home/username/public_html/game_cron/arena.php`.)*
 
 ---
 
