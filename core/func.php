@@ -241,6 +241,10 @@ function effectiveCombatStats($player) {
         $stats['health'] = (int)round($stats['health'] * 1.10);
     }
 
+    if ((int)($player['morale_until'] ?? 0) > time()) {
+        $stats['power'] = (int)round($stats['power'] * 1.05);
+    }
+
     return $stats;
 }
 

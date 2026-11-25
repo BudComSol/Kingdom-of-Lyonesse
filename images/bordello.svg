@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 300" role="img" aria-labelledby="title">
+  <title id="title">A welcoming, lantern-lit house at dusk</title>
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1"><stop stop-color="#1b1930"/><stop offset="1" stop-color="#673d42"/></linearGradient>
+    <radialGradient id="light"><stop stop-color="#ffdf91" stop-opacity=".8"/><stop offset="1" stop-color="#e09b49" stop-opacity="0"/></radialGradient>
+  </defs>
+  <path fill="url(#sky)" d="M0 0h960v300H0z"/>
+  <circle cx="765" cy="64" r="31" fill="#e5d7af" opacity=".8"/>
+  <path d="M0 207 90 154l67 50 80-80 68 78 65-42 61 48 73-64 75 58 75-44 71 50 90-76 145 77v91H0z" fill="#191a26"/>
+  <path d="M185 300V148l116-83 119 83v152M540 300V148l119-83 116 83v152" fill="#38272d" stroke="#1b1720" stroke-width="8"/>
+  <path d="M170 151 301 52l134 99M525 151 659 52l131 99" fill="none" stroke="#211922" stroke-width="17"/>
+  <path d="M290 300V116h380v184" fill="#62413d" stroke="#261d24" stroke-width="9"/>
+  <path d="M274 119 480 28l206 91z" fill="#35232e" stroke="#211922" stroke-width="9"/>
+  <path d="M454 300v-85a26 26 0 0 1 52 0v85" fill="#231a20" stroke="#c6a16c" stroke-width="5"/>
+  <g fill="#e4ac5d" stroke="#261d24" stroke-width="8">
+    <path d="M326 150h72v67h-72zM562 150h72v67h-72zM219 175h46v59h-46zM695 175h46v59h-46z"/>
+  </g>
+  <g stroke="#583832" stroke-width="5"><path d="M362 150v67m-36-34h72M598 150v67m-36-34h72M242 175v59M718 175v59"/></g>
+  <circle cx="422" cy="230" r="65" fill="url(#light)"/><circle cx="538" cy="230" r="65" fill="url(#light)"/>
+  <g fill="#f3c675" stroke="#3b2927" stroke-width="4"><path d="M414 207h16l-3 25h-10zM530 207h16l-3 25h-10z"/></g>
+  <path d="M0 292q200-33 400 8h160q200-41 400-8v8H0z" fill="#201a20"/>
+</svg>

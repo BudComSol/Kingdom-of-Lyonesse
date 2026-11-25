@@ -487,8 +487,16 @@ CREATE TABLE `users` (
   `title` varchar(50) NOT NULL DEFAULT '',
   `kills_boss` int(11) NOT NULL DEFAULT '0',
   `kills_pvp` int(11) NOT NULL DEFAULT '0',
-  `forged_items` int(11) NOT NULL DEFAULT '0'
+  `forged_items` int(11) NOT NULL DEFAULT '0',
+  `morale_until` int(11) NOT NULL DEFAULT '0'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+CREATE TABLE `bordello_secrets` (
+  `user_id` int(11) NOT NULL,
+  `secret_id` varchar(32) NOT NULL,
+  `unlocked_at` int(11) NOT NULL,
+  PRIMARY KEY (`user_id`, `secret_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 --
