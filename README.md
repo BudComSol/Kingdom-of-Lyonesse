@@ -51,7 +51,7 @@
 * **PvP Arena & Royal Tournament:** Asynchronous player challenges against opponents within 5 levels, settled from both players' combat stats, plus tournament points and weekly reward payouts.
 * **Economy & Royal Treasury:** PayPal Checkout for Ruby packs, voucher promo code redemption, and currency exchange.
 * **Animated Toast Notifications:** Floating notifications with sound effects and auto-dismissal.
-* **Animated Landing Page:** A compact, winged dragon flies across the hero and periodically breathes fire. Administrators can turn it on or off under **Admin Panel → Landing Page Dragon**; it is also hidden when reduced motion is preferred.
+* **Animated Landing Page:** A CSS-drawn dragon logo sits above the entry button, while a compact, winged dragon flies across the hero and periodically breathes fire. Administrators can turn the flying dragon on or off under **Admin Panel → Landing Page Dragon**; it is also hidden when reduced motion is preferred. The standalone logo can be viewed at `/logo-preview.html`.
 
 ---
 
@@ -64,6 +64,7 @@
 ├── config.php                <- Environment parsing, PDO setup, sessions, and shared constants
 ├── migrate.php               <- Command-line database schema migration and setup
 ├── index.php                 <- Landing page, registration, login, and onboarding entry point
+├── logo-preview.html         <- Standalone CSS logo preview
 ├── save.php                  <- Account registration and login-linking flows
 ├── profile.php               <- Hero profile, attributes, titles, and clan details
 ├── bag.php / item.php        <- Inventory, equipment, crafting, and item inspection
@@ -133,6 +134,7 @@
 │   ├── style.css             <- Readable Dark Fantasy RPG stylesheet
 │   ├── style.min.css         <- Minified stylesheet
 │   ├── exploration.css       <- Expedition-map layout and effects
+│   ├── logo-preview.css      <- CSS dragon logo and standalone preview styles
 │   ├── cookie-notice.css     <- Cookie notice styles
 │   ├── audio.js              <- Web Audio API sound synthesizer
 │   └── toast.js              <- Animated toast notification engine

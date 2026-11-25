@@ -75,6 +75,13 @@ foreach (['missing' => true, '1' => true, '0' => false] as $setting => $visible)
     [$output] = runCase('landing', (string)$setting);
     check(str_contains($output, 'class="dragon-sky"') === $visible, "Dragon markup incorrect for $setting");
     check(str_contains($output, 'class="landing-content"') && str_contains($output, 'class="logo"'), 'Landing page missing');
+    check(str_contains($output, 'class="logo-art-slot"') && str_contains($output, 'class="css-logo" role="img" aria-label="Kingdom of Lyonesse, with a red dragon above gold lettering"'), 'Accessible CSS logo missing');
+    check(!str_contains($output, '<img src="/images/logo.webp"'), 'Landing page should not render the image logo');
+    check(str_contains($output, '.css-logo .dragon-body {'), 'Scoped CSS logo styles missing');
+    check(!preg_match('/^\s*\.dragon-(?:body|eye)\s*[{,]/m', file_get_contents(__DIR__ . '/../style/logo-preview.css')), 'CSS logo styles must not affect the flying dragon');
+    check(preg_match('/\.logo-art-slot\s*\{[^}]*width:\s*85%;[^}]*aspect-ratio:\s*320\s*\/\s*213;/s', $output) === 1, 'CSS logo slot must match the original image size');
+    check(preg_match('/\.logo-art-slot\s+\.css-logo\s*\{[^}]*position:\s*absolute;[^}]*transform:\s*scaleY\(0\.85\);/s', $output) === 1, 'CSS artwork must fit inside the original logo slot');
+    check(str_contains($output, 'class="dragon-snort"'), 'CSS logo breath missing');
     check(str_contains($output, '<header data-game-landing>'), 'Landing page should request game structured data');
     check(preg_match('/\.landing-content\s*\{\s*gap:\s*0;?\s*\}/', $output) === 1, 'Front page landing content should have no flex gap');
     check(preg_match('/\.landing-content\s*>\s*\.landing-links\s*\{[^}]*width:\s*min\(100%,\s*270px\);[^}]*margin:\s*0;[^}]*font-size:\s*clamp\(0\.68rem,\s*2\.7vw,\s*0\.78rem\);[^}]*white-space:\s*nowrap;/s', $output) === 1, 'Front page oval links should be 270px wide with smaller, single-line text and sit directly beneath the button');

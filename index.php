@@ -208,14 +208,36 @@ if ($rules == 1) {
 if (!$uid) {
     $gameLanding = $login != 1 && $password != 1 && !(isset($_GET['id']) && isset($_GET['hash']));
     head("A MMORPG Browser Game", 0, $gameLanding);
+    $logoStylesheet = file_get_contents(__DIR__ . '/style/logo-preview.css');
+    if ($logoStylesheet === false) {
+        throw new RuntimeException('Unable to load the logo stylesheet.');
+    }
     $dragonSetting = fch(
         "SELECT `setting_value` FROM `site_settings` WHERE `setting_key` = ? LIMIT 1",
         array('landing_dragon_enabled')
     );
 ?>
+<style><?php echo $logoStylesheet; ?></style>
 <style>
     .landing-content {
         gap: 0;
+    }
+
+    .logo-art-slot {
+        position: relative;
+        display: inline-block;
+        width: 85%;
+        aspect-ratio: 320 / 213;
+        vertical-align: baseline;
+    }
+
+    .logo-art-slot .css-logo {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        transform: scaleY(0.85);
+        transform-origin: top;
     }
 
     .landing-content > .landing-links {
@@ -290,8 +312,41 @@ if (!$uid) {
     </div>
     <?php } ?>
     <div class="logo">
-        <img src="/images/logo.webp" width="320" height="213" alt="Logo" fetchpriority="high">
-    </div>    
+        <div class="logo-art-slot">
+            <div class="css-logo" role="img" aria-label="Kingdom of Lyonesse, with a red dragon above gold lettering">
+                <div class="dragon" aria-hidden="true">
+                    <div class="wing wing-left"></div>
+                    <div class="wing wing-right"></div>
+                    <div class="wing-spine-tip wing-spine-tip-left"></div>
+                    <div class="wing-spine-tip wing-spine-tip-right"></div>
+                    <div class="tail"></div>
+                    <div class="dragon-body"></div>
+                    <div class="dragon-back-spines"></div>
+                    <div class="dragon-neck"></div>
+                    <div class="dragon-spines"></div>
+                    <div class="dragon-chest"></div>
+                    <div class="dragon-shoulder"></div>
+                    <div class="dragon-leg dragon-leg-back"></div>
+                    <div class="dragon-leg dragon-leg-front"></div>
+                    <div class="dragon-leg dragon-leg-middle"></div>
+                    <div class="dragon-head">
+                        <span class="dragon-horn"></span>
+                        <span class="dragon-eye"></span>
+                        <span class="dragon-mouth"></span>
+                        <span class="dragon-jaw"></span>
+                        <span class="dragon-snout"></span>
+                        <span class="dragon-snort"></span>
+                    </div>
+                </div>
+                <div class="wordmark" aria-hidden="true">
+                    <span class="kingdom">KINGDOM</span>
+                    <span class="of">OF</span>
+                    <span class="lyonesse">LYONESSE</span>
+                    <span class="crest"></span>
+                </div>
+            </div>
+        </div>
+    </div>
     <a class="enter_button" href="/?start=1">
         <img src="/images/button_green.webp" width="335" height="88" alt="Battle Button">
     </a>
