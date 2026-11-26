@@ -487,7 +487,34 @@ textarea.mail {
 
 @media screen and (max-width: 960px) {
     .comp_menu_left, .comp_menu_right {
-        display: none !important;
+        display: block !important;
+        position: static;
+        width: 100%;
+        margin: 0;
+        z-index: auto;
+    }
+
+    .comp_menu_right > .tophead2.cntr,
+    .comp_menu_left > .tophead2.cntr,
+    .comp_menu_left > .sidebar_stat_box,
+    .comp_menu_left > .ven {
+        display: none;
+    }
+
+    .sidebar_menu_container {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 6px;
+        margin: 8px 0;
+    }
+
+    .sidebar_nav_item {
+        min-width: 0;
+        padding-right: 6px;
+    }
+
+    .sidebar_nav_text {
+        white-space: normal;
     }
 }
 

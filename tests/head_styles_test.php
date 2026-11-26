@@ -21,6 +21,12 @@ check($cookieNoticeStylesheet !== false, 'Cookie notice stylesheet missing');
 check(strlen($minifiedStylesheet) < strlen($sourceStylesheet), 'Minified stylesheet is not smaller than its source');
 check(!str_contains($minifiedStylesheet, "\n"), 'Minified stylesheet contains line breaks');
 check(str_contains($minifiedStylesheet, '.sidebar_hero_name{') && str_contains($minifiedStylesheet, 'font-family:var(--font-heading)'), 'Hero-name style missing from inlined stylesheet');
+check(
+    preg_match('/@media screen and \(max-width: 960px\)\s*\{\s*\.comp_menu_left,\s*\.comp_menu_right\s*\{\s*display:\s*block !important;/s', $sourceStylesheet) === 1
+        && preg_match('/@media screen and \(max-width: 960px\)\s*\{\s*\.comp_menu_left,\s*\.comp_menu_right\s*\{\s*display:\s*block !important;/s', $minifiedStylesheet) === 1,
+    'Sidebar links should remain visible on mobile'
+);
+check(str_contains($sourceStylesheet, 'grid-template-columns: repeat(2, minmax(0, 1fr));') && str_contains($minifiedStylesheet, 'grid-template-columns: repeat(2, minmax(0, 1fr));'), 'Mobile sidebar links should be arranged in a compact two-column menu');
 $source = file_get_contents(__DIR__ . '/../core/func.php');
 $start = strpos($source, 'function head(');
 $end = strpos($source, 'function foot(', $start);
