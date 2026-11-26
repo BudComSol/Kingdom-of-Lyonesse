@@ -60,7 +60,7 @@ foreach ([0, 1] as $uid) {
 }
 
 foreach ([0, 1, 3] as $adminLevel) {
-    $user = ['start' => 10, 'adm' => $adminLevel, 'level' => 1, 'exp' => 0, 'sex' => 1, 'avatar' => 1, 'login' => 'Test <Hero>'];
+    $user = ['start' => 10, 'adm' => $adminLevel, 'level' => 1, 'exp' => 0, 'sex' => 1, 'avatar' => 1];
     ob_start();
     head('Sidebar test', 1);
     $sidebarHtml = ob_get_clean();
@@ -69,7 +69,6 @@ foreach ([0, 1, 3] as $adminLevel) {
     $gap = '<div class="sidebar_nav_item" aria-hidden="true" style="visibility: hidden;"><div class="sidebar_nav_icon_wrap"></div></div>';
     check(str_contains($leftSidebar, $gap . "\n        " . '<a class="sidebar_nav_item" href="/index.php?exit=1">'), 'Logout link or its gap missing from left sidebar');
     check(str_contains($leftSidebar, '>Logout</span>'), 'Logout label missing');
-    check(str_contains($leftSidebar, '<div class="sidebar_hero_name">Test &lt;Hero&gt;</div>'), 'Hero name missing or unescaped in left sidebar');
     check(str_contains($rightSidebar, 'href="/update.php"') === ($adminLevel === 3), 'Admin link visibility does not match admin panel access');
     if ($adminLevel === 3) {
         check(str_contains($rightSidebar, $gap . "\n        " . '<a class="sidebar_nav_item" href="/update.php">'), 'Admin link gap missing from right sidebar');

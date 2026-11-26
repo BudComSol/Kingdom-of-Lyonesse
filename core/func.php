@@ -764,7 +764,6 @@ document.addEventListener('DOMContentLoaded', () => {
         <a href="/avatar.php" title="Change Avatar">
             <img class="round_image" src="/images/avatar/<?php echo $user['sex']; ?>/<?php echo $user['avatar']; ?>.png" width="105" height="105" alt="Avatar">
         </a>
-        <div class="sidebar_hero_name"><?php echo checking($user['login'] ?? ''); ?></div>
     </div>
 
     <div class="tophead2 sidebar_stat_box">
