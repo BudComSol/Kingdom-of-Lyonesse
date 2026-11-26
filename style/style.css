@@ -455,6 +455,20 @@ textarea.mail {
     width: 210px;
 }
 
+.comp_menu_right > .tophead2.cntr,
+.comp_menu_left > .tophead2.cntr {
+    width: 210px;
+    height: 158.42px;
+    box-sizing: border-box;
+}
+
+.comp_menu_right > .tophead2.cntr {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 .comp_menu_right {
     position: fixed;
     right: 50%;
