@@ -27,6 +27,22 @@ check(
     'Sidebar links should remain visible on mobile'
 );
 check(str_contains($sourceStylesheet, 'grid-template-columns: repeat(2, minmax(0, 1fr));') && str_contains($minifiedStylesheet, 'grid-template-columns: repeat(2, minmax(0, 1fr));'), 'Mobile sidebar links should be arranged in a compact two-column menu');
+foreach ([$sourceStylesheet, $minifiedStylesheet] as $stylesheet) {
+    check(
+        preg_match('/@media screen and \(max-width: 960px\).*?\.sidebar_nav_text\s*\{\s*flex:\s*1;\s*min-width:\s*0;\s*text-align:\s*center;\s*white-space:\s*normal;\s*\}/s', $stylesheet) === 1,
+        'Mobile menu labels should be centered beside their icons'
+    );
+}
+foreach ([$sourceStylesheet, $minifiedStylesheet] as $stylesheet) {
+    check(
+        preg_match('/@media screen and \(max-width: 960px\)\s*\{[^}]*\}[^}]*\.comp_menu_right\s*>\s*\.tophead2\.cntr,\s*\.comp_menu_left\s*>\s*\.tophead2\.cntr\s*\{\s*width:\s*100%;\s*height:\s*auto;\s*\}/s', $stylesheet) === 1,
+        'Mobile timer and avatar panels should fit the viewport'
+    );
+    check(
+        !preg_match('/\.comp_menu_left\s*>\s*\.tophead2\.cntr[^{}]*\{[^}]*display:\s*none/s', $stylesheet),
+        'Avatar panel should remain visible on mobile'
+    );
+}
 $source = file_get_contents(__DIR__ . '/../core/func.php');
 $start = strpos($source, 'function head(');
 $end = strpos($source, 'function foot(', $start);
@@ -76,6 +92,7 @@ foreach ([0, 1, 3] as $adminLevel) {
     check(str_contains($leftSidebar, $gap . "\n        " . '<a class="sidebar_nav_item" href="/index.php?exit=1">'), 'Logout link or its gap missing from left sidebar');
     check(str_contains($leftSidebar, '>Logout</span>'), 'Logout label missing');
     check(str_contains($leftSidebar, '<div class="sidebar_hero_name">Knight &lt;the Bold&gt;</div>'), 'Escaped hero name missing beneath the avatar');
+    check(str_contains($leftSidebar, '<a href="/avatar.php" title="Change Avatar">') && str_contains($leftSidebar, 'src="/images/avatar/1/1.png"'), 'Avatar and change link missing from sidebar');
     check(str_contains($rightSidebar, 'href="/update.php"') === ($adminLevel === 3), 'Admin link visibility does not match admin panel access');
     if ($adminLevel === 3) {
         check(str_contains($rightSidebar, $gap . "\n        " . '<a class="sidebar_nav_item" href="/update.php">'), 'Admin link gap missing from right sidebar');

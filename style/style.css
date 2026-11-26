@@ -495,7 +495,11 @@ textarea.mail {
     }
 
     .comp_menu_right > .tophead2.cntr,
-    .comp_menu_left > .tophead2.cntr,
+    .comp_menu_left > .tophead2.cntr {
+        width: 100%;
+        height: auto;
+    }
+
     .comp_menu_left > .sidebar_stat_box,
     .comp_menu_left > .ven {
         display: none;
@@ -514,6 +518,9 @@ textarea.mail {
     }
 
     .sidebar_nav_text {
+        flex: 1;
+        min-width: 0;
+        text-align: center;
         white-space: normal;
     }
 }
