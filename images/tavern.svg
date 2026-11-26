@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" role="img" aria-labelledby="title desc">
+  <title id="title">The tavern</title>
+  <desc id="desc">A warm medieval tavern with timber beams, candlelit tables and a welcoming hearth.</desc>
+  <defs>
+    <linearGradient id="wall" x2="0" y2="1">
+      <stop stop-color="#75452f"/>
+      <stop offset="1" stop-color="#291b19"/>
+    </linearGradient>
+    <radialGradient id="glow">
+      <stop stop-color="#f6bd62" stop-opacity=".7"/>
+      <stop offset="1" stop-color="#e17b35" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="floor" x2="0" y2="1">
+      <stop stop-color="#71432b"/>
+      <stop offset="1" stop-color="#211719"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="500" fill="url(#wall)"/>
+  <ellipse cx="600" cy="265" rx="520" ry="260" fill="url(#glow)"/>
+  <path d="M0 0h1200v54H0ZM0 0l82 500h42L52 0Zm1200 0-82 500h-42l72-500ZM260 0h38v286h-38Zm642 0h38v286h-38ZM0 132h1200v31H0Z" fill="#211817"/>
+  <path d="M65 93h155v175H65z" fill="#322321" stroke="#a56c3b" stroke-width="12"/>
+  <path d="M88 111h109v139H88z" fill="#395052"/>
+  <path d="M142 111v139M88 181h109" stroke="#c58a4d" stroke-width="9"/>
+  <path d="M976 73h153v194H976z" fill="#33241e" stroke="#9b6437" stroke-width="11"/>
+  <path d="M994 92h117v153H994z" fill="#3c4b4c"/>
+  <path d="M1052 92v153m-58-77h117" stroke="#c58a4d" stroke-width="8"/>
+  <path d="M0 276h1200v224H0Z" fill="url(#floor)"/>
+  <path d="M65 294h1070v44H65z" fill="#4a2d21" stroke="#a56c3b" stroke-width="8"/>
+  <path d="M108 338v83m986-83v83M420 340v96m360-96v96" stroke="#261a17" stroke-width="22"/>
+  <path d="M60 421h1080l-51 49H112Z" fill="#7c4c2c" stroke="#b37c44" stroke-width="7"/>
+  <g fill="#f4bd63">
+    <path d="M306 219q-17-26 0-51 17 25 0 51Zm588 0q-17-26 0-51 17 25 0 51Z"/>
+    <path d="M298 222h16v47h-16Zm588 0h16v47h-16Z" fill="#30201a"/>
+    <circle cx="306" cy="198" r="62" fill="url(#glow)"/>
+    <circle cx="894" cy="198" r="62" fill="url(#glow)"/>
+  </g>
+  <g fill="#2c1d19" stroke="#a9713d" stroke-width="7">
+    <path d="M410 260h50v74h-50zm-12 0q37-28 74 0v12h-74z"/>
+    <path d="M738 260h50v74h-50zm-12 0q37-28 74 0v12h-74z"/>
+    <path d="M535 303h130v20H535z"/>
+    <path d="M535 323v43m130-43v43"/>
+  </g>
+  <path d="M0 0h1200v500H0Z" fill="#100d12" opacity=".28"/>
+</svg>

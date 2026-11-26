@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 500" role="img" aria-labelledby="title desc">
+  <title id="title">The arena</title>
+  <desc id="desc">A stone coliseum prepared for a duel beneath crimson banners.</desc>
+  <defs>
+    <linearGradient id="sky" x2="0" y2="1">
+      <stop stop-color="#29354a"/>
+      <stop offset="1" stop-color="#c07847"/>
+    </linearGradient>
+    <linearGradient id="sand" x2="0" y2="1">
+      <stop stop-color="#c69a61"/>
+      <stop offset="1" stop-color="#4f382d"/>
+    </linearGradient>
+    <linearGradient id="stone" x2="0" y2="1">
+      <stop stop-color="#a99576"/>
+      <stop offset="1" stop-color="#463f3a"/>
+    </linearGradient>
+    <linearGradient id="shade" x2="0" y2="1">
+      <stop stop-color="#090e18" stop-opacity=".05"/>
+      <stop offset="1" stop-color="#090e18" stop-opacity=".78"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="500" fill="url(#sky)"/>
+  <circle cx="605" cy="145" r="85" fill="#e7b66d" opacity=".58"/>
+  <path d="M0 204 130 155l112 35 108-75 137 80 114-65 128 70 98-71 131 75 119-44 123 61v92H0Z" fill="#343a3b"/>
+  <path d="M0 266Q600 100 1200 266v147H0Z" fill="url(#stone)" stroke="#d1b78b" stroke-width="8"/>
+  <path d="M0 285Q600 145 1200 285M0 313Q600 179 1200 313M0 343Q600 215 1200 343" fill="none" stroke="#382f2b" stroke-width="15"/>
+  <path d="M0 274Q600 128 1200 274" fill="none" stroke="#d9c49b" stroke-width="8"/>
+  <g fill="#292a2b">
+    <path d="M70 274v-67q0-26 24-26t24 26v56Zm100-24v-79q0-26 24-26t24 26v60Zm100-25v-92q0-26 24-26t24 26v80Zm756 0v-92q0-26 24-26t24 26v80Zm100 25v-79q0-26 24-26t24 26v56Zm-1006 30 18-68h20l18 62Zm104-27 18-72h20l18 67Zm804 0 18-72h20l18 67Zm104 27 18-68h20l18 62Z"/>
+  </g>
+  <path d="M0 365Q600 274 1200 365v135H0Z" fill="url(#sand)"/>
+  <path d="M0 389Q600 312 1200 389M0 432Q600 369 1200 432M0 477Q600 429 1200 477" fill="none" stroke="#e0b979" stroke-opacity=".35" stroke-width="4"/>
+  <path d="M88 200 151 218l-50 71-15-6Zm1024 0-63 18 50 71 15-6Z" fill="#7e292b"/>
+  <path d="m88 200 63 18-50 71-15-6Zm1024 0-63 18 50 71 15-6Z" fill="#b84837"/>
+  <g fill="#f3bd68">
+    <path d="M188 307q-14-23 0-41 14 18 0 41Zm824 0q-14-23 0-41 14 18 0 41Z"/>
+    <path d="M181 310h14v26h-14zm824 0h14v26h-14z" fill="#3c3028"/>
+  </g>
+  <path d="M0 0h1200v500H0Z" fill="url(#shade)"/>
+</svg>

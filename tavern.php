@@ -37,7 +37,7 @@ head("Tavern & Story Quests", $uid);
 
 if (($tavern['level'] ?? 1) != 4) {
 ?>
-    <img style="top: 0; border-radius: 8px;" width="100%" src="/images/tavern/logo.png" alt="Tavern">
+    <img style="top: 0; border-radius: 8px;" width="100%" src="/images/tavern.svg" alt="Tavern">
 <?php
 }
 
