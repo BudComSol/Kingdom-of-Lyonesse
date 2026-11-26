@@ -671,10 +671,10 @@ if ($user && isset($user['start']) && $user['start'] >= 4) {
 <br>
 
 <div class="wp200 alc pos-r lptp comp_menu_right">
-    <div class="tophead2 cntr" style="padding: 8px 6px; justify-content: flex-start;">
-        <div class="title cntr" style="margin: 0 0 auto;"><span class="color" style="font-size: 12px;">⚡ Energy Timers</span></div>
+    <div class="tophead2 cntr" style="padding: 8px 6px; min-height: 158.42px; justify-content: flex-start;">
+        <div class="title cntr" style="margin: 0;"><span class="color" style="font-size: 12px;">⚡ Energy Timers</span></div>
         <div class="hrs"></div>
-        <small>
+        <small style="position: absolute; top: 50%; left: 0; width: 100%; transform: translateY(-50%);">
             <b>⚔️ Arena:</b> <span id="arena-timer" class="<?php echo ($arenaTimeLeft > 0) ? 'orange' : 'lime'; ?>"><?php echo ($arenaTimeLeft > 0) ? gmdate("i:s", $arenaTimeLeft) : 'Ready to fight!'; ?></span><br>
             <b>🌲 Forest:</b> <span id="forest-timer" class="<?php echo ($forestTimeLeft > 0) ? 'orange' : 'lime'; ?>"><?php echo ($forestTimeLeft > 0) ? gmdate("i:s", $forestTimeLeft) : 'Ready to hunt!'; ?></span>
         </small>
@@ -764,7 +764,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <a href="/avatar.php" title="Change Avatar">
             <img class="round_image" src="/images/avatar/<?php echo $user['sex']; ?>/<?php echo $user['avatar']; ?>.png" width="105" height="105" alt="Avatar">
         </a>
-        <div class="sidebar_hero_name"><?php echo checking($user['login'] ?? ''); ?></div>
+        <div class="sidebar_hero_name"><a href="/profile.php?id=<?php echo (int)$uid; ?>"><?php echo checking($user['login'] ?? ''); ?></a></div>
     </div>
 
     <div class="tophead2 sidebar_stat_box">
