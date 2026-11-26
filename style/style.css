@@ -819,8 +819,8 @@ textarea.mail {
     overflow: hidden;
 }
 
-.tower-preview-btn { background-image: url(/images/tower-menu-bg.png); }
-.tower-preview-btn2 { background-image: url(/images/tawer.png); }
+.tower-preview-btn { background-image: url(/images/arena.svg); }
+.tower-preview-btn2 { background-image: url(/images/tavern.svg); }
 
 .tower-preview-btn:hover, .tower-preview-btn2:hover {
     border-color: var(--border-gold-bright);
