@@ -671,8 +671,8 @@ if ($user && isset($user['start']) && $user['start'] >= 4) {
 <br>
 
 <div class="wp200 alc pos-r lptp comp_menu_right">
-    <div class="tophead2 cntr" style="padding: 8px 6px;">
-        <div class="title cntr"><span class="color" style="font-size: 12px;">⚡ Energy Timers</span></div>
+    <div class="tophead2 cntr" style="padding: 8px 6px; justify-content: flex-start;">
+        <div class="title cntr" style="margin: 0 0 auto;"><span class="color" style="font-size: 12px;">⚡ Energy Timers</span></div>
         <div class="hrs"></div>
         <small>
             <b>⚔️ Arena:</b> <span id="arena-timer" class="<?php echo ($arenaTimeLeft > 0) ? 'orange' : 'lime'; ?>"><?php echo ($arenaTimeLeft > 0) ? gmdate("i:s", $arenaTimeLeft) : 'Ready to fight!'; ?></span><br>
