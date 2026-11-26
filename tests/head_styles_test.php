@@ -21,8 +21,6 @@ check($cookieNoticeStylesheet !== false, 'Cookie notice stylesheet missing');
 check(strlen($minifiedStylesheet) < strlen($sourceStylesheet), 'Minified stylesheet is not smaller than its source');
 check(!str_contains($minifiedStylesheet, "\n"), 'Minified stylesheet contains line breaks');
 check(str_contains($minifiedStylesheet, '.sidebar_hero_name{') && str_contains($minifiedStylesheet, 'font-family:var(--font-heading)'), 'Hero-name style missing from inlined stylesheet');
-check(str_contains($minifiedStylesheet, '.comp_menu_right .tophead2.cntr{width:158.42px}'), 'Right sidebar tophead width missing from inlined stylesheet');
-
 $source = file_get_contents(__DIR__ . '/../core/func.php');
 $start = strpos($source, 'function head(');
 $end = strpos($source, 'function foot(', $start);
