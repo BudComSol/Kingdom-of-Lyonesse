@@ -202,7 +202,7 @@ if (isset($_GET['attack_get'])) {
 
 $botHpPercent = round(max(0, $lec_fight['bot_hp']) / max(1, $lec_fight['default']) * 100, 1);
 $heroHpPercent = round(max(0, $lec_fight['hp']) / max(1, $combatStats['health']) * 100, 1);
-head("Combat - The Dark Forest", $uid);
+head("Combat - The Dark Forest", $uid, false, $lec_fight['hp']);
 ?>
 
 <meta http-equiv="Refresh" content="6; URL=lec.php?attack_get">
@@ -291,6 +291,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const monsterHpText = document.getElementById('monster-hp-text');
     const heroHpBar = document.getElementById('hero-hp-bar');
     const heroHpText = document.getElementById('hero-hp-text');
+    const headerHealth = document.getElementById('header-health');
+    const headerHealthBar = document.getElementById('header-health-bar');
+    const headerHealthText = document.getElementById('header-health-text');
     const floatingContainer = document.getElementById('combat-floating-container');
     const monsterAvatar = document.getElementById('monster-avatar');
     const heroAvatar = document.getElementById('hero-avatar');
@@ -361,6 +364,12 @@ document.addEventListener('DOMContentLoaded', () => {
             const hPercent = Math.max(0, Math.min(100, (data.hero_hp / data.hero_max_hp) * 100));
             if (heroHpBar) heroHpBar.style.width = `${hPercent}%`;
             if (heroHpText) heroHpText.innerHTML = `<b>${data.hero_hp}</b> / ${data.hero_max_hp}`;
+            if (headerHealthBar) headerHealthBar.style.width = `${hPercent}%`;
+            if (headerHealthText) headerHealthText.textContent = `${data.hero_hp} / ${data.hero_max_hp}`;
+            if (headerHealth) {
+                headerHealth.setAttribute('aria-valuemax', data.hero_max_hp);
+                headerHealth.setAttribute('aria-valuenow', Math.max(0, Math.min(data.hero_hp, data.hero_max_hp)));
+            }
 
             // Check Status
             if (data.status === 'victory') {
