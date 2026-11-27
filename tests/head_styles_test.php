@@ -93,7 +93,7 @@ foreach ([0, 1, 3] as $adminLevel) {
     check(str_contains($leftSidebar, $gap . "\n        " . '<a class="sidebar_nav_item" href="/index.php?exit=1">'), 'Logout link or its gap missing from left sidebar');
     check(str_contains($leftSidebar, '>Logout</span>'), 'Logout label missing');
     check(str_contains($leftSidebar, '<div class="sidebar_hero_name"><a href="/profile.php?id=1">Knight &lt;the Bold&gt;</a></div>'), 'Escaped hero name should link to the public profile beneath the avatar');
-    check(str_contains($leftSidebar, '<a href="/factions.php" title="Change Faction">') && str_contains($leftSidebar, 'src="/images/arena/1.png"'), 'Faction portrait and change link missing from sidebar');
+    check(str_contains($leftSidebar, '<a href="/factions.php" title="Change Faction">') && str_contains($leftSidebar, 'src="/images/factions/1.png"'), 'Faction portrait and change link missing from sidebar');
     check(str_contains($rightSidebar, 'href="/update.php"') === ($adminLevel === 3), 'Admin link visibility does not match admin panel access');
     if ($adminLevel === 3) {
         check(str_contains($rightSidebar, $gap . "\n        " . '<a class="sidebar_nav_item" href="/update.php">'), 'Admin link gap missing from right sidebar');

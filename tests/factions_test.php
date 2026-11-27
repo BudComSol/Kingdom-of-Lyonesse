@@ -57,7 +57,7 @@ function requestCase($case) {
 foreach (['onboarding-view', 'faction-view'] as $case) {
     [$html] = requestCase($case);
     foreach (factions() as $id => $faction) {
-        check(str_contains($html, '/images/arena/' . $id . '.png') && str_contains($html, $faction['name']), "$case missing faction $id");
+        check(str_contains($html, '/images/factions/' . $id . '.png') && str_contains($html, $faction['name']), "$case missing faction $id");
     }
     check(str_contains($html, 'name="faction"') && str_contains($html, 'required'), "$case does not require a choice");
 }
@@ -96,7 +96,7 @@ foreach (factions() as $id => $faction) {
     foreach (['power', 'block', 'health'] as $stat) {
         check($stats[$stat] === 100 + $faction[$stat], "Wrong $stat bonus for $id");
     }
-    check(factionImageUrl($hero) === "/images/arena/$id.png", "Wrong image for $id");
+    check(factionImageUrl($hero) === "/images/factions/$id.png", "Wrong image for $id");
 }
 $pieces = 4;
 $hero['faction'] = 1;
