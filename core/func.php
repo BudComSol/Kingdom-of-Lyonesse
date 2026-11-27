@@ -721,6 +721,10 @@ if ($user && isset($user['start']) && $user['start'] >= 4) {
             <div class="sidebar_nav_icon_wrap"><img src="/style/home.png" width="22px" height="22px" alt="Town Hall"></div>
             <span class="sidebar_nav_text">Town Hall</span>
         </a>
+        <a class="sidebar_nav_item" href="/wiki.php">
+            <div class="sidebar_nav_icon_wrap"><img src="/images/records.png" width="22px" height="22px" alt=""></div>
+            <span class="sidebar_nav_text">Wiki</span>
+        </a>
         <?php if (($user['adm'] ?? 0) == 3) { ?>
         <div class="sidebar_nav_item" aria-hidden="true" style="visibility: hidden;"><div class="sidebar_nav_icon_wrap"></div></div>
         <a class="sidebar_nav_item" href="/update.php">

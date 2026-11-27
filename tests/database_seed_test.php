@@ -6,6 +6,9 @@ function check($condition, $message) {
 
 $sql = file_get_contents(__DIR__ . '/../_sql/database.sql');
 check($sql !== false, 'Could not read database.sql');
+foreach (['wiki_pages', 'wiki_revisions'] as $table) {
+    check(str_contains($sql, "CREATE TABLE IF NOT EXISTS `$table`"), "Missing $table from fresh install");
+}
 
 preg_match_all('/^INSERT INTO `([^`]+)`/m', $sql, $matches);
 $tables = $matches[1];

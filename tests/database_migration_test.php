@@ -56,7 +56,7 @@ check($status === 0 && $queries === ['SET NAMES utf8mb4', "SET time_zone = '+09:
 [$status, $queries, $errors] = runCase('migrate');
 check($status === 0 && is_array($queries), "Migration failed: $errors");
 $sql = implode("\n", $queries);
-foreach (['clans', 'clan_members', 'clan_boss', 'achievements_user', 'arena_challenges', 'site_settings', 'paypal_orders', 'exploration_progress', 'bordello_secrets'] as $table) {
+foreach (['clans', 'clan_members', 'clan_boss', 'achievements_user', 'arena_challenges', 'site_settings', 'paypal_orders', 'exploration_progress', 'bordello_secrets', 'wiki_pages', 'wiki_revisions'] as $table) {
     check(str_contains($sql, "CREATE TABLE IF NOT EXISTS `$table`"), "Missing $table migration");
 }
 check(str_contains($sql, 'ADD COLUMN `daily_streak`'), 'Missing user column migration');

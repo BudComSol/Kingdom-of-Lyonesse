@@ -50,6 +50,7 @@
 * **Daily Engagement & Progression:** 7-day progressive daily login streak calendar, real-time energy ticker countdowns, and a 10-tier Hero Achievement & Equipable Title system.
 * **PvP Arena & Royal Tournament:** Asynchronous player challenges against opponents within 5 levels, settled from both players' combat stats, plus tournament points and weekly reward payouts.
 * **Bordello:** Seek company for a one-hour Power bonus or purchase companions' secrets to reread. The bonus is captured when forest or Tavern fights start and when Arena combat stats are recorded.
+* **Hero Wiki:** Heroes can create and edit shared guides, organize them by category, and link pages with `[[Page title]]`. Previous revisions remain available in page history; simultaneous edits are checked before saving.
 * **Economy & Royal Treasury:** PayPal Checkout for Ruby packs, voucher promo code redemption, and currency exchange.
 * **Animated Toast Notifications:** Floating notifications with sound effects and auto-dismissal.
 * **Animated Landing Page:** A CSS-drawn dragon logo sits above the entry button, while a compact, winged dragon flies across the hero and periodically breathes fire. Administrators can turn the flying dragon on or off under **Admin Panel → Landing Page Dragon**; it is also hidden when reduced motion is preferred. The standalone logo can be viewed at `/logo-preview.html`.
@@ -73,6 +74,7 @@
 ├── exploration.php           <- Expedition map and landmark progression
 ├── arena.php                 <- PvP challenges, arena combat, and tournament flows
 ├── bordello.php              <- Companionship, morale, and purchasable stories
+├── wiki.php                  <- Collaborative Hero wiki and revision history
 ├── daily.php                 <- Daily login streak and reward calendar
 ├── achievements.php          <- Achievement and equipable-title system
 ├── clan.php                  <- Clan Castle, members, buffs, and clan raid
