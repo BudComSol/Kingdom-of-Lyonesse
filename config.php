@@ -214,6 +214,28 @@ try {
               KEY `achievement_id` (`achievement_id`)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+            CREATE TABLE IF NOT EXISTS `wiki_pages` (
+              `id` int(11) NOT NULL AUTO_INCREMENT,
+              `title` varchar(120) NOT NULL,
+              `category` varchar(80) NOT NULL DEFAULT '',
+              `content` text NOT NULL,
+              `version` int(11) NOT NULL,
+              `updated_by` int(11) NOT NULL,
+              `updated_at` int(11) NOT NULL,
+              PRIMARY KEY (`id`),
+              UNIQUE KEY `title` (`title`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+            CREATE TABLE IF NOT EXISTS `wiki_revisions` (
+              `page_id` int(11) NOT NULL,
+              `version` int(11) NOT NULL,
+              `category` varchar(80) NOT NULL DEFAULT '',
+              `content` text NOT NULL,
+              `edited_by` int(11) NOT NULL,
+              `edited_at` int(11) NOT NULL,
+              PRIMARY KEY (`page_id`, `version`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
         ");
 
         $userCols = $BaseConnect->query("SHOW COLUMNS FROM `users`")->fetchAll(PDO::FETCH_COLUMN);
