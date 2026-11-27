@@ -36,6 +36,14 @@ foreach ([$sourceStylesheet, $minifiedStylesheet] as $stylesheet) {
 check(str_contains($sourceStylesheet, 'grid-template-columns: repeat(2, minmax(0, 1fr));') && str_contains($minifiedStylesheet, 'grid-template-columns: repeat(2, minmax(0, 1fr));'), 'Mobile sidebar links should be arranged in a compact two-column menu');
 foreach ([$sourceStylesheet, $minifiedStylesheet] as $stylesheet) {
     check(
+        str_contains($stylesheet, '.sidebar_logout_spacer')
+            && str_contains($stylesheet, '.sidebar_logout')
+            && str_contains($stylesheet, '.comp_menu_left .sidebar_menu_container'),
+        'Logout spacing and bottom alignment should be present in both stylesheets'
+    );
+}
+foreach ([$sourceStylesheet, $minifiedStylesheet] as $stylesheet) {
+    check(
         preg_match('/@media screen and \(max-width: 960px\).*?\.sidebar_nav_text\s*\{\s*flex:\s*1;\s*min-width:\s*0;\s*text-align:\s*center;\s*white-space:\s*normal;\s*\}/s', $stylesheet) === 1,
         'Mobile menu labels should be centered beside their icons'
     );
@@ -105,11 +113,15 @@ foreach ([0, 1, 3] as $adminLevel) {
         'Abilities' => '/skill.php',
         'Buy Rubies' => '/paywk.php',
         'Hall of Fame' => '/top.php',
-        'Logout' => '/index.php?exit=1',
         'Present Profile' => '/profile.php',
         'Ruby Exchange' => '/gold.php',
         'Your Equipment' => '/item.php',
-    ], 'Left sidebar links should be alphabetical and point to their destinations');
+        'Logout' => '/index.php?exit=1',
+    ], 'Left sidebar links should point to their destinations with Logout last');
+    check(
+        str_contains($leftSidebar, '<div class="sidebar_logout_spacer" aria-hidden="true"></div>' . "\n        " . '<a class="sidebar_nav_item sidebar_logout" href="/index.php?exit=1">'),
+        'Logout should be last in the left sidebar with a button-height gap'
+    );
     check(str_contains($leftSidebar, '<div class="sidebar_hero_name" style="font-size: 0.75rem; white-space: nowrap;"><a href="/profile.php?id=1">Knight &lt;the Bold&gt; - Barbarian</a></div>'), 'Escaped hero name and faction should appear on one line beneath the avatar');
     check(str_contains($leftSidebar, '<a href="/factions.php" title="Change Faction">') && str_contains($leftSidebar, 'src="/images/factions/1.png"'), 'Faction portrait and change link missing from sidebar');
     check(str_contains($rightSidebar, '<span class="sidebar_nav_text">Kingdom Town Hall</span>'), 'Kingdom Town Hall link should remain in the right sidebar');

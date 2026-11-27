@@ -808,10 +808,6 @@ document.addEventListener('DOMContentLoaded', () => {
             <div class="sidebar_nav_icon_wrap"><img src="/images/top.png" width="22px" height="22px" alt="Hall of Fame"></div>
             <span class="sidebar_nav_text">Hall of Fame</span>
         </a>
-        <a class="sidebar_nav_item" href="/index.php?exit=1">
-            <div class="sidebar_nav_icon_wrap" aria-hidden="true">→</div>
-            <span class="sidebar_nav_text">Logout</span>
-        </a>
         <a class="sidebar_nav_item" href="/profile.php">
             <div class="sidebar_nav_icon_wrap"><img src="/images/profile.png" width="22px" height="22px" alt="Present Profile"></div>
             <span class="sidebar_nav_text">Present Profile</span>
@@ -823,6 +819,11 @@ document.addEventListener('DOMContentLoaded', () => {
         <a class="sidebar_nav_item" href="/item.php">
             <div class="sidebar_nav_icon_wrap"><img src="/images/snar.png" width="22px" height="22px" alt="Your Equipment"></div>
             <span class="sidebar_nav_text">Your Equipment</span>
+        </a>
+        <div class="sidebar_logout_spacer" aria-hidden="true"></div>
+        <a class="sidebar_nav_item sidebar_logout" href="/index.php?exit=1">
+            <div class="sidebar_nav_icon_wrap" aria-hidden="true">→</div>
+            <span class="sidebar_nav_text">Logout</span>
         </a>
     </div>
 
