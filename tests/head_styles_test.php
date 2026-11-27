@@ -4,7 +4,7 @@ require_once __DIR__ . '/../core/factions.php';
 function checking($value) { return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8'); }
 function fch($sql, $params = []) { return $GLOBALS['analyticsSetting'] ?? false; }
 function cnt($sql, $params = []) { return 0; }
-function effectiveCombatStats($user) { return ['power' => 1, 'block' => 1, 'health' => 1]; }
+function effectiveCombatStats($user) { return ['power' => 1, 'block' => 1, 'health' => $GLOBALS['mockHealth'] ?? 1]; }
 function logs() { return ''; }
 function check($condition, $message) {
     if (!$condition) throw new RuntimeException($message);
@@ -94,10 +94,22 @@ foreach ([0, 1, 3] as $adminLevel) {
     head('Sidebar test', 1);
     $sidebarHtml = ob_get_clean();
     $rightSidebar = substr($sidebarHtml, strpos($sidebarHtml, 'comp_menu_right'), strpos($sidebarHtml, '<script>', strpos($sidebarHtml, 'comp_menu_right')) - strpos($sidebarHtml, 'comp_menu_right'));
-    $leftSidebar = substr($sidebarHtml, strpos($sidebarHtml, 'comp_menu_left'));
+    $leftSidebar = substr($sidebarHtml, strpos($sidebarHtml, '<div class="wp200 alc pos-r lptp comp_menu_left">'));
     $gap = '<div class="sidebar_nav_item" aria-hidden="true" style="visibility: hidden;"><div class="sidebar_nav_icon_wrap"></div></div>';
-    check(str_contains($leftSidebar, $gap . "\n        " . '<a class="sidebar_nav_item" href="/index.php?exit=1">'), 'Logout link or its gap missing from left sidebar');
-    check(str_contains($leftSidebar, '>Logout</span>'), 'Logout label missing');
+    preg_match_all('/<a class="sidebar_nav_item[^"]*" href="([^"]+)">.*?<span class="sidebar_nav_text[^"]*">(.*?)<\/span>\s*<\/a>/s', $leftSidebar, $navLinks, PREG_SET_ORDER);
+    $leftLinks = [];
+    foreach ($navLinks as $link) {
+        $leftLinks[trim(strip_tags($link[2]))] = $link[1];
+    }
+    check($leftLinks === [
+        'Abilities' => '/skill.php',
+        'Buy Rubies' => '/paywk.php',
+        'Hall of Fame' => '/top.php',
+        'Logout' => '/index.php?exit=1',
+        'Present Profile' => '/profile.php',
+        'Ruby Exchange' => '/gold.php',
+        'Your Equipment' => '/item.php',
+    ], 'Left sidebar links should be alphabetical and point to their destinations');
     check(str_contains($leftSidebar, '<div class="sidebar_hero_name" style="font-size: 0.75rem; white-space: nowrap;"><a href="/profile.php?id=1">Knight &lt;the Bold&gt; - Barbarian</a></div>'), 'Escaped hero name and faction should appear on one line beneath the avatar');
     check(str_contains($leftSidebar, '<a href="/factions.php" title="Change Faction">') && str_contains($leftSidebar, 'src="/images/factions/1.png"'), 'Faction portrait and change link missing from sidebar');
     check(str_contains($rightSidebar, '<span class="sidebar_nav_text">Kingdom Town Hall</span>'), 'Kingdom Town Hall link should remain in the right sidebar');
@@ -107,6 +119,25 @@ foreach ([0, 1, 3] as $adminLevel) {
         check(str_contains($rightSidebar, '>Admin</span>'), 'Admin label missing');
     }
 }
+
+$mockHealth = 100;
+$user = ['start' => 10, 'level' => 1, 'exp' => 50, 'faction' => 1, 'login' => 'Knight'];
+foreach ([null, 25, -5, 125] as $health) {
+    ob_start();
+    head('Health test', 1, false, $health);
+    $html = ob_get_clean();
+    check(str_contains($html, '<div class="cntr">Experience</div>'), 'Experience title missing or not centered');
+    check(str_contains($html, '<div class="cntr">Health <span id="header-health-text">'), 'Health title missing or not centered');
+    $expected = $health === null ? 0 : min(100, max(0, $health));
+    check(str_contains($html, 'id="header-health-bar" style="width:' . $expected . '%;"'), 'Incorrect health bar width');
+    if ($health === null) {
+        check(str_contains($html, '(not in combat)'), 'Unavailable combat health should be identified');
+    } else {
+        check(str_contains($html, 'aria-valuemax="100" aria-valuenow="' . $expected . '"'), 'Health progress accessibility value is incorrect');
+        check(str_contains($html, 'id="header-health-text">' . max(0, $health) . ' / 100'), 'Health value missing');
+    }
+}
+unset($mockHealth);
 
 $user = false;
 $analyticsSetting = ['setting_value' => 'G-ABCDEF1234'];

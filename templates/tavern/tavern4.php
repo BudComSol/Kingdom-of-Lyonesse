@@ -1,5 +1,4 @@
 <?php
-$tavf = fch("SELECT * FROM `tavern_fight` WHERE `id_user` = ? LIMIT 1", array($uid));
 $combatStats = effectiveCombatStats($user);
 
 if (!$tavf) {
