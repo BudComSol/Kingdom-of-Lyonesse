@@ -462,6 +462,7 @@ CREATE TABLE `users` (
   `start` int(11) DEFAULT '1',
   `ads` int(11) DEFAULT '0',
   `avatar` int(11) DEFAULT '1',
+  `faction` tinyint unsigned NOT NULL DEFAULT '0',
   `metal` int(11) DEFAULT '0',
   `tkan` int(11) DEFAULT '0',
   `kamen` int(11) DEFAULT '0',

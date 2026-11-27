@@ -6,6 +6,7 @@
 
 require_once __DIR__ . '/../config.php';
 require_once __DIR__ . '/item_images.php';
+require_once __DIR__ . '/factions.php';
 
 // Route segment helper
 function is($i) {
@@ -221,6 +222,12 @@ function effectiveCombatStats($player) {
         'set_pieces' => 0,
         'critical_chance' => 0,
     ];
+    $faction = factions()[factionId($player['faction'] ?? 0)] ?? null;
+    if ($faction) {
+        foreach (['power', 'block', 'health'] as $stat) {
+            $stats[$stat] = (int)round($stats[$stat] * (100 + $faction[$stat]) / 100);
+        }
+    }
     $playerId = (int)($player['id'] ?? 0);
     if ($playerId <= 0) {
         return $stats;
@@ -761,8 +768,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <div class="wp200 alc pos-r lptp comp_menu_left">
     <div class="tophead2 cntr" style="padding: 10px 6px;">
-        <a href="/avatar.php" title="Change Avatar">
-            <img class="round_image" src="/images/avatar/<?php echo $user['sex']; ?>/<?php echo $user['avatar']; ?>.png" width="105" height="105" alt="Avatar">
+        <a href="/factions.php" title="Change Faction">
+            <img class="round_image" src="<?php echo factionImageUrl($user); ?>" width="105" height="105" style="object-fit: contain; border-radius: 8px;" alt="<?php echo factionName($user); ?>">
         </a>
         <div class="sidebar_hero_name"><a href="/profile.php?id=<?php echo (int)$uid; ?>"><?php echo checking($user['login'] ?? ''); ?></a></div>
     </div>

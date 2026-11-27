@@ -67,7 +67,7 @@
         <li><a href="/chat.php">Chat</a> — talk in the global chat, or use the clan channel when available.</li>
         <li><a href="/news.php">News</a> — read game announcements.</li>
         <li><a href="/online.php">Online</a> — see recently active heroes and NPCs, including the activity or uptime information shown in the list.</li>
-        <li><a href="/avatar.php">Change Avatar</a> — choose your hero portrait.</li>
+        <li><a href="/factions.php">Change Faction</a> — choose your hero's faction, portrait, and combat bonuses.</li>
         <li><a href="/ref.php">Invite Friends</a> — open your referral information.</li>
         <li><a href="/settings.php">Settings</a> — manage available account and game preferences.</li>
     </ul>

@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../core/factions.php';
 
 function qry($sql, $params = []) {
     global $BaseConnect;

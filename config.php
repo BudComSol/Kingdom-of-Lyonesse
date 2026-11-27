@@ -226,6 +226,7 @@ try {
             'kills_boss'       => "ALTER TABLE `users` ADD COLUMN `kills_boss` int(11) NOT NULL DEFAULT 0",
             'kills_pvp'        => "ALTER TABLE `users` ADD COLUMN `kills_pvp` int(11) NOT NULL DEFAULT 0",
             'forged_items'     => "ALTER TABLE `users` ADD COLUMN `forged_items` int(11) NOT NULL DEFAULT 0",
+            'faction'          => "ALTER TABLE `users` ADD COLUMN `faction` tinyint unsigned NOT NULL DEFAULT 0",
             'morale_until'     => "ALTER TABLE `users` ADD COLUMN `morale_until` int(11) NOT NULL DEFAULT 0"
         ];
         foreach ($newCols as $col => $alterSql) {

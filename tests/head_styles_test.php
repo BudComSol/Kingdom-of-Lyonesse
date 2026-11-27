@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../core/factions.php';
 
 function checking($value) { return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8'); }
 function fch($sql, $params = []) { return $GLOBALS['analyticsSetting'] ?? false; }
@@ -82,7 +83,7 @@ foreach ([0, 1] as $uid) {
 }
 
 foreach ([0, 1, 3] as $adminLevel) {
-    $user = ['start' => 10, 'adm' => $adminLevel, 'level' => 1, 'exp' => 0, 'sex' => 1, 'avatar' => 1, 'login' => 'Knight <the Bold>'];
+    $user = ['start' => 10, 'adm' => $adminLevel, 'level' => 1, 'exp' => 0, 'faction' => 1, 'login' => 'Knight <the Bold>'];
     ob_start();
     head('Sidebar test', 1);
     $sidebarHtml = ob_get_clean();
@@ -92,7 +93,7 @@ foreach ([0, 1, 3] as $adminLevel) {
     check(str_contains($leftSidebar, $gap . "\n        " . '<a class="sidebar_nav_item" href="/index.php?exit=1">'), 'Logout link or its gap missing from left sidebar');
     check(str_contains($leftSidebar, '>Logout</span>'), 'Logout label missing');
     check(str_contains($leftSidebar, '<div class="sidebar_hero_name"><a href="/profile.php?id=1">Knight &lt;the Bold&gt;</a></div>'), 'Escaped hero name should link to the public profile beneath the avatar');
-    check(str_contains($leftSidebar, '<a href="/avatar.php" title="Change Avatar">') && str_contains($leftSidebar, 'src="/images/avatar/1/1.png"'), 'Avatar and change link missing from sidebar');
+    check(str_contains($leftSidebar, '<a href="/factions.php" title="Change Faction">') && str_contains($leftSidebar, 'src="/images/arena/1.png"'), 'Faction portrait and change link missing from sidebar');
     check(str_contains($rightSidebar, 'href="/update.php"') === ($adminLevel === 3), 'Admin link visibility does not match admin panel access');
     if ($adminLevel === 3) {
         check(str_contains($rightSidebar, $gap . "\n        " . '<a class="sidebar_nav_item" href="/update.php">'), 'Admin link gap missing from right sidebar');

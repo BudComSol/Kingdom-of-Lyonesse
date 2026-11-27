@@ -442,8 +442,18 @@ if ($password == 1) {
 
     if ($tutorialStep == 7 && isset($_GET['form'])) {
         $loginInput = checking($_POST['login'] ?? '');
+        $faction = factionId($_POST['faction'] ?? null);
         $err = false;
 
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !is_string($_POST['csrf_token'] ?? null)
+            || !isset($_SESSION['faction_csrf']) || !hash_equals($_SESSION['faction_csrf'], $_POST['csrf_token'])) {
+            err2("Your session has expired. Please try again.");
+            $err = true;
+        }
+        if (!$faction) {
+            err2("Choose a faction before continuing.");
+            $err = true;
+        }
         if (mb_strlen($loginInput) < 3 || mb_strlen($loginInput) > 20) {
             err2("Hero name must be between 3 and 20 characters");
             $err = true;
@@ -456,7 +466,7 @@ if ($password == 1) {
         }
 
         if ($err === false) {
-            qry("UPDATE `users` SET `login` = ?, `save` = ?, `start` = `start` + ? WHERE `id` = ? LIMIT 1", array($loginInput, 1, 1, $uid));
+            qry("UPDATE `users` SET `login` = ?, `faction` = ?, `save` = ?, `start` = `start` + ? WHERE `id` = ? AND `start` = 7 LIMIT 1", array($loginInput, $faction, 1, 1, $uid));
         }
 
         header('Location: /');

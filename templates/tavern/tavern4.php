@@ -64,7 +64,7 @@ $heroHpPercent = round(max(0, $tavf['hp']) / max(1, $combatStats['health']) * 10
 
 <div class="tophead">
     <div class="ohh">
-        <img class="imgSkill" src="/images/avatar/<?php echo $user['sex'] ?? 1; ?>/<?php echo $user['avatar'] ?? 1; ?>.png" width="40" height="40" alt="Hero">
+        <img class="imgSkill" src="<?php echo factionImageUrl($user); ?>" width="40" height="40" style="object-fit:contain" alt="<?php echo factionName($user); ?>">
     </div>
     <span class="orange"><?php echo htmlspecialchars($user['login'] ?? 'Knight'); ?></span><br>
     <img src="/images/power.png" width="15px" height="15px"> <?php echo $tavf['power']; ?>

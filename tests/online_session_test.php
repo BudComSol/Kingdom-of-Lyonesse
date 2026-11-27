@@ -61,6 +61,8 @@ if (($argv[1] ?? '') === '--child') {
     $BaseConnect = new OnlineTestDatabase();
     $source = file_get_contents(__DIR__ . '/../core/func.php');
     $source = str_replace("require_once __DIR__ . '/../config.php';", '', $source);
+    $source = str_replace("__DIR__ . '/item_images.php'", var_export(__DIR__ . '/../core/item_images.php', true), $source);
+    $source = str_replace("__DIR__ . '/factions.php'", var_export(__DIR__ . '/../core/factions.php', true), $source);
     $source = substr($source, 0, strpos($source, '// Header Layout'));
     eval('?>' . $source);
 

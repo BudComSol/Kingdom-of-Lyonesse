@@ -176,7 +176,7 @@ $history = $historyQuery->fetchAll(PDO::FETCH_ASSOC);
 
 $level = (int)($user['level'] ?? 1);
 $playersQuery = $BaseConnect->prepare(
-    "SELECT `id`, `login`, `level`, `power`, `block`, `health`, `morale_until` FROM `users` WHERE `id` <> ? AND `start` >= 4 AND `level` BETWEEN ? AND ? AND `time_on` >= ? ORDER BY ABS(`level` - ?), `time_on` DESC LIMIT 10"
+    "SELECT `id`, `login`, `level`, `power`, `block`, `health`, `morale_until`, `faction` FROM `users` WHERE `id` <> ? AND `start` >= 4 AND `level` BETWEEN ? AND ? AND `time_on` >= ? ORDER BY ABS(`level` - ?), `time_on` DESC LIMIT 10"
 );
 $playersQuery->execute([$uid, max(1, $level - 5), $level + 5, time() - 2592000, $level]);
 $players = $playersQuery->fetchAll(PDO::FETCH_ASSOC);

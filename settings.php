@@ -87,7 +87,7 @@ head("Settings", $uid);
 
 <div class="tophead">Character Gender: <a href="?sex"><?php echo $sex; ?></a></div>
 <div class="tophead">Hide abilities on profile: <a href="?invise"><?php echo $invise; ?></a></div>
-<a href="/avatar.php" class="tophead">Change Avatar</a>
+<a href="/factions.php" class="tophead">Change Faction</a>
 <a href="/index.php?exit=1" class="tophead">Log Out</a>
 
 <?php
