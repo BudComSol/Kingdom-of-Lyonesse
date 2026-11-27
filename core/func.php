@@ -717,13 +717,13 @@ if ($user && isset($user['start']) && $user['start'] >= 4) {
             <div class="sidebar_nav_icon_wrap"><img src="/images/cup.png" width="22px" height="22px" alt="Daily"></div>
             <span class="sidebar_nav_text">Daily Rewards</span>
         </a>
+        <a class="sidebar_nav_item" href="/wiki.php">
+            <div class="sidebar_nav_icon_wrap"><img src="/images/records.png" width="22px" height="22px" alt=""></div>
+            <span class="sidebar_nav_text">Kingdom Wiki</span>
+        </a>
         <a class="sidebar_nav_item" href="/index.php">
             <div class="sidebar_nav_icon_wrap"><img src="/style/home.png" width="22px" height="22px" alt="Town Hall"></div>
             <span class="sidebar_nav_text">Town Hall</span>
-        </a>
-        <a class="sidebar_nav_item" href="/wiki.php">
-            <div class="sidebar_nav_icon_wrap"><img src="/images/records.png" width="22px" height="22px" alt=""></div>
-            <span class="sidebar_nav_text">Wiki</span>
         </a>
         <?php if (($user['adm'] ?? 0) == 3) { ?>
         <div class="sidebar_nav_item" aria-hidden="true" style="visibility: hidden;"><div class="sidebar_nav_icon_wrap"></div></div>
@@ -818,7 +818,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <?php
     if (($_SERVER['PHP_SELF'] ?? '') == '/index.php' && ($user['save'] ?? 0) == 1 && ($user['start'] ?? 0) >= 10) {
-        echo '<a href="/save.php" class="tophead cntr">Save your game and receive bonus! <br><small><span class="tomato"> <img src="/images/ruby.png" width="16px" height="16px" alt=""> 10 Rubies</span> and <img src="/images/vip.png" width="16px" height="16px" alt=""> <span class="orange">Premium VIP</span></small></a>';
+        echo '<a href="/save.php" class="tophead cntr save-game-prompt">Save your game and receive bonus! <br><small><span class="tomato"> <img src="/images/ruby.png" width="16px" height="16px" alt=""> 10 Rubies</span> and <img src="/images/vip.png" width="16px" height="16px" alt=""> <span class="orange">Premium VIP</span></small></a>';
     }
 
     echo logs();
