@@ -54,7 +54,7 @@ head('Hero Wiki', $uid);
 <div class="tophead2">
     <h2>Hero Wiki</h2>
     <p>Share advice, tips and strategies with other Heroes.</p>
-    <a href="/wiki.php">All pages</a> | <a href="/wiki.php?action=edit">Create a page</a>
+    <a href="/wiki.php">All Pages</a> | <a href="/wiki.php?action=edit">Create a Page</a>
 </div>
 <?php if ($action === 'edit') {
     if ($form === null) {

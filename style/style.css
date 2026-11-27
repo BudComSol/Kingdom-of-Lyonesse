@@ -909,7 +909,8 @@ textarea.mail {
 
 .premium {
     min-height: 34px;
-    margin-bottom: 10px;
+    width: 45%;
+    margin: 18px auto 20px;
     line-height: 32px;
     text-align: center;
     font-family: var(--font-heading);
@@ -976,6 +977,47 @@ span.color { color: #ffffff; }
 .left { text-align: left; }
 .alc { text-align: center; }
 .w100 { width: 100%; }
+
+.save-game-prompt {
+    padding-left: 42px;
+    padding-right: 42px;
+}
+
+.save-game-prompt::before,
+.save-game-prompt::after {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gold-primary);
+    font-size: 1.65rem;
+    line-height: 1;
+    text-shadow: 0 0 8px var(--gold-glow);
+    animation: saveGameArrowBlink 1s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.save-game-prompt::before {
+    content: '↗';
+    left: 12px;
+}
+
+.save-game-prompt::after {
+    content: '↖';
+    right: 12px;
+    animation-delay: 0.5s;
+}
+
+@keyframes saveGameArrowBlink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.25; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .save-game-prompt::before,
+    .save-game-prompt::after {
+        animation: none;
+    }
+}
 
 /* =====================================================================
    Floating Audio HUD Bar (Music & SFX Toggle)
