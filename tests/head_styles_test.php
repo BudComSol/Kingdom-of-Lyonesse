@@ -27,6 +27,12 @@ check(
         && preg_match('/@media screen and \(max-width: 960px\)\s*\{\s*\.comp_menu_left,\s*\.comp_menu_right\s*\{\s*display:\s*block !important;/s', $minifiedStylesheet) === 1,
     'Sidebar links should remain visible on mobile'
 );
+foreach ([$sourceStylesheet, $minifiedStylesheet] as $stylesheet) {
+    check(
+        preg_match('/@media screen and \(max-width: 960px\).*?\.comp_menu_right\s*>\s*\.tophead2\.cntr\s*\{[^}]*height:\s*158\.42px;/s', $stylesheet) === 1,
+        'Energy timers should remain vertically centered on mobile'
+    );
+}
 check(str_contains($sourceStylesheet, 'grid-template-columns: repeat(2, minmax(0, 1fr));') && str_contains($minifiedStylesheet, 'grid-template-columns: repeat(2, minmax(0, 1fr));'), 'Mobile sidebar links should be arranged in a compact two-column menu');
 foreach ([$sourceStylesheet, $minifiedStylesheet] as $stylesheet) {
     check(
@@ -94,6 +100,7 @@ foreach ([0, 1, 3] as $adminLevel) {
     check(str_contains($leftSidebar, '>Logout</span>'), 'Logout label missing');
     check(str_contains($leftSidebar, '<div class="sidebar_hero_name" style="font-size: 0.75rem; white-space: nowrap;"><a href="/profile.php?id=1">Knight &lt;the Bold&gt; - Barbarian</a></div>'), 'Escaped hero name and faction should appear on one line beneath the avatar');
     check(str_contains($leftSidebar, '<a href="/factions.php" title="Change Faction">') && str_contains($leftSidebar, 'src="/images/factions/1.png"'), 'Faction portrait and change link missing from sidebar');
+    check(str_contains($rightSidebar, '<span class="sidebar_nav_text">Kingdom Town Hall</span>'), 'Kingdom Town Hall link should remain in the right sidebar');
     check(str_contains($rightSidebar, 'href="/update.php"') === ($adminLevel === 3), 'Admin link visibility does not match admin panel access');
     if ($adminLevel === 3) {
         check(str_contains($rightSidebar, $gap . "\n        " . '<a class="sidebar_nav_item" href="/update.php">'), 'Admin link gap missing from right sidebar');
