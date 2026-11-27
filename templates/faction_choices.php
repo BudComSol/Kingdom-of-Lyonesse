@@ -5,7 +5,7 @@
             <label style="display: block; width: 140px; padding: 8px; border: 1px solid #a68b45; border-radius: 8px; cursor: pointer;">
                 <input type="radio" name="faction" value="<?php echo $id; ?>" required <?php if ($selectedFaction === $id) echo 'checked'; ?>>
                 <b><?php echo $faction['name']; ?></b><br>
-                <img src="/images/arena/<?php echo $id; ?>.png" width="120" height="170" style="object-fit: contain; max-width: 100%;" alt="<?php echo $faction['name']; ?>"><br>
+                <img src="/images/factions/<?php echo $id; ?>.png" width="120" height="170" style="object-fit: contain; max-width: 100%;" alt="<?php echo $faction['name']; ?>"><br>
                 <small>
                     <?php
                     $bonuses = [];

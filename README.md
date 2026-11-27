@@ -141,7 +141,7 @@
 │   ├── audio.js              <- Web Audio API sound synthesizer
 │   └── toast.js              <- Animated toast notification engine
 │
-├── images/                   <- Character, item, skill, arena, emoji, and UI assets
+├── images/                   <- Character, item, skill, faction, arena, emoji, and UI assets
 └── robots.txt, sitemap.xml   <- Search-engine directives and site map
 ```
 
