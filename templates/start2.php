@@ -6,14 +6,20 @@ $sex = (($user['sex'] ?? '1') == '1') ? 'Male' : 'Female';
 
 // Hero Name Creation Step
 if ($step == 7) {
+    if (empty($_SESSION['faction_csrf'])) {
+        $_SESSION['faction_csrf'] = bin2hex(random_bytes(32));
+    }
+    $selectedFaction = factionId($user['faction'] ?? 0);
 ?>
     <div class="tophead cntr">Character Gender: <?php echo $sex; ?> - <a href="?sex">[Change]</a></div>
     <div class="tophead cntr">
         <?php echo logs(); ?>
         <form method="post" action="/index.php?form">
+            <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['faction_csrf'], ENT_QUOTES, 'UTF-8'); ?>">
             Hero Name:<br>
             <input type="text" name="login" value="<?php echo htmlspecialchars($user['login'] ?? ''); ?>" required minlength="3" maxlength="20">
-            <br><br>
+            <?php require __DIR__ . '/faction_choices.php'; ?>
+            <p>You can change factions later from your profile.</p>
             <input type="submit" value="Continue">
         </form>
     </div>

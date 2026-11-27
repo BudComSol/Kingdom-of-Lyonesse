@@ -80,7 +80,7 @@
 ├── paywk.php                 <- Royal Treasury and PayPal voucher checkout
 ├── chat.php / mail.php       <- Global, clan, and private player messaging
 ├── contacts.php / ref.php    <- Friends and referral features
-├── avatar.php                <- Hero portrait selection
+├── factions.php              <- Faction selection and hero portraits
 ├── top.php / tour.php        <- Leaderboards and Royal Tournament
 ├── update.php                <- Administrative control panel
 ├── api_combat.php            <- AJAX combat and loot JSON endpoint
@@ -333,6 +333,8 @@ The online list shows last activity and the elapsed duration of the most recentl
    - Visit `http://localhost:7000` or `http://localhost/setst.site`.
 
 PHP's built-in development server does not read `.htaccess`; use a configured web server to verify response headers.
+
+Heroes choose a faction during onboarding or can change it free from their profile. Factions grant the displayed percentage bonuses to Power, Defense, and Health (including equipped items) before set and morale bonuses. Existing heroes remain unaligned, without faction bonuses, until they choose. Finish forest and tavern fights before changing; previously sent arena challenges retain their original stats.
 
 ---
 

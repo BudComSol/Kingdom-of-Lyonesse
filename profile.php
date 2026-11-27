@@ -53,9 +53,10 @@ if (($users['id_clan'] ?? 0) > 0) {
             </td>
 
             <td class="cntr">
-                <?php if ($users['id'] == $uid) echo '<a href="/avatar.php">'; ?>
-                <img class="img3" src="/images/avatar/<?php echo $users['sex']; ?>/<?php echo $users['avatar']; ?>.png" width="70%" height="70%" style="border-radius:8px" alt="Avatar">
+                <?php if ($users['id'] == $uid) echo '<a href="/factions.php">'; ?>
+                <img class="img3" src="<?php echo factionImageUrl($users); ?>" width="70%" height="70%" style="border-radius:8px; object-fit:contain" alt="<?php echo factionName($users); ?>">
                 <?php if ($users['id'] == $uid) echo '</a>'; ?>
+                <br><?php echo factionName($users); ?>
             </td>
 
             <td class="left blck">

@@ -263,7 +263,7 @@ head("Combat - The Dark Forest", $uid);
 
 <div class="tophead combat-arena-card" id="hero-card">
     <div class="ohh">
-        <img class="imgSkill" src="/images/avatar/<?php echo $user['sex'] ?? 1; ?>/<?php echo $user['avatar'] ?? 1; ?>.png" width="45" height="45" alt="Hero" id="hero-avatar">
+        <img class="imgSkill" src="<?php echo factionImageUrl($user); ?>" width="45" height="45" style="object-fit:contain" alt="<?php echo factionName($user); ?>" id="hero-avatar">
     </div>
     <span class="yellow" style="font-size: 1.05rem;"><b><?php echo htmlspecialchars($user['login'] ?? 'Knight'); ?></b></span><br>
     <img src="/images/power.png" width="15px" height="15px"> <span id="hero-power"><?php echo $lec_fight['power']; ?></span> &nbsp;

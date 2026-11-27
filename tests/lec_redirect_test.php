@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../core/factions.php';
 
 function number($value) { return abs((int)$value); }
 function effectiveCombatStats($user) { return ['power' => 120, 'block' => 10, 'health' => 100, 'critical_chance' => 0]; }

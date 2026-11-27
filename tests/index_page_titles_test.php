@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../core/factions.php';
 
 function check($condition, $message) {
     if (!$condition) throw new RuntimeException($message);
