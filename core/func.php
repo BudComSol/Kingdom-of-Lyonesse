@@ -771,7 +771,7 @@ document.addEventListener('DOMContentLoaded', () => {
         <a href="/factions.php" title="Change Faction">
             <img class="round_image" src="<?php echo factionImageUrl($user); ?>" width="105" height="105" style="object-fit: contain; border-radius: 8px;" alt="<?php echo factionName($user); ?>">
         </a>
-        <div class="sidebar_hero_name"><a href="/profile.php?id=<?php echo (int)$uid; ?>"><?php echo checking($user['login'] ?? ''); ?></a></div>
+        <div class="sidebar_hero_name" style="font-size: 0.75rem; white-space: nowrap;"><a href="/profile.php?id=<?php echo (int)$uid; ?>"><?php echo checking($user['login'] ?? ''); ?> - <?php echo factionName($user); ?></a></div>
     </div>
 
     <div class="tophead2 sidebar_stat_box">
