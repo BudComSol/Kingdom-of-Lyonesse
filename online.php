@@ -53,7 +53,6 @@ $i = 1;
 $now = time();
 while ($users = $user_q->fetch(PDO::FETCH_ASSOC)) {
     $class = ($i % 2 == 0) ? 'list2' : 'list';
-    $minutesSinceActive = max(0, (int)floor(($now - (int)$users['time_on']) / 60));
     $sessionStarted = (int)$users['session_started'];
     $registered = (int)$users['time_reg'];
     // NPCs are created with localhost IP and activity set five years ahead.
@@ -63,14 +62,14 @@ while ($users = $user_q->fetch(PDO::FETCH_ASSOC)) {
     echo '<div class="' . $class . '">';
     echo '<table style="width:100%;"><tr>';
     echo '<td style="width:70%; text-align:left;">' . user_list($users['id']) . '</td>';
-    echo '<td style="width:30%; text-align:right;"><small>Since: ' . $minutesSinceActive . ' min';
+    echo '<td style="width:30%; text-align:right;"><small>';
     if ($isNpc || $sessionStarted > 0) {
         $sessionSeconds = max(0, $now - ($isNpc ? $registered : $sessionStarted));
         $sessionMinutes = intdiv($sessionSeconds, 60);
-        echo '<br>' . ($isNpc ? 'Uptime' : 'Session') . ': <span class="session-duration" data-seconds="' . $sessionSeconds . '">'
+        echo ($isNpc ? 'Uptime' : 'Since') . ': <span class="session-duration" data-seconds="' . $sessionSeconds . '">'
             . intdiv($sessionMinutes, 60) . 'h ' . ($sessionMinutes % 60) . 'm</span>';
     } else {
-        echo '<br>Session: unavailable';
+        echo 'Since: unavailable';
     }
     echo '</small></td>';
     echo '</tr></table>';

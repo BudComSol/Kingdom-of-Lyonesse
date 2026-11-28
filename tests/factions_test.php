@@ -8,7 +8,7 @@ function check($condition, $message) {
 if (($argv[1] ?? '') === '--request') {
     $case = $argv[2];
     $uid = 42;
-    $user = ['id' => $uid, 'start' => 7, 'login' => 'Knight', 'faction' => 0];
+    $user = ['id' => $uid, 'start' => 7, 'login' => 'Knight', 'faction' => 0, 'gold' => 1000];
     $queries = [];
     $notices = [];
     $_SESSION = ['faction_csrf' => 'valid'];
@@ -18,11 +18,18 @@ if (($argv[1] ?? '') === '--request') {
     if (str_contains($case, 'invalid')) $_POST['faction'] = '8';
     if (str_contains($case, 'missing')) unset($_POST['faction']);
     if (str_contains($case, 'token')) $_POST['csrf_token'] = 'wrong';
+    if (str_contains($case, 'low-rubies')) $user['gold'] = 99;
+    if (str_contains($case, 'same-faction')) $user['faction'] = 7;
     $_GET = str_starts_with($case, 'onboarding-') && !str_ends_with($case, '-view') ? ['form' => ''] : [];
 
     function number($value) { return abs((int)$value); }
     function checking($value) { return trim(htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8')); }
-    function qry($sql, $params = []) { $GLOBALS['queries'][] = [$sql, $params]; }
+    function qry($sql, $params = []) {
+        $GLOBALS['queries'][] = [$sql, $params];
+        return new class {
+            public function rowCount() { return 1; }
+        };
+    }
     function err($message) { $GLOBALS['notices'][] = $message; }
     function err2($message) { $GLOBALS['notices'][] = $message; }
     function msg($message) { $GLOBALS['notices'][] = $message; }
@@ -67,8 +74,11 @@ foreach (['onboarding-valid', 'faction-valid'] as $case) {
     check(count($result['queries']) === 1 && str_contains($result['queries'][0][0], '`faction` = ?'), "$case failed to save faction");
     check(in_array(7, $result['queries'][0][1], true), "$case saved the wrong faction");
 }
+[, $factionValid] = requestCase('faction-valid');
+check(in_array(100, $factionValid['queries'][0][1], true), 'Faction change did not charge 100 Rubies');
+check(str_contains($factionValid['queries'][0][0], '`gold` >= ?'), 'Faction change did not enforce the ruby balance');
 
-foreach (['onboarding-invalid', 'onboarding-missing', 'onboarding-token', 'onboarding-duplicate', 'faction-invalid', 'faction-missing', 'faction-token', 'faction-forest', 'faction-tavern'] as $case) {
+foreach (['onboarding-invalid', 'onboarding-missing', 'onboarding-token', 'onboarding-duplicate', 'faction-invalid', 'faction-missing', 'faction-token', 'faction-forest', 'faction-tavern', 'faction-low-rubies', 'faction-same-faction'] as $case) {
     [, $result] = requestCase($case);
     check(!$result['queries'] && $result['notices'], "$case was not rejected with a notice");
 }

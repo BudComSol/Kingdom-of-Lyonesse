@@ -652,22 +652,22 @@ if ($user && isset($user['start']) && $user['start'] >= 4) {
 <div class="tophead2 cntr">
     <font size="3">
         <span style="float: left;">
-            <img class="img1" src="/images/level.png" width="17px" height="17px">
+            <img class="img1" src="/images/level.png" width="17px" height="17px" alt="">
             <span class="lime"><?php echo $userLevel; ?> lvl</span>
         </span>
 
         <?php
         $headerStats = effectiveCombatStats($user);
         ?>
-        <img src="/images/power.png" width="17px" height="17px"><?php echo $headerStats['power']; ?>
-        <img src="/images/block.png" width="17px" height="17px"><?php echo $headerStats['block']; ?>
-        <img src="/images/health.png" width="17px" height="17px"><?php echo $headerStats['health']; ?>
+        <img src="/images/power.png" width="17px" height="17px" alt="Power"> <?php echo $headerStats['power']; ?>
+        <img src="/images/block.png" width="17px" height="17px" alt="Defense"> <?php echo $headerStats['block']; ?>
+        <img src="/images/health.png" width="17px" height="17px" alt="Health"> <?php echo $headerStats['health']; ?>
 
         <span style="float: right;">
         <?php if ($new_msg > 0) { ?>
-            <a href="/contacts.php"><img class="img2" src="/images/mail.png" width="17px" height="17px"></a>
+            <a href="/contacts.php"><img class="img2" src="/images/mail.png" width="17px" height="17px" alt="New mail"></a>
         <?php } else { ?>
-            <img class="img2" src="/images/exp.png" width="17px" height="17px">
+            <img class="img2" src="/images/exp.png" width="17px" height="17px" alt="Experience">
             <span class="orange"><?php echo $expPercent; ?>%</span>
         <?php } ?>
         </span>
