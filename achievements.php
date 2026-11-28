@@ -171,7 +171,7 @@ head("Hero Achievements & Titles", $uid);
                 </div>
             </div>
 
-            <div class="progress-bar exp" style="height: 6px; margin-top: 6px;">
+            <div class="progress-bar exp">
                 <div style="width:<?php echo $progressPercent; ?>%;" class="progress _blue"></div>
             </div>
         </div>

@@ -154,6 +154,15 @@ foreach ([[0, 0], [5, 75], [20, 100], [-5, 125]] as [$arena, $forest]) {
 }
 foreach ([$sourceStylesheet, $minifiedStylesheet] as $stylesheet) {
     check(str_contains($stylesheet, '.header_progress_title') && str_contains($stylesheet, '.header_arena_energy') && str_contains($stylesheet, '.header_forest_energy'), 'Header progress styles missing');
+    check(
+        preg_match('/\.progress-bar\s*\{[^}]*width:\s*70%;[^}]*margin:\s*4px auto;/s', $stylesheet) === 1
+            && preg_match('/\.progress-bar,\s*\.progress\s*\{\s*height:\s*5px;/s', $stylesheet) === 1,
+        'Progress bars should be centered, 70% wide, and 5px tall'
+    );
+    check(
+        preg_match('/\.header_progress_title\s*\{[^}]*font-size:\s*0\.85rem;/s', $stylesheet) === 1,
+        'Header progress titles should use smaller text'
+    );
 }
 
 $user = false;
