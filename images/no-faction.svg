@@ -1,0 +1,64 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 419 595" role="img" aria-labelledby="title desc">
+  <title id="title">No Faction</title>
+  <desc id="desc">An elegant silver and charcoal heraldic crest for an unaligned hero.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop stop-color="#17212a"/>
+      <stop offset=".48" stop-color="#29343d"/>
+      <stop offset="1" stop-color="#0b1015"/>
+    </linearGradient>
+    <radialGradient id="halo">
+      <stop stop-color="#d9d2bd" stop-opacity=".24"/>
+      <stop offset=".55" stop-color="#a79b7e" stop-opacity=".09"/>
+      <stop offset="1" stop-color="#a79b7e" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="silver" x1="0" y1="0" x2=".8" y2="1">
+      <stop stop-color="#f2f0df"/>
+      <stop offset=".25" stop-color="#aaa899"/>
+      <stop offset=".55" stop-color="#e1dfd0"/>
+      <stop offset=".82" stop-color="#77796f"/>
+      <stop offset="1" stop-color="#c9c6b4"/>
+    </linearGradient>
+    <linearGradient id="dark-silver" x1="0" y1="0" x2="0" y2="1">
+      <stop stop-color="#c6c2ae"/>
+      <stop offset="1" stop-color="#666960"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feGaussianBlur stdDeviation="10"/>
+    </filter>
+  </defs>
+
+  <rect width="419" height="595" fill="url(#background)"/>
+  <circle cx="210" cy="260" r="175" fill="url(#halo)"/>
+  <path d="M0 72 419 0v595H0Z" fill="#10171d" opacity=".18"/>
+  <g opacity=".12" fill="none" stroke="#d8d3be" stroke-width="2">
+    <circle cx="210" cy="260" r="151"/>
+    <circle cx="210" cy="260" r="137"/>
+    <path d="M210 109v302M59 260h302M103 153l214 214M317 153 103 367"/>
+  </g>
+
+  <ellipse cx="210" cy="507" rx="124" ry="24" fill="#050708" opacity=".7" filter="url(#shadow)"/>
+  <path d="M210 76c48 32 99 42 149 49v192c0 117-61 191-149 223-88-32-149-106-149-223V125c50-7 101-17 149-49Z" fill="#090d11" stroke="#66685f" stroke-width="12"/>
+  <path d="M210 94c43 27 87 36 129 42v180c0 101-51 169-129 203-78-34-129-102-129-203V136c42-6 86-15 129-42Z" fill="url(#silver)" stroke="#e4e1d1" stroke-width="4"/>
+  <path d="M210 112c34 21 68 29 108 35v168c0 87-41 145-108 178V112Z" fill="#8d9087" opacity=".42"/>
+  <path d="M210 112c-34 21-68 29-108 35v168c0 87 41 145 108 178Z" fill="#d2d0c1" opacity=".28"/>
+
+  <g fill="none" stroke="#252b2d" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="210" cy="260" r="91" stroke-width="12"/>
+    <circle cx="210" cy="260" r="73" stroke="url(#dark-silver)" stroke-width="5"/>
+    <path d="m210 164 27 21-27 75-27-75Z" fill="#252b2d" stroke="none"/>
+    <path d="m210 356-27-21 27-75 27 75Z" fill="#252b2d" stroke="none"/>
+  </g>
+
+  <path d="M210 165c-25 29-38 60-38 95s13 66 38 95c25-29 38-60 38-95s-13-66-38-95Z" fill="#262d30" opacity=".92"/>
+  <path d="M210 184v152" stroke="#d0cdbb" stroke-width="7" stroke-linecap="round"/>
+  <path d="M210 184l-24 38 24 38 24-38Z" fill="#aaa999"/>
+  <circle cx="210" cy="260" r="18" fill="#d8d4c2" stroke="#3d4342" stroke-width="5"/>
+  <circle cx="210" cy="260" r="7" fill="#3d4342"/>
+
+  <g fill="#bcb9a8" stroke="#303638" stroke-width="3">
+    <path d="m210 430-18 18 18 18 18-18Z"/>
+    <circle cx="210" cy="448" r="7" fill="#303638"/>
+  </g>
+  <path d="M210 493v24" stroke="#9d9e91" stroke-width="5"/>
+</svg>
