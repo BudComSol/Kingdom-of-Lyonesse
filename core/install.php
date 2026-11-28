@@ -113,7 +113,7 @@ function installerStatements($sql) {
 
 function installerImport(PDO $database, $sql) {
     if ($database->query('SHOW TABLES')->fetchColumn() !== false) {
-        throw new RuntimeException('This database is not empty. Choose a new empty database; existing game data will not be changed.');
+        throw new RuntimeException('Database not empty, choose a new empty database; as existing game data will not be changed.');
     }
     foreach (installerStatements($sql) as $statement) {
         $database->exec($statement);
