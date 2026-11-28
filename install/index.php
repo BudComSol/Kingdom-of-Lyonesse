@@ -75,7 +75,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 throw new RuntimeException('Another installer is using this database. Try again shortly.');
             }
             if ($database->query('SHOW TABLES')->fetchColumn() !== false) {
-                throw new RuntimeException('This database is not empty. Choose a new empty database; existing game data will not be changed.');
+                throw new RuntimeException('Database not empty, choose a new empty database; as existing game data will not be changed.');
             }
             $sql = file_get_contents($root . '/_sql/database.sql');
             if ($sql === false) {
@@ -135,12 +135,12 @@ function installEscape($value) {
         <a class="brand" href="/install/"><img src="/images/logo-272.webp" alt="Kingdom of Lyonesse"></a>
         <div class="kingdom-story">
             <p class="eyebrow">A new age begins</p>
-            <h1>Every legend needs<br>a kingdom.</h1>
+            <h1>Every Legend Needs<br>Their Own Kingdom</h1>
             <p>Raise the gates of Lyonesse. Prepare your realm, awaken its world, and let the adventure begin.</p>
             <ol class="steps" aria-label="Installation steps">
-                <li><span>01</span><div><strong>Prepare the realm</strong><small>Check your server requirements</small></div></li>
-                <li><span>02</span><div><strong>Lay the foundations</strong><small>Connect your database and secure your game</small></div></li>
-                <li><span>03</span><div><strong>Open the gates</strong><small>Populate the world and enter Lyonesse</small></div></li>
+                <li><span>01</span><div><strong>Prepare The Realm</strong><small>Check your server requirements</small></div></li>
+                <li><span>02</span><div><strong>Lay The Foundations</strong><small>Connect your database and secure your game</small></div></li>
+                <li><span>03</span><div><strong>Open The Gates</strong><small>Populate the world and enter Lyonesse</small></div></li>
             </ol>
         </div>
         <p class="realm-note">Your server. Your world. Your story.</p>
@@ -150,19 +150,19 @@ function installEscape($value) {
         <div class="success">
             <div class="seal" aria-hidden="true">&#10003;</div>
             <p class="eyebrow">The realm is ready</p>
-            <h2 id="setup-title">Welcome to your kingdom.</h2>
+            <h2 id="setup-title">Welcome To Your Kingdom.</h2>
             <p>Your database is populated with equipment, monsters, quests and news. Your private configuration and secret key have been saved.</p>
             <div class="notice">Back up <strong>.env</strong> securely. Keep <strong>APP_KEY</strong> unchanged: it protects stored payment credentials. The installer is now locked.</div>
             <p>Enter the game to register your first hero. Administrator promotion is described in the README; no default administrator account is created.</p>
-            <a class="primary" href="/">Enter the kingdom <span aria-hidden="true">&#8594;</span></a>
+            <a class="primary" href="/">Enter The Kingdom. <span aria-hidden="true">&#8594;</span></a>
         </div>
     <?php else: ?>
         <p class="eyebrow">Kingdom of Lyonesse / First-time setup</p>
-        <h2 id="setup-title">Found your kingdom</h2>
+        <h2 id="setup-title">Found Your Kingdom</h2>
         <p class="intro">A few details, and your world is ready to explore.</p>
         <?php if ($error !== ''): ?><div class="error" role="alert"><?= installEscape($error) ?></div><?php endif; ?>
         <details class="requirements" <?= !$ready ? 'open' : '' ?>>
-            <summary><span>Server requirements</span><strong class="<?= $ready ? 'pass' : 'fail' ?>"><?= $ready ? 'Ready to install' : 'Action needed' ?></strong></summary>
+            <summary><span>Server Requirements</span><strong class="<?= $ready ? 'pass' : 'fail' ?>"><?= $ready ? 'Ready to install' : 'Action needed' ?></strong></summary>
             <ul><?php foreach ($requirements as $label => $passed): ?>
                 <li><span><?= installEscape($label) ?></span><strong class="<?= $passed ? 'pass' : 'fail' ?>"><?= $passed ? 'Ready' : 'Missing' ?></strong></li>
             <?php endforeach; ?></ul>
@@ -173,22 +173,22 @@ function installEscape($value) {
                 <legend><span>01</span> Database connection</legend>
                 <p class="hint">Create an <strong>empty MySQL 5.7+ / MariaDB 10.3+ database</strong> in your hosting panel first. Give its user full privileges. We'll import the world for you.</p>
                 <div class="fields">
-                    <label class="host">Database host<input name="DB_HOST" required value="<?= installEscape($values['DB_HOST']) ?>" placeholder="localhost" autocomplete="off"></label>
+                    <label class="host">Database Host<input name="DB_HOST" required value="<?= installEscape($values['DB_HOST']) ?>" placeholder="localhost" autocomplete="off"></label>
                     <label class="port">Port<input name="DB_PORT" type="number" required min="1" max="65535" value="<?= installEscape($values['DB_PORT']) ?>"></label>
-                    <label>Database name<input name="DB_NAME" required value="<?= installEscape($values['DB_NAME']) ?>" placeholder="lyonesse" autocomplete="off"></label>
-                    <label>Database user<input name="DB_USER" required value="<?= installEscape($values['DB_USER']) ?>" placeholder="Your database user" autocomplete="off"></label>
-                    <label class="full">Database password<input name="DB_PASS" type="password" placeholder="Your database password (may be blank locally)" autocomplete="new-password"></label>
+                    <label>Database Name<input name="DB_NAME" required value="<?= installEscape($values['DB_NAME']) ?>" placeholder="lyonesse" autocomplete="off"></label>
+                    <label>Database User<input name="DB_USER" required value="<?= installEscape($values['DB_USER']) ?>" placeholder="Your database user" autocomplete="off"></label>
+                    <label class="full">Database Password<input name="DB_PASS" type="password" placeholder="Your database password (may be blank locally)" autocomplete="new-password"></label>
                 </div>
             </fieldset>
             <fieldset>
-                <legend><span>02</span> Secure your realm</legend>
-                <label>Application secret key
+                <legend><span>02</span> Secure Your Realm</legend>
+                <label>Application Secret Key
                     <div class="key-field"><input name="APP_KEY" id="app-key" type="password" minlength="32" placeholder="Leave blank to generate securely" autocomplete="new-password"><button type="button" id="generate-key">Generate</button></div>
                 </label>
                 <p class="hint">Use a unique random key of at least 32 characters, or let us generate one. It encrypts stored payment credentials.</p>
             </fieldset>
-            <div class="notice">Installation creates all tables and imports game data. Existing databases are never overwritten. Use HTTPS and restrict access to this site until setup is finished.</div>
-            <button class="primary" type="submit" <?= !$ready ? 'disabled' : '' ?>>Install &amp; open the gates <span aria-hidden="true">&#8594;</span></button>
+            <div class="notice">Installation creates all tables and imports game data. Existing databases are never overwritten. Use HTTPS and restrict access to this site until setup is finished, then delete install folder.</div>
+            <button class="primary" type="submit" <?= !$ready ? 'disabled' : '' ?>>Install &amp; Open The Gates <span aria-hidden="true">&#8594;</span></button>
             <p class="footnote" id="install-status" role="status">Configuration is saved privately in .env. Setup disables itself when complete.</p>
         </form>
     <?php endif; ?>
