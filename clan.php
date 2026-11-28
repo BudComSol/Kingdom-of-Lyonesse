@@ -195,7 +195,7 @@ $bossHpPercent = ($clanBoss && $clanBoss['max_hp'] > 0) ? round(($clanBoss['hp']
         <span class="red" style="font-size: 1.05rem;"><b>👹 Weekly Clan Raid Boss</b></span><br>
         <span class="yellow"><b><?php echo htmlspecialchars($clanBoss['boss_name']); ?></b></span><br><br>
         
-        <div class="progress-bar exp" style="height: 14px; margin: 6px auto; width: 85%;">
+        <div class="progress-bar exp">
             <div style="width:<?php echo $bossHpPercent; ?>%;" class="progress _red"></div>
         </div>
         <small class="lime"><b><?php echo max(0, $clanBoss['hp']); ?> / <?php echo $clanBoss['max_hp']; ?> HP</b> (<?php echo $bossHpPercent; ?>%)</small>
