@@ -134,7 +134,7 @@ while ($msg = $msg_q->fetch(PDO::FETCH_ASSOC)) {
         echo " <b><font color='lime'>" . htmlspecialchars(user($msg['id_opp'], 'login')) . "</font></b>, ";
     }
     ?>
-    <font color="rgb(255, 0, 0)">
+    <font color="#16f529">
         <?php echo bbcode($msg['text']); ?>
     </font>
 

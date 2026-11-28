@@ -6,7 +6,7 @@ function fch($sql, $params = []) {
     if (str_contains($sql, 'COUNT(*) AS `count` FROM `news`')) return ['count' => 0];
     return $GLOBALS['analyticsSetting'] ?? false;
 }
-function cnt($sql, $params = []) { return 0; }
+function cnt($sql, $params = []) { return $GLOBALS['unreadMessages'] ?? 0; }
 function effectiveCombatStats($user) { return ['power' => 1, 'block' => 1, 'health' => $GLOBALS['mockHealth'] ?? 1]; }
 function logs() { return ''; }
 function check($condition, $message) {
@@ -135,6 +135,23 @@ foreach ([0, 1, 3] as $adminLevel) {
         check(str_contains($rightSidebar, '>Admin</span>'), 'Admin label missing');
     }
 }
+
+foreach ([0, 1] as $unreadMessages) {
+    $user = ['start' => 10, 'level' => 1, 'exp' => 0, 'faction' => 1, 'login' => 'Knight'];
+    ob_start();
+    head('Image accessibility test', 1);
+    $html = ob_get_clean();
+    preg_match_all('/<img\b[^>]*>/i', $html, $images);
+    check(count($images[0]) > 0, 'Header images missing from accessibility test');
+    foreach ($images[0] as $image) {
+        check(preg_match('/\balt\s*=/i', $image) === 1, 'Header image missing alt: ' . $image);
+    }
+    check(
+        str_contains($html, $unreadMessages ? 'alt="New mail"' : 'alt="Experience"'),
+        'Conditional header image has incorrect alternative text'
+    );
+}
+unset($unreadMessages);
 
 foreach ([[0, 0], [5, 75], [20, 100], [-5, 125]] as [$arena, $forest]) {
     $user = ['start' => 10, 'level' => 1, 'exp' => 50, 'faction' => 1, 'login' => 'Knight', 'arena' => $arena, 'lec' => $forest];

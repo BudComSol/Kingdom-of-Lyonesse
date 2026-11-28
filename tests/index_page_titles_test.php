@@ -48,6 +48,10 @@ foreach ([
     fclose($pipes[2]);
     check(proc_close($process) === 0, "Step $step failed: $errors");
     check(str_contains($output, '<title>' . $title . '</title>'), "Incorrect title for step $step");
+    preg_match_all('/<img\b[^>]*>/i', $output, $images);
+    foreach ($images[0] as $image) {
+        check(preg_match('/\balt\s*=/i', $image) === 1, "Image missing alt at step $step: $image");
+    }
     $content = $step <= 3 ? '/images/start/' . $step . '.png' : ($step === 7 ? 'Hero Name:' : ($step <= 9 ? 'Elaine' : 'Dark Forest'));
     check(str_contains($output, $content), "Incorrect page content for step $step");
 }
