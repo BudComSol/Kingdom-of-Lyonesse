@@ -848,7 +848,7 @@ textarea.mail {
     position: relative;
     height: 4.8rem;
     display: block;
-    margin: 10px 0;
+    margin: 24px 0;
     border: 1px solid var(--border-gold);
     border-radius: 8px;
     background-repeat: no-repeat;
@@ -1019,8 +1019,8 @@ span.color { color: #ffffff; }
 .w100 { width: 100%; }
 
 .save-game-prompt {
-    padding-left: 42px;
-    padding-right: 42px;
+    padding-left: 52px;
+    padding-right: 52px;
 }
 
 .save-game-prompt::before,
@@ -1029,7 +1029,7 @@ span.color { color: #ffffff; }
     top: 50%;
     transform: translateY(-50%);
     color: var(--gold-primary);
-    font-size: 1.65rem;
+    font-size: 2.5rem;
     line-height: 1;
     text-shadow: 0 0 8px var(--gold-glow);
     animation: saveGameArrowBlink 1s ease-in-out infinite;
@@ -1037,13 +1037,13 @@ span.color { color: #ffffff; }
 }
 
 .save-game-prompt::before {
-    content: '↗';
-    left: 12px;
+    content: '→';
+    left: 8px;
 }
 
 .save-game-prompt::after {
-    content: '↖';
-    right: 12px;
+    content: '←';
+    right: 8px;
     animation-delay: 0.5s;
 }
 

@@ -27,5 +27,5 @@ function factionName($player) {
 
 function factionImageUrl($player) {
     $id = factionId($player['faction'] ?? 0);
-    return $id ? '/images/factions/' . $id . '.png' : '/images/arena.svg';
+    return $id ? '/images/factions/' . $id . '.png' : '/images/no-faction.svg';
 }

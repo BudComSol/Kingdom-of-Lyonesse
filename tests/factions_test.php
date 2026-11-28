@@ -89,7 +89,7 @@ unset($case);
 $pieces = 0;
 $hero = ['id' => 1, 'power' => 100, 'block' => 100, 'health' => 100];
 check(effectiveCombatStats($hero)['power'] === 100, 'Unaligned heroes should have no bonuses');
-check(factionImageUrl($hero) === '/images/arena.svg' && factionName($hero) === 'Unaligned', 'Unaligned fallback incorrect');
+check(factionImageUrl($hero) === '/images/no-faction.svg' && factionName($hero) === 'Unaligned', 'Unaligned fallback incorrect');
 foreach (factions() as $id => $faction) {
     $hero['faction'] = $id;
     $stats = effectiveCombatStats($hero);

@@ -62,10 +62,10 @@ head("Save Hero Account", $uid);
 
     <form method="post" action="?form">
         Password:<br>
-        <input type="password" name="password" required minlength="3" maxlength="32" placeholder="Choose a password">
+        <input class="cntr" type="password" name="password" required minlength="3" maxlength="32" placeholder="Choose a password">
         <br><br>
         E-mail:<br>
-        <input type="email" name="email" required placeholder="your.email@domain.com">
+        <input class="cntr" type="email" name="email" required placeholder="your.email@domain.com">
         <br>
         <div class="hrs"></div>
         <input type="submit" value="Save & Claim The Bonus">
