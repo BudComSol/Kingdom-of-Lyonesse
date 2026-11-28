@@ -2,7 +2,10 @@
 require_once __DIR__ . '/../core/factions.php';
 
 function checking($value) { return htmlspecialchars((string)$value, ENT_QUOTES, 'UTF-8'); }
-function fch($sql, $params = []) { return $GLOBALS['analyticsSetting'] ?? false; }
+function fch($sql, $params = []) {
+    if (str_contains($sql, 'COUNT(*) AS `count` FROM `news`')) return ['count' => 0];
+    return $GLOBALS['analyticsSetting'] ?? false;
+}
 function cnt($sql, $params = []) { return 0; }
 function effectiveCombatStats($user) { return ['power' => 1, 'block' => 1, 'health' => $GLOBALS['mockHealth'] ?? 1]; }
 function logs() { return ''; }

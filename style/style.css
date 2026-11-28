@@ -160,6 +160,25 @@ a:hover {
     background: none;
 }
 
+.footer-nav-buttons a.footer-news {
+    position: relative;
+}
+
+.footer-nav-buttons a .news-badge,
+.footer-nav-buttons a:hover .news-badge {
+    position: absolute;
+    top: 1px;
+    right: 2px;
+    min-width: 14px;
+    padding: 1px 3px;
+    border-radius: 8px;
+    background: #b51d14;
+    color: #fff;
+    font-size: 10px;
+    line-height: 1.2;
+    text-shadow: none;
+}
+
 /* =====================================================================
    Title Banner & Filigree Headers
    ===================================================================== */

@@ -4,9 +4,8 @@ require_once __DIR__ . "/core/func.php";
 
 head("Game News & Announcements", $uid);
 
-if (($user['news'] ?? 0) != 0) {
-    qry("UPDATE `users` SET `news` = '0' WHERE `id` = ? LIMIT 1", array($uid));
-}
+$latestNews = fch("SELECT COALESCE(MAX(`id`), 0) AS `id` FROM `news`");
+$latestNewsId = (int)$latestNews['id'];
 
 $count = cnt("SELECT (id) FROM `news`");
 $str = 5;
@@ -50,6 +49,9 @@ while ($msg = $msg_q->fetch(PDO::FETCH_ASSOC)) {
 }
 
 ppage($url, $num, $str, $result);
+
+qry("UPDATE `users` SET `last_news_read_id` = ? WHERE `id` = ? AND `last_news_read_id` < ?", array($latestNewsId, $uid, $latestNewsId));
+$user['last_news_read_id'] = max((int)($user['last_news_read_id'] ?? 0), $latestNewsId);
 
 if (($user['adm'] ?? 0) == 3) {
 ?>

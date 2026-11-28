@@ -1,5 +1,5 @@
 <?php
-qry("UPDATE `users` SET `news` = ?, `chat_check` = ? WHERE `id` = ? LIMIT 1", array(1, 1, $uid));
+qry("UPDATE `users` SET `chat_check` = ? WHERE `id` = ? LIMIT 1", array(1, $uid));
 
 $title = array(
     '',

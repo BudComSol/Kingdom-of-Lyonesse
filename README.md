@@ -366,6 +366,7 @@ To ensure recurring world events operate autonomously, configure the included sc
 2. **Confidential File Shielding:** The [`.htaccess`](.htaccess) configuration denies public HTTP access to `.env` files, `.sql` dumps, and files ending in `.log`, `.bak`, or `.example`. Configure equivalent protections when using Nginx.
 3. **Session Management:** Session cookies use `HttpOnly`, `SameSite=Lax`, and PHP's strict session mode to reduce exposure to client-side scripts, cross-site requests, and session fixation.
 4. **Schema Migrations:** Schema changes are applied by running `php migrate.php` from the game directory using the command line. They do not run automatically during a web request; back up the database before upgrading.
+   The news read-position migration preserves a clear old notification as read; an existing unread flag is treated as one unread announcement because the old system did not record a count.
 5. **Render-blocking Styles:** `head()` inlines `style/style.min.css`, generated from the readable `style/style.css`, so the first render does not wait for a separate stylesheet request. Keep CSS asset URLs root-relative so they work on every route. Google Fonts load asynchronously with `display=swap` and a no-JavaScript fallback. Inlining preserves the initial layout but includes the stylesheet in every HTML response instead of caching it separately.
 
 ---
