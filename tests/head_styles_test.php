@@ -137,7 +137,7 @@ foreach ([0, 1, 3] as $adminLevel) {
 }
 
 foreach ([0, 1] as $unreadMessages) {
-    $user = ['start' => 10, 'level' => 1, 'exp' => 0, 'faction' => 1, 'login' => 'Knight'];
+    $user = ['start' => 10, 'level' => 1, 'exp' => 0, 'faction' => 1, 'login' => 'Knight', 'gold' => 123];
     ob_start();
     head('Image accessibility test', 1);
     $html = ob_get_clean();
@@ -149,6 +149,10 @@ foreach ([0, 1] as $unreadMessages) {
     check(
         str_contains($html, $unreadMessages ? 'alt="New mail"' : 'alt="Experience"'),
         'Conditional header image has incorrect alternative text'
+    );
+    check(
+        str_contains($html, '<img src="/images/ruby.png" width="17px" height="17px" alt="Rubies" title="Rubies" aria-label="Rubies"> 123'),
+        'Ruby balance icon, tooltip, or value missing from header'
     );
 }
 unset($unreadMessages);

@@ -26,7 +26,7 @@ if ($search == 2) {
     <div class="tophead cntr">
         Hero Name:<br>
         <form action="?search=2" method="post">
-            <input type="text" name="login" maxlength="50" required placeholder="Enter hero name..." /><br><br>
+            <input type="text" name="login" maxlength="50" required placeholder="Enter hero name..." style="text-align: center;" /><br><br>
             <input type="submit" name="search_player" value="Search Hero">
         </form>
     </div>
