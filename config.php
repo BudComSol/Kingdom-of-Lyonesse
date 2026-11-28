@@ -4,6 +4,12 @@
  * Kingdom of Lyonesse MMORPG Engine
  */
 
+require_once __DIR__ . '/core/install.php';
+if (PHP_SAPI !== 'cli' && !installationConfigured(__DIR__)) {
+    header('Location: /install/');
+    exit;
+}
+
 // ---------------------------------------------------------------------
 // 1. Lightweight .env Parser & Loader
 // ---------------------------------------------------------------------
@@ -44,7 +50,7 @@ if (!function_exists('loadEnv')) {
 }
 
 if (!function_exists('env')) {
-    function env($key, $default = null) {
+    function env($key, $default = null, $parse = true) {
         $value = getenv($key);
         if ($value === false) {
             $value = $_ENV[$key] ?? $_SERVER[$key] ?? $default;
@@ -52,6 +58,9 @@ if (!function_exists('env')) {
 
         if ($value === null) {
             return $default;
+        }
+        if (!$parse) {
+            return $value;
         }
 
         switch (strtolower((string)$value)) {
@@ -145,12 +154,12 @@ mb_internal_encoding("UTF-8");
 // ---------------------------------------------------------------------
 // 5. Database Connection (PDO)
 // ---------------------------------------------------------------------
-$dbHost = env('DB_HOST', 'localhost');
-$dbPort = env('DB_PORT', '3306');
-$dbName = env('DB_NAME', 'e99663xd_test');
-$dbUser = env('DB_USER', 'e99663xd_test');
-$dbPass = env('DB_PASS', 'e99663xd_test1');
-$dbCharset = env('DB_CHARSET', 'utf8mb4');
+$dbHost = env('DB_HOST', 'localhost', false);
+$dbPort = env('DB_PORT', '3306', false);
+$dbName = env('DB_NAME', '', false);
+$dbUser = env('DB_USER', '', false);
+$dbPass = env('DB_PASS', '', false);
+$dbCharset = env('DB_CHARSET', 'utf8mb4', false);
 
 try {
     $dsn = "mysql:host={$dbHost};port={$dbPort};dbname={$dbName};charset={$dbCharset}";

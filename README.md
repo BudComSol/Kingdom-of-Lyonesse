@@ -67,6 +67,7 @@
 ├── config.php                <- Environment parsing, PDO setup, sessions, and shared constants
 ├── migrate.php               <- Command-line database schema migration and setup
 ├── index.php                 <- Landing page, registration, login, and onboarding entry point
+├── install/                  <- First-run web installer, requirement checks, and database import
 ├── logo-preview.html         <- Standalone CSS logo preview
 ├── save.php                  <- Account registration and login-linking flows
 ├── profile.php               <- Hero profile, attributes, titles, and clan details
@@ -205,6 +206,16 @@ Back up `APP_KEY` securely with the database. If it is lost or changed, saved Pa
 
 ## 🚀 Installation & Deployment Guide
 
+### Guided browser installation (recommended for fresh deployments)
+
+Upload the game at your domain's web root, select PHP 8.0+ with the required extensions (including `openssl`), and create an **empty** MySQL 5.7+ / MariaDB 10.3+ database with a user granted full privileges. Do not copy `.env.example` to `.env` or import the SQL manually when using the installer.
+
+Visit your domain: without `.env` or database credentials supplied by the server environment, game pages automatically redirect to `/install/`. The responsive setup page checks requirements, accepts the database host, port, name, user and password, and lets you enter a random application secret key of at least 32 characters. Leave the key blank to generate it securely. It imports `_sql/database.sql`, verifies required seed data, and only then writes a private `.env` with production settings. Select **Enter the kingdom** after setup completes.
+
+Restrict public access until setup is finished and use HTTPS when submitting credentials. The project directory must be writable by PHP during installation; the filesystem must support hard links to publish `.env` without overwriting an existing file. The saved `.env` has permissions `0600`; back it up securely and keep `APP_KEY` unchanged. The installer disables itself as soon as `.env` exists or server environment credentials are configured. Existing installations keep their normal entry flow; a connection failure does not reopen setup.
+
+The installer refuses databases containing any tables. MySQL schema changes cannot be fully rolled back: if import fails, setup reports the failure without saving `.env`. Check database permissions and compatibility, then empty **only the new setup database** or use another empty database before retrying. No existing database is deleted automatically. Remove PHP's write permission on the project directory after setup if your hosting permits it. Manual installation alternatives are below.
+
 > The database dump does not include an administrator account. After registering a hero account, promote it to administrator in phpMyAdmin using the instructions in the FAQ below.
 
 Fresh installs start player IDs at 1. Deleting rows from an existing `users` table does not reset its MySQL auto-increment counter. If this is a fresh deployment with no players **and no retained player-related data**, stop registrations and run `ALTER TABLE users AUTO_INCREMENT = 1;` before creating the first player. Do not reset the counter on an existing game: reused IDs could associate old data with new players. If a freshly created table still starts above 1, check the MySQL `auto_increment_increment` and `auto_increment_offset` settings.
@@ -335,7 +346,7 @@ The online list shows last activity and the elapsed duration of the most recentl
 5. **Launch Game in Browser:**
    - Visit `http://localhost:7000` or `http://localhost/setst.site`.
 
-PHP's built-in development server does not read `.htaccess`; use a configured web server to verify response headers.
+PHP's built-in development server does not read `.htaccess` or enforce its private-file rules. Keep it local only: it can serve `.env` and SQL dumps directly. Use a configured web server to protect these files and verify response headers before public deployment.
 
 Heroes choose a faction during onboarding or can change it free from their profile. Factions grant the displayed percentage bonuses to Power, Defense, and Health (including equipped items) before set and morale bonuses. Existing heroes remain unaligned, without faction bonuses, until they choose. Finish forest and tavern fights before changing; previously sent arena challenges retain their original stats.
 

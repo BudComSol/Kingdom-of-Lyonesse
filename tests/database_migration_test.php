@@ -29,6 +29,7 @@ if (($argv[1] ?? '') === '--child') {
         fwrite(STDOUT, json_encode($GLOBALS['queries']) . PHP_EOL);
     });
     $config = file_get_contents(__DIR__ . '/../config.php');
+    $config = str_replace('__DIR__', var_export(dirname(__DIR__), true), $config);
     $config = str_replace('new PDO(', 'new TestPDO(', $config);
     eval('?>' . $config);
     exit;
