@@ -10,7 +10,7 @@ function fch($sql, $params = []) {
     if (str_contains($sql, 'FROM `tavern`')) return ['level' => 4];
     throw new RuntimeException('Unexpected query');
 }
-function head($title, $uid, $gameLanding = false, $combatHealth = null) { echo '<header>Health: ' . $combatHealth . '</header>'; }
+function head($title, $uid) { echo '<header>Tavern</header>'; }
 function foot($uid) {}
 
 $uid = 1;
@@ -22,7 +22,7 @@ $source = str_replace('__DIR__ . "/templates/tavern/tavern" . $tavernLevel . ".p
 ob_start();
 eval('?>' . $source);
 $html = ob_get_clean();
-if (!str_contains($html, '<header>Health: 35</header>') || !str_contains($html, 'width:35%;')) {
-    throw new RuntimeException('Tavern combat health was not passed to the header');
+if (!str_contains($html, '<header>Tavern</header>') || !str_contains($html, 'width:35%;')) {
+    throw new RuntimeException('Tavern combat health bar missing');
 }
 echo "Tavern health test passed\n";

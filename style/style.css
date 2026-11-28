@@ -430,6 +430,22 @@ textarea.mail {
     box-shadow: 0 0 12px rgba(231, 76, 60, 0.65);
 }
 
+.header_progress_title {
+    color: var(--gold-primary);
+    font-family: var(--font-heading);
+    font-size: 1.05rem;
+    font-weight: 700;
+    text-shadow: 0 0 8px var(--gold-glow);
+}
+
+.progress.header_arena_energy {
+    background: linear-gradient(90deg, #c76920, #f5b041);
+}
+
+.progress.header_forest_energy {
+    background: linear-gradient(90deg, #237d4e, #55d48c);
+}
+
 /* Shimmer beam effect on progress bars */
 .progress::after {
     content: '';
@@ -1473,33 +1489,16 @@ span.color { color: #ffffff; }
     100% { opacity: 0; transform: translateY(-55px) scale(0.9); }
 }
 
-.comp_menu_left {
-    display: flex;
-    flex-direction: column;
-    min-height: calc(100vh - 60px);
-}
-
-.comp_menu_left .sidebar_menu_container {
-    flex: 1;
-}
-
 .sidebar_logout_spacer {
     flex: 0 0 46px;
     height: 46px;
-    margin-top: auto;
 }
 
 @media screen and (max-width: 960px) {
-    .comp_menu_left {
-        display: block;
-        min-height: 0;
-    }
-
     .sidebar_logout_spacer {
         flex: none;
         grid-column: 1 / -1;
         height: 40px;
-        margin-top: 0;
     }
 
     .sidebar_logout {
