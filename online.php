@@ -69,7 +69,7 @@ while ($users = $user_q->fetch(PDO::FETCH_ASSOC)) {
         echo ($isNpc ? 'Uptime' : 'Since') . ': <span class="session-duration" data-seconds="' . $sessionSeconds . '">'
             . intdiv($sessionMinutes, 60) . 'h ' . ($sessionMinutes % 60) . 'm</span>';
     } else {
-        echo 'Since: unavailable';
+        echo 'Since: Unavailable';
     }
     echo '</small></td>';
     echo '</tr></table>';

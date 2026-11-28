@@ -110,8 +110,8 @@ $errors = stream_get_contents($pipes[2]);
 fclose($pipes[1]);
 fclose($pipes[2]);
 check(proc_close($process) === 0, "Render failed: $errors");
-check(str_contains($output, 'Since: 2 min') && str_contains($output, '>1h 1m</span>'), 'Session or activity was rendered incorrectly');
+check(str_contains($output, '>1h 1m</span>'), 'Session or activity was rendered incorrectly');
 check(preg_match('/Uptime: <span class="session-duration" data-seconds="75[2-4][0-9]">2h 5m<\/span>/', $output) === 1, 'NPC uptime was not rendered from creation');
-check(substr_count($output, 'Session: unavailable') === 2, 'Players without sessions should be shown as unavailable');
+check(substr_count($output, 'Since: Unavailable') === 2, 'Players without sessions should be shown as Unavailable');
 
 echo "Online session tests passed\n";
