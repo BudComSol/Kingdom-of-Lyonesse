@@ -85,10 +85,8 @@ foreach (['missing' => true, '1' => true, '0' => false] as $setting => $visible)
     check(str_contains($output, '<header data-game-landing>'), 'Landing page should request game structured data');
     check(preg_match('/\.landing-content\s*\{\s*gap:\s*8px;?\s*\}/', $output) === 1, 'Front page should have an 8px gap between the logo and Play As Guest button');
     check(preg_match('/\.landing-content\s*>\s*\.enter_button\s*\{\s*width:\s*min\(100%,\s*270px\);\s*height:\s*48px;?\s*\}/', $output) === 1, 'Play As Guest button should match the oval links width and height');
-    check(preg_match('/\.landing-content\s*>\s*\.landing-links\s*\{[^}]*width:\s*min\(100%,\s*270px\);[^}]*margin:\s*40px\s+0\s+0;[^}]*font-size:\s*clamp\(0\.68rem,\s*2\.7vw,\s*0\.78rem\);[^}]*white-space:\s*nowrap;/s', $output) === 1, 'Front page oval links should have a 48px gap below the button and remain 270px wide with smaller, single-line text');
-    check(preg_match('/\.landing-content\s*>\s*\.landing-links\s*\{[^}]*border:\s*2px\s+solid/s', $output) === 1, 'Front page oval links should have a 2px border');
-    check(!preg_match('/\.landing-content\s*>\s*\.landing-links\s*\{[^}]*letter-spacing:/s', $output), 'Front page oval links should not set letter spacing');
-    check(str_contains($output, '0 0 18px var(--gold-glow)'), 'Front page oval should have a gold border glow');
+    check(preg_match('/\.landing-content\s*>\s*\.landing-links\s*\{[^}]*width:\s*min\(100%,\s*270px\);[^}]*height:\s*auto;[^}]*min-height:\s*64px;[^}]*margin:\s*40px\s+0\s+0;/s', $output) === 1, 'Landing links should match the guest button width and fit both lines in a taller frame');
+    check(preg_match('/\.landing-content\s*>\s*\.landing-links\s*\{[^}]*border:\s*4px\s+solid\s+transparent;[^}]*border-radius:\s*0;/s', $output) === 1, 'Landing links should use the guest button frame instead of the oval border');
     check(str_contains($output, '<a class="enter_button" href="/?start=1">Play As Guest</a>'), 'Landing page CSS battle button missing');
     check(!str_contains($output, 'button_green.webp'), 'Landing page should not use the battle button image');
     $stylesheet = file_get_contents(__DIR__ . '/../style/style.css');
@@ -98,7 +96,7 @@ foreach (['missing' => true, '1' => true, '0' => false] as $setting => $visible)
     }
     check(str_contains($output, 'Got An Account - <a href="/?login=1" id="landing-login-button"'), 'Landing login link missing');
     check(preg_match('~<h1 class="landing-help">\s*<a href="/index.php\?help=1">Kingdom Of Lyoness Story</a>\s*</h1>~', $output) === 1, 'Landing story heading or help link missing');
-    check(preg_match('~<div class="landing-links">\s*<div>Got An Account.*?</div>\s*<h1 class="landing-help">.*?Kingdom Of Lyoness Story</a>\s*</h1>\s*</div>~s', $output) === 1, 'Landing links should share one oval banner without generic title styles');
+    check(preg_match('~<div class="enter_button landing-links">\s*<div>Got An Account.*?</div>\s*<h1 class="landing-help">.*?Kingdom Of Lyoness Story</a>\s*</h1>\s*</div>~s', $output) === 1, 'Landing links should share the guest button frame while retaining separate links');
     check(!preg_match('/<\/?center\b/i', $output), 'Landing page uses obsolete center markup');
 }
 

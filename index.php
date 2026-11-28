@@ -246,27 +246,25 @@ if (!$uid) {
     }
 
     .landing-content > .landing-links {
-        box-sizing: border-box;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: 2px;
+        gap: 4px;
         width: min(100%, 270px);
-        min-height: 48px;
+        height: auto;
+        min-height: 64px;
         margin: 40px 0 0;
-        padding: 6px 20px;
-        font-family: var(--font-heading);
-        font-size: clamp(0.68rem, 2.7vw, 0.78rem);
-        font-weight: 700;
-        line-height: 1.15;
-        white-space: nowrap;
-        color: #fff;
-        text-transform: uppercase;
-        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.9), 0 0 14px var(--gold-glow);
-        background: radial-gradient(ellipse at center, rgba(26, 34, 48, 0.96) 0%, rgba(14, 19, 28, 0.9) 72%, rgba(14, 19, 28, 0.76) 100%);
-        border: 2px solid rgba(212, 175, 55, 0.7);
-        border-radius: 50%;
-        box-shadow: 0 0 18px var(--gold-glow), 0 6px 20px rgba(0, 0, 0, 0.55), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+        padding: 8px 16px;
+        font-size: clamp(0.85rem, 3.5vw, 1rem);
+        line-height: 1.2;
+        border: 4px solid transparent;
+        border-radius: 0;
+    }
+
+    .landing-content > .landing-links:hover,
+    .landing-content > .landing-links:active {
+        filter: none;
+        transform: none;
     }
 
     .landing-content .landing-help {
@@ -353,7 +351,7 @@ if (!$uid) {
         </div>
     </div>
     <a class="enter_button" href="/?start=1">Play As Guest</a>
-    <div class="landing-links">
+    <div class="enter_button landing-links">
         <div>Got An Account - <a href="/?login=1" id="landing-login-button" class="landing-login-button">Login!</a></div>
         <h1 class="landing-help">
             <a href="/index.php?help=1">Kingdom Of Lyoness Story</a>
