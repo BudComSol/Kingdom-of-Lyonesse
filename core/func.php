@@ -663,6 +663,7 @@ if ($user && isset($user['start']) && $user['start'] >= 4) {
         <img src="/images/block.png" width="17px" height="17px" alt="Defense" title="Defense" aria-label="Defense"> <?php echo $headerStats['block']; ?>
         <img src="/images/health.png" width="17px" height="17px" alt="Health" title="Health" aria-label="Health"> <?php echo $headerStats['health']; ?>
         <img src="/images/ruby.png" width="17px" height="17px" alt="Rubies" title="Rubies" aria-label="Rubies"> <?php echo (int)($user['gold'] ?? 0); ?>
+        <img src="/images/gold.png" width="17px" height="17px" alt="Coins" title="Gold Coins" aria-label="Gold Coins"> <?php echo number_format((int)($user['silver'] ?? 0)); ?>
 
         <span style="float: right;">
         <?php if ($new_msg > 0) { ?>

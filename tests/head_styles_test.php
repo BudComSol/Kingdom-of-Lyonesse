@@ -137,7 +137,7 @@ foreach ([0, 1, 3] as $adminLevel) {
 }
 
 foreach ([0, 1] as $unreadMessages) {
-    $user = ['start' => 10, 'level' => 1, 'exp' => 0, 'faction' => 1, 'login' => 'Knight', 'gold' => 123];
+    $user = ['start' => 10, 'level' => 1, 'exp' => 0, 'faction' => 1, 'login' => 'Knight', 'gold' => 123, 'silver' => 1234567];
     ob_start();
     head('Image accessibility test', 1);
     $html = ob_get_clean();
@@ -153,6 +153,10 @@ foreach ([0, 1] as $unreadMessages) {
     check(
         str_contains($html, '<img src="/images/ruby.png" width="17px" height="17px" alt="Rubies" title="Rubies" aria-label="Rubies"> 123'),
         'Ruby balance icon, tooltip, or value missing from header'
+    );
+    check(
+        str_contains($html, '<img src="/images/gold.png" width="17px" height="17px" alt="Coins" title="Gold Coins" aria-label="Gold Coins"> 1,234,567'),
+        'Gold coin balance icon, tooltip, or formatted value missing from header'
     );
 }
 unset($unreadMessages);
