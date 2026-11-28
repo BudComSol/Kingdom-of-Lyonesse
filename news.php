@@ -50,8 +50,14 @@ while ($msg = $msg_q->fetch(PDO::FETCH_ASSOC)) {
 
 ppage($url, $num, $str, $result);
 
-qry("UPDATE `users` SET `last_news_read_id` = ? WHERE `id` = ? AND `last_news_read_id` < ?", array($latestNewsId, $uid, $latestNewsId));
-$user['last_news_read_id'] = max((int)($user['last_news_read_id'] ?? 0), $latestNewsId);
+if (isset($user['last_news_read_id'])) {
+    qry("UPDATE `users` SET `last_news_read_id` = ? WHERE `id` = ? AND `last_news_read_id` < ?", array($latestNewsId, $uid, $latestNewsId));
+    $user['last_news_read_id'] = max((int)$user['last_news_read_id'], $latestNewsId);
+} else {
+    error_log('News read tracking requires a database upgrade: run php migrate.php from the game directory.');
+    qry("UPDATE `users` SET `news` = 0 WHERE `id` = ?", array($uid));
+    $user['news'] = 0;
+}
 
 if (($user['adm'] ?? 0) == 3) {
 ?>
