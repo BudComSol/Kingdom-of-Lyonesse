@@ -854,8 +854,12 @@ function foot($uid) {
         && !array_intersect(['login', 'password', 'start', 'agreee', 'rules', 'help', 'id', 'hash'], array_keys($_GET));
 
     if ($uid > 0) {
-        $unreadNews = fch("SELECT COUNT(*) AS `count` FROM `news` WHERE `id` > ?", array((int)($user['last_news_read_id'] ?? 0)));
-        $unreadNewsCount = (int)$unreadNews['count'];
+        if (isset($user['last_news_read_id'])) {
+            $unreadNews = fch("SELECT COUNT(*) AS `count` FROM `news` WHERE `id` > ?", array((int)$user['last_news_read_id']));
+            $unreadNewsCount = (int)$unreadNews['count'];
+        } else {
+            $unreadNewsCount = empty($user['news']) ? 0 : 1;
+        }
         if (($_SERVER['PHP_SELF'] ?? '') == '/index.php' && isset($user['save']) && $user['save'] >= 2 && $user['id'] == 0) {
 ?>
 <div class="tophead2 cntr">

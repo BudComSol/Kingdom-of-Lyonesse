@@ -73,4 +73,28 @@ $BaseConnect->exec('UPDATE users SET news = CASE WHEN id = 2 THEN 1 ELSE 0 END')
 $BaseConnect->exec($migration[1]);
 check((int)$BaseConnect->query('SELECT last_news_read_id FROM users WHERE id = 1')->fetchColumn() === 10, 'Previously read news became unread');
 check((int)$BaseConnect->query('SELECT last_news_read_id FROM users WHERE id = 2')->fetchColumn() === 8, 'Legacy unread flag should preserve one unread item');
+
+$BaseConnect = new PDO('sqlite::memory:', null, null, [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]);
+$BaseConnect->exec("CREATE TABLE users (id INTEGER PRIMARY KEY, time_on INTEGER, news INTEGER DEFAULT 0);
+    CREATE TABLE news (id INTEGER PRIMARY KEY, name TEXT, text TEXT, time INTEGER);
+    INSERT INTO users VALUES (1, 0, 0), (2, 0, 1);
+    INSERT INTO news VALUES (3, 'First', 'Text', 0), (7, 'Latest', 'Text', 0)");
+$publishDuringRead = false;
+$user = fch('SELECT * FROM users WHERE id = ?', [$uid]);
+check(!str_contains(footerHtml(), 'news-badge'), 'Legacy read news should not all become unread');
+$BaseConnect->exec('UPDATE users SET news = 1 WHERE id = 1');
+$user = fch('SELECT * FROM users WHERE id = ?', [$uid]);
+check(str_contains(footerHtml(), 'News, 1 unread item'), 'Legacy unread flag should show one notification');
+$html = visitNews();
+check(str_contains($html, 'Latest') && !str_contains($html, 'news-badge'), 'Legacy News should render and clear the badge without the new column');
+check((int)$BaseConnect->query('SELECT news FROM users WHERE id = 1')->fetchColumn() === 0, 'Legacy read flag was not saved');
+check((int)$BaseConnect->query('SELECT news FROM users WHERE id = 2')->fetchColumn() === 1, 'Legacy News visit changed another user');
+$BaseConnect->exec('ALTER TABLE users ADD COLUMN last_news_read_id INTEGER NOT NULL DEFAULT 0');
+$BaseConnect->exec($migration[1]);
+$user = fch('SELECT * FROM users WHERE id = ?', [$uid]);
+check(!str_contains(footerHtml(), 'news-badge'), 'Migration should preserve a legacy News visit as read');
+$BaseConnect->exec("INSERT INTO news VALUES (8, 'After upgrade', 'Text', 0)");
+check(str_contains(footerHtml(), 'News, 1 unread item'), 'Upgraded legacy user should receive counted notifications');
+visitNews();
+check((int)$BaseConnect->query('SELECT last_news_read_id FROM users WHERE id = 1')->fetchColumn() === 8, 'Upgraded legacy user should save the new read position');
 echo "News notification tests passed\n";
