@@ -1,5 +1,6 @@
 # Environment configuration (Contains sensitive DB passwords)
 .env
+.env.install*
 
 # System & server log files
 error_log
