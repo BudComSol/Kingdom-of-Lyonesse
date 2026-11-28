@@ -162,9 +162,9 @@ Environment, database, and session settings are read from the `.env` file in the
 # Application Configuration
 # =====================================================================
 APP_NAME="Kingdom of Lyonesse"
-APP_ENV=development
-APP_DEBUG=true
-APP_KEY=replace_with_a_unique_random_secret_key
+APP_ENV=production
+APP_DEBUG=false
+APP_KEY=replace_with_a_unique_random_64_character_hex_key
 
 # Use 'auto' for automatic URL detection, or specify your full domain (e.g., https://yourdomain.com)
 BASE_URL=auto
@@ -188,6 +188,10 @@ SESSION_SAMESITE=Lax
 SESSION_NAME=LYONESSE_SESSID
 ```
 
+For a fresh browser setup, the installer writes this file automatically with the database values and a generated `APP_KEY`; you do not need to copy `.env.example` first. The saved values use production defaults (`APP_ENV=production`, `APP_DEBUG=false`, and `SESSION_SECURE=true` for HTTPS or `false` for plain HTTP). `.env.example` is a manual-reference template and may be used for development or custom deployments.
+
+Database credentials can also be supplied through server environment variables. The installer detects `DB_NAME` and `DB_USER` as an externally configured installation and redirects to `/` instead of opening setup. Existing server variables take precedence over values in `.env`, so avoid conflicting credentials in both locations.
+
 > [!TIP]
 > **Automatic Base URL (`BASE_URL=auto`):** The application derives the scheme and host from the current request. It does not detect an installation subfolder; deploy at the web root or configure routing and asset paths for your subfolder deployment. For production HTTPS, ensure your web server or trusted proxy reports the correct scheme, or set `BASE_URL` explicitly.
 
@@ -195,7 +199,7 @@ For local development over plain HTTP, set `SESSION_SECURE=false`; use `true` fo
 
 ### PayPal Checkout
 
-1. Generate a unique application encryption key and set it as `APP_KEY` in `.env` (for example, `php -r "echo bin2hex(random_bytes(32)), PHP_EOL;"`). Keep this key private and unchanged; it encrypts the PayPal Secret stored in the database.
+1. Use the installer-generated `APP_KEY`, or generate a unique key for a manual deployment (for example, `php -r "echo bin2hex(random_bytes(32)), PHP_EOL;"`). Keep the key private and unchanged; it encrypts the PayPal Secret stored in the database.
 2. Log in as a game administrator (`adm = 3`) and open **Admin Panel → PayPal & Ruby Pack Settings**.
 3. Enter the PayPal REST API Client ID and Secret. Start in **Sandbox**, test with PayPal sandbox accounts, and switch to **Live** with live credentials when ready. Ruby pack amounts, prices (USD), and VIP days are editable on this page.
 4. Configure a public HTTPS `BASE_URL` before accepting live payments. Payment approval and capture are handled server-side; Rubies and VIP time are granted only after PayPal confirms the captured amount and currency.
@@ -222,32 +226,37 @@ Fresh installs start player IDs at 1. Deleting rows from an existing `users` tab
 
 ### A. Shared Hosting (cPanel / LiteSpeed / Apache)
 
+The guided browser installer is the preferred fresh-install method. Upload the files, create an empty database, and visit the domain. The steps below are a manual alternative for deployments that cannot use the installer or for upgrading an existing installation.
+
 1. **Upload Game Files:**
    - Compress the project files into a `.zip` archive.
    - Log into your cPanel $\rightarrow$ **File Manager** $\rightarrow$ Navigate to `public_html/` (or your subdomain directory).
    - Upload and extract the archive.
 
-2. **Create MySQL Database:**
+2. **Create or reuse MySQL Database:**
    - In cPanel, navigate to **MySQL Database Wizard** (or **MySQL Databases**).
    - Create a new database (e.g., `myuser_lyonesse`).
    - Create a database user with a secure password.
    - Grant the user **ALL PRIVILEGES** on the database.
 
-3. **Import SQL Database Dump:**
+3. **Install Manually Only for a Fresh Deployment:**
    - Open **phpMyAdmin** from cPanel.
    - Select your newly created database on the left sidebar.
    - Go to the **Import** tab, choose `_sql/database.sql`, and click **Import** / **Go**.
+   - Do not use this SQL-import step when the browser installer will be used.
 
-4. **Configure the `.env` File:**
+4. **Configure or verify the `.env` File:**
    - In cPanel File Manager, ensure the setting **"Show Hidden Files (dotfiles)"** is checked.
-   - Edit the `.env` file with your database credentials:
+   - Copy `.env.example` to `.env` for a manual installation, then set at least these values:
      ```ini
      DB_HOST=localhost
+     DB_PORT=3306
      DB_NAME=myuser_lyonesse
      DB_USER=myuser_dbuser
      DB_PASS=your_password_here
      BASE_URL=auto
      ```
+   - Set `APP_KEY` to a unique secret of at least 32 characters and keep it unchanged. Set `APP_ENV=production`, `APP_DEBUG=false`, and `SESSION_SECURE=true` for HTTPS.
 
 5. **Verify PHP Version:**
    - In cPanel $\rightarrow$ **Select PHP Version** (or MultiPHP Manager), select PHP **8.0 or newer**. The included `.htaccess` may contain a cPanel-generated PHP handler; update or remove that handler to match the version selected in cPanel.
@@ -266,6 +275,8 @@ The online list shows last activity and the elapsed duration of the most recentl
 
 ### B. VPS / Dedicated Server (Nginx / Apache)
 
+Use the guided browser installer after deploying files and creating an empty database. The terminal commands below cover manual fresh installs and upgrades.
+
 1. **Deploy Files & Set Permissions:**
    ```bash
    cd /var/www/lyonesse
@@ -273,11 +284,12 @@ The online list shows last activity and the elapsed duration of the most recentl
    chmod -R 755 /var/www/lyonesse
    ```
 
-2. **Import Database via Terminal:**
+2. **Configure Manually or Continue the Upgrade:**
+   Create the database and copy `.env.example` to `.env` for a manual fresh deployment. Set `DB_*`, `APP_KEY`, `BASE_URL`, and session settings, then optionally import the initial schema:
    ```bash
    mysql -u your_username -p your_database_name < /var/www/lyonesse/_sql/database.sql
    ```
-   Configure `.env`; the imported `database.sql` already includes the current schema. No migration command is needed for a fresh install. When upgrading an existing installation, back up the database and run `php migrate.php` from the game directory.
+   The imported `database.sql` already includes the current schema, so no migration command is needed for a manual fresh install. When upgrading an existing installation, do not import the dump into it; back up the database and run `php migrate.php` from the game directory.
 
 3. **Nginx VirtualHost Configuration Example:**
    ```nginx
@@ -320,6 +332,8 @@ The online list shows last activity and the elapsed duration of the most recentl
 
 ### C. Local Development (PHP Built-in Server / XAMPP / Laragon)
 
+The browser installer can also be used locally: create an empty database, start the web server, and visit `/install/`. The manual steps below are useful for existing databases or environments that cannot run the installer.
+
 1. **Clone or Copy Files:**
    - Extract files to your local root directory (e.g., `C:/xampp/htdocs/setst.site`).
    - Start the built-in development server:
@@ -327,14 +341,15 @@ The online list shows last activity and the elapsed duration of the most recentl
      php -S localhost:7000
      ```
 
-2. **Setup Local Database in phpMyAdmin:**
+2. **Create a Local Database in phpMyAdmin for Manual Setup:**
    - Open `http://localhost/phpmyadmin`.
    - Create a database named `set` or `lyonesse`.
    - Import `_sql/database.sql`.
 
-3. **Adjust `.env`:**
+3. **For Manual Setup, Copy `.env.example` and Adjust `.env`:**
    ```ini
    DB_HOST=localhost
+   DB_PORT=3306
    DB_NAME=set
    DB_USER=root
    DB_PASS=
@@ -392,6 +407,7 @@ To ensure recurring world events operate autonomously, configure the included sc
 - **Redesigned the landing page:** Updated the landing layout, login and Ruby calls to action, social metadata, accessibility, dragon artwork, fire effects, oval banners, titles, and a configurable administrator toggle ([#68](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/68), [#70](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/70), [#81](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/81), [#100](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/100), [#114](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/114), [#123](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/123)).
 - **Added privacy and consent features:** Added a privacy page, cookie consent before game entry, visible policy links, and responsive cookie/privacy copy ([#39](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/39), [#95](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/95), [#97](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/97), [#125](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/125)).
 - **Strengthened security and deployment:** Added HTTP security headers, moved migrations out of request bootstrap, protected current database installation, standardized fresh-install IDs and timezone behavior, and documented secure environment and session settings ([#57](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/57), [#60](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/60), [#65](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/65), [#71](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/71), [#96](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/96), [#129](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/129)).
+- **Added a guided browser installer:** Added fresh-deployment server checks, CSRF protection, empty-database safeguards, schema and seed validation, secure application-key generation, and private `.env` publishing.
 - **Improved performance and SEO:** Removed render-blocking stylesheet requests, minified and inlined CSS, optimized font and homepage image loading, added structured game metadata and social previews, and fixed mobile viewport behavior ([#24](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/24), [#28](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/28), [#53](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/53), [#54](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/54), [#55](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/55), [#101](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/101), [#103](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/103)).
 - **Modernized documentation and project structure:** Moved the database dump under `_sql/`, refreshed the README directory tree, and corrected setup, PHP, environment, session, migration, server-protection, caching, and license guidance ([#79](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/79), [#128](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/128), [#129](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/129)).
 - **Added unread news notifications:** Added a footer badge with each player's unread announcement count, persistent news read tracking, read-on-open behavior, migration support for existing accounts, and tests covering notification and database migration behavior ([#159](https://github.com/BudComSol/Kingdom-of-Lyonesse/pull/159)).
