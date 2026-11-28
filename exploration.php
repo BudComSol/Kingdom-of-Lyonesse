@@ -164,7 +164,7 @@ head('Expedition Map', $uid);
             </section>
         <?php } ?>
     </div>
-    <p><a href="/lec.php">Visit the Dark Forest</a></p>
+    <p class="cntr"><a href="/lec.php">Visit the Dark Forest</a></p>
 </div>
 <script>
 document.querySelectorAll('.expedition-form').forEach(form => {

@@ -129,7 +129,7 @@ if ($clanId == 0) {
         <div class="hrs"></div>
         <form action="/clan.php?create" method="post">
             Clan Name:<br>
-            <input type="text" name="clan_name" required minlength="3" maxlength="24" placeholder="Enter clan name..." style="width: 70%; max-width: 250px;"><br><br>
+            <input type="text" name="clan_name" required minlength="3" maxlength="24" placeholder="Enter clan name..." style="width: 70%; max-width: 250px; text-align: center;"><br><br>
             <small>Creation Cost: <img src="/images/gold.png" width="15px" height="15px"> <span class="yellow">5,000 Silver Coins</span></small><br><br>
             <input type="submit" value="Found Your Clan Now">
         </form>

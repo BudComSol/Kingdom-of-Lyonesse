@@ -652,22 +652,23 @@ if ($user && isset($user['start']) && $user['start'] >= 4) {
 <div class="tophead2 cntr">
     <font size="3">
         <span style="float: left;">
-            <img class="img1" src="/images/level.png" width="17px" height="17px" alt="">
+            <img class="img1" src="/images/level.png" width="17px" height="17px" alt="Level" title="Level" aria-label="Level">
             <span class="lime"><?php echo $userLevel; ?> lvl</span>
         </span>
 
         <?php
         $headerStats = effectiveCombatStats($user);
         ?>
-        <img src="/images/power.png" width="17px" height="17px" alt="Power"> <?php echo $headerStats['power']; ?>
-        <img src="/images/block.png" width="17px" height="17px" alt="Defense"> <?php echo $headerStats['block']; ?>
-        <img src="/images/health.png" width="17px" height="17px" alt="Health"> <?php echo $headerStats['health']; ?>
+        <img src="/images/power.png" width="17px" height="17px" alt="Power" title="Power" aria-label="Power"> <?php echo $headerStats['power']; ?>
+        <img src="/images/block.png" width="17px" height="17px" alt="Defense" title="Defense" aria-label="Defense"> <?php echo $headerStats['block']; ?>
+        <img src="/images/health.png" width="17px" height="17px" alt="Health" title="Health" aria-label="Health"> <?php echo $headerStats['health']; ?>
+        <img src="/images/ruby.png" width="17px" height="17px" alt="Rubies" title="Rubies" aria-label="Rubies"> <?php echo (int)($user['gold'] ?? 0); ?>
 
         <span style="float: right;">
         <?php if ($new_msg > 0) { ?>
-            <a href="/contacts.php"><img class="img2" src="/images/mail.png" width="17px" height="17px" alt="New mail"></a>
+            <a href="/contacts.php" title="New mail" aria-label="New mail"><img class="img2" src="/images/mail.png" width="17px" height="17px" alt="New mail" title="New mail"></a>
         <?php } else { ?>
-            <img class="img2" src="/images/exp.png" width="17px" height="17px" alt="Experience">
+            <img class="img2" src="/images/exp.png" width="17px" height="17px" alt="Experience" title="Experience" aria-label="Experience">
             <span class="orange"><?php echo $expPercent; ?>%</span>
         <?php } ?>
         </span>
