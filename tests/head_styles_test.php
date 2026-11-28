@@ -36,10 +36,11 @@ foreach ([$sourceStylesheet, $minifiedStylesheet] as $stylesheet) {
 check(str_contains($sourceStylesheet, 'grid-template-columns: repeat(2, minmax(0, 1fr));') && str_contains($minifiedStylesheet, 'grid-template-columns: repeat(2, minmax(0, 1fr));'), 'Mobile sidebar links should be arranged in a compact two-column menu');
 foreach ([$sourceStylesheet, $minifiedStylesheet] as $stylesheet) {
     check(
-        str_contains($stylesheet, '.sidebar_logout_spacer')
-            && str_contains($stylesheet, '.sidebar_logout')
-            && str_contains($stylesheet, '.comp_menu_left .sidebar_menu_container'),
-        'Logout spacing and bottom alignment should be present in both stylesheets'
+        preg_match('/\.sidebar_logout_spacer\s*\{[^}]*height:\s*46px;?[^}]*\}/', $stylesheet) === 1
+            && preg_match('/\.sidebar_logout_spacer\s*\{[^}]*margin-top:\s*auto/', $stylesheet) === 0
+            && preg_match('/\.comp_menu_left\s*\{[^}]*min-height:\s*calc\(100vh/', $stylesheet) === 0
+            && preg_match('/\.comp_menu_left\s+\.sidebar_menu_container\s*\{[^}]*flex:\s*1/', $stylesheet) === 0,
+        'Logout should follow a fixed button-height gap rather than align to the viewport bottom'
     );
 }
 foreach ([$sourceStylesheet, $minifiedStylesheet] as $stylesheet) {
@@ -132,24 +133,25 @@ foreach ([0, 1, 3] as $adminLevel) {
     }
 }
 
-$mockHealth = 100;
-$user = ['start' => 10, 'level' => 1, 'exp' => 50, 'faction' => 1, 'login' => 'Knight'];
-foreach ([null, 25, -5, 125] as $health) {
+foreach ([[0, 0], [5, 75], [20, 100], [-5, 125]] as [$arena, $forest]) {
+    $user = ['start' => 10, 'level' => 1, 'exp' => 50, 'faction' => 1, 'login' => 'Knight', 'arena' => $arena, 'lec' => $forest];
     ob_start();
-    head('Health test', 1, false, $health);
+    head('Energy test', 1);
     $html = ob_get_clean();
-    check(str_contains($html, '<div class="cntr">Experience</div>'), 'Experience title missing or not centered');
-    check(str_contains($html, '<div class="cntr">Health <span id="header-health-text">'), 'Health title missing or not centered');
-    $expected = $health === null ? 0 : min(100, max(0, $health));
-    check(str_contains($html, 'id="header-health-bar" style="width:' . $expected . '%;"'), 'Incorrect health bar width');
-    if ($health === null) {
-        check(str_contains($html, '(not in combat)'), 'Unavailable combat health should be identified');
-    } else {
-        check(str_contains($html, 'aria-valuemax="100" aria-valuenow="' . $expected . '"'), 'Health progress accessibility value is incorrect');
-        check(str_contains($html, 'id="header-health-text">' . max(0, $health) . ' / 100'), 'Health value missing');
+    check(str_contains($html, '<div class="cntr header_progress_title">Experience</div>'), 'Experience title missing or not centered');
+    check(!str_contains($html, 'id="header-health'), 'Header health bar should be replaced by energy bars');
+    foreach ([
+        ['Arena Battles', 'Arena battles', 'header_arena_energy', min(20, max(0, $arena)), 20],
+        ['Dark Forest Energy', 'Dark Forest energy', 'header_forest_energy', min(100, max(0, $forest)), 100],
+    ] as [$title, $label, $class, $current, $max]) {
+        check(str_contains($html, $title . ' <span>' . $current . ' / ' . $max . '</span>'), "$title value missing");
+        check(str_contains($html, 'aria-label="' . $label . '" aria-valuemin="0" aria-valuemax="' . $max . '" aria-valuenow="' . $current . '"'), "$title accessibility value incorrect");
+        check(str_contains($html, 'style="width:' . ($current * 100 / $max) . '%;" class="progress ' . $class . '"'), "$title bar width incorrect");
     }
 }
-unset($mockHealth);
+foreach ([$sourceStylesheet, $minifiedStylesheet] as $stylesheet) {
+    check(str_contains($stylesheet, '.header_progress_title') && str_contains($stylesheet, '.header_arena_energy') && str_contains($stylesheet, '.header_forest_energy'), 'Header progress styles missing');
+}
 
 $user = false;
 $analyticsSetting = ['setting_value' => 'G-ABCDEF1234'];

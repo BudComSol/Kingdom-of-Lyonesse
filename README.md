@@ -44,7 +44,7 @@
 ## ⚔️ Key Gameplay Features
 
 * **Dynamic Real-Time Combat (AJAX):** Turn-based Dark Forest encounters featuring floating combat text (`-120 💥 CRIT!`, `+45 💚`), smooth health bar transitions, tactile audio effects, and direct boss loot drops without full-page reloads. Dropped equipment retains its item's set rarity and slot.
-  The header displays experience and combat health; health is shown during Forest and Tavern fights and is unavailable outside combat.
+  The header displays experience, available Arena battles, and Dark Forest energy; combat health remains visible in Forest and Tavern fights.
 * **Expedition Map:** Discover five Dark Forest landmarks in order. Expeditions use Forest Energy and existing combat; victories permanently reveal each player's map and its stories.
 * **Guild & Clan System:** Clan creation, Clan Hall, member hierarchy (Leader, Officer, Member), passive clan buffs (`+5%` to `+25%` earned Coins and Exp), and cooperative battles against the **Weekly Clan Raid Boss** (*Ancient Abyssal Leviathan*).
 * **Inventory & Crafting Hub:** 8 equipment slots, 5 rarity tiers (Common, Rare, Epic, Legendary, Mythic), blacksmith forging (+1 to +10), rune socketing, 1-click batch item dismantling, and working **4-Piece / 8-Piece Set Resonance Bonuses** to Power and Health (plus Critical Strike at 8 pieces).

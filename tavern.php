@@ -36,7 +36,7 @@ if ($go == 3 && ($tavern['id_quest'] ?? 0) == 3) {
 $tavf = ($tavern['level'] ?? 1) == 4
     ? fch("SELECT * FROM `tavern_fight` WHERE `id_user` = ? LIMIT 1", array($uid))
     : null;
-head("Tavern & Story Quests", $uid, false, $tavf['hp'] ?? null);
+head("Tavern & Story Quests", $uid);
 
 if (($tavern['level'] ?? 1) != 4) {
 ?>

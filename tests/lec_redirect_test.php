@@ -4,7 +4,7 @@ require_once __DIR__ . '/../core/factions.php';
 function number($value) { return abs((int)$value); }
 function effectiveCombatStats($user) { return ['power' => 120, 'block' => 10, 'health' => 100, 'critical_chance' => 0]; }
 function clanRewardAmount($uid, $amount) { return $amount; }
-function head($title, $uid, $gameLanding = false, $combatHealth = null) { echo '<header>Combat header: ' . $combatHealth . '</header>'; }
+function head($title, $uid) { echo '<header>Combat header</header>'; }
 function foot($uid) { echo '<footer>Combat footer</footer>'; }
 function err2($message) { $GLOBALS['notice'] = $message; }
 function msg2($message) { $GLOBALS['notice'] = $message; }
@@ -80,7 +80,7 @@ foreach (['strike', 'victory', 'defeat', 'cooldown', 'invalid-skill', 'full-heal
     check(is_array($result), "$case returned invalid result");
     check(!str_contains($errors, 'Warning') && !str_contains($errors, 'Fatal error'), "$case emitted an error: $errors");
     if ($case === 'view' || $case === 'active-attack') {
-        check(str_contains($output, '<header>Combat header: 100</header>'), 'Combat header missing fight health');
+        check(str_contains($output, '<header>Combat header</header>'), 'Combat header missing');
         check(str_contains($output, 'URL=lec.php?attack_get'), 'Automatic attack refresh missing');
         check(str_contains($output, 'id="monster-card"') && str_contains($output, '<footer>Combat footer</footer>'), 'Combat view incomplete');
         if ($case === 'active-attack') check(count($result['queries']) === 0, 'An active fight was replaced');

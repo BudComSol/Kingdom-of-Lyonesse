@@ -542,7 +542,7 @@ if ($uid > 0) {
 // ---------------------------------------------------------------------
 // Header Layout
 // ---------------------------------------------------------------------
-function head($title, $uid, $gameLanding = false, $combatHealth = null) {
+function head($title, $uid, $gameLanding = false) {
     global $user;
     $title = checking($title);
     require_once __DIR__ . "/level.php";
@@ -635,6 +635,8 @@ if ($user && isset($user['start']) && $user['start'] >= 4) {
     $userLevel = (int)($user['level'] ?? 1);
     $maxExp = isset($user_level[$userLevel]) && $user_level[$userLevel] > 0 ? $user_level[$userLevel] : 100;
     $expPercent = round(($user['exp'] / $maxExp) * 100, 1);
+    $arenaEnergy = min(20, max(0, (int)($user['arena'] ?? 0)));
+    $forestEnergy = min(100, max(0, (int)($user['lec'] ?? 0)));
 
     $arenaTimeLeft = max(0, ($user['arena_time'] ?? 0) - time());
     $forestTimeLeft = max(0, ($user['lec_time'] ?? 0) - time());
@@ -656,9 +658,6 @@ if ($user && isset($user['start']) && $user['start'] >= 4) {
 
         <?php
         $headerStats = effectiveCombatStats($user);
-        $healthMax = max(1, (int)$headerStats['health']);
-        $healthCurrent = $combatHealth === null ? null : max(0, (int)$combatHealth);
-        $healthPercent = $healthCurrent === null ? 0 : min(100, round($healthCurrent / $healthMax * 100, 1));
         ?>
         <img src="/images/power.png" width="17px" height="17px"><?php echo $headerStats['power']; ?>
         <img src="/images/block.png" width="17px" height="17px"><?php echo $headerStats['block']; ?>
@@ -676,13 +675,17 @@ if ($user && isset($user['start']) && $user['start'] >= 4) {
 </div>
 
 <div class="tophead2">
-    <div class="cntr">Experience</div>
+    <div class="cntr header_progress_title">Experience</div>
     <div class="progress-bar exp">
         <div style="width:<?php echo $expPercent; ?>%;" class="progress _green"></div>
     </div>
-    <div class="cntr">Health <span id="header-health-text"><?php echo $healthCurrent === null ? '(not in combat)' : $healthCurrent . ' / ' . $healthMax; ?></span></div>
-    <div class="progress-bar" id="header-health" <?php if ($healthCurrent !== null) { ?>role="progressbar" aria-label="Health" aria-valuemin="0" aria-valuemax="<?php echo $healthMax; ?>" aria-valuenow="<?php echo min($healthCurrent, $healthMax); ?>"<?php } ?>>
-        <div id="header-health-bar" style="width:<?php echo $healthPercent; ?>%;" class="progress _red"></div>
+    <div class="cntr header_progress_title">Arena Battles <span><?php echo $arenaEnergy; ?> / 20</span></div>
+    <div class="progress-bar" role="progressbar" aria-label="Arena battles" aria-valuemin="0" aria-valuemax="20" aria-valuenow="<?php echo $arenaEnergy; ?>">
+        <div style="width:<?php echo $arenaEnergy * 5; ?>%;" class="progress header_arena_energy"></div>
+    </div>
+    <div class="cntr header_progress_title">Dark Forest Energy <span><?php echo $forestEnergy; ?> / 100</span></div>
+    <div class="progress-bar" role="progressbar" aria-label="Dark Forest energy" aria-valuemin="0" aria-valuemax="100" aria-valuenow="<?php echo $forestEnergy; ?>">
+        <div style="width:<?php echo $forestEnergy; ?>%;" class="progress header_forest_energy"></div>
     </div>
 </div>
 <br>
