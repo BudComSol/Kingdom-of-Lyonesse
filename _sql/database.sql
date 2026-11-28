@@ -478,6 +478,7 @@ CREATE TABLE `users` (
   `chat_check` int(11) DEFAULT '0',
   `spam_message_forum` int(11) DEFAULT NULL,
   `news` int(11) DEFAULT '0',
+  `last_news_read_id` int(11) NOT NULL DEFAULT '0',
   `save` int(11) DEFAULT '0',
   `bonus` int(11) DEFAULT '0',
   `limit_inv` int(11) DEFAULT '30',

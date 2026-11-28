@@ -65,7 +65,7 @@
         <li><a href="/paywk.php">Buy Rubies</a> — view available Ruby packs and payment options.</li>
         <li><a href="/contacts.php">Mailbox</a> — see your contacts and conversations; open a hero's profile to send a message or manage friends.</li>
         <li><a href="/chat.php">Chat</a> — talk in the global chat, or use the clan channel when available.</li>
-        <li><a href="/news.php">News</a> — read game announcements.</li>
+        <li><a href="/news.php">News</a> — read game announcements. The footer badge shows how many are unread; opening News marks them as read.</li>
         <li><a href="/online.php">Online</a> — see recently active heroes and NPCs, including the activity or uptime information shown in the list.</li>
         <li><a href="/factions.php">Change Faction</a> — choose your hero's faction, portrait, and combat bonuses.</li>
         <li><a href="/ref.php">Invite Friends</a> — open your referral information.</li>

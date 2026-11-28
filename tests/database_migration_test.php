@@ -61,6 +61,7 @@ foreach (['clans', 'clan_members', 'clan_boss', 'achievements_user', 'arena_chal
 }
 check(str_contains($sql, 'ADD COLUMN `daily_streak`'), 'Missing user column migration');
 check(str_contains($sql, 'ADD COLUMN `session_started`'), 'Missing online session migration');
+check(str_contains($sql, 'ADD COLUMN `last_news_read_id`') && str_contains($sql, 'WHEN COALESCE(`news`, 0) = 0'), 'Missing legacy news read-position migration');
 check(str_contains($sql, 'ADD COLUMN `morale_until`'), 'Missing morale migration');
 check(str_contains($sql, 'ADD COLUMN `faction`'), 'Missing faction migration');
 check(str_contains($sql, 'ADD COLUMN `exploration_node`'), 'Missing exploration fight migration');

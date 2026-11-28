@@ -239,6 +239,16 @@ try {
         ");
 
         $userCols = $BaseConnect->query("SHOW COLUMNS FROM `users`")->fetchAll(PDO::FETCH_COLUMN);
+        if (!in_array('last_news_read_id', $userCols, true)) {
+            $BaseConnect->exec("ALTER TABLE `users` ADD COLUMN `last_news_read_id` int(11) NOT NULL DEFAULT 0");
+            $BaseConnect->exec("
+                UPDATE `users` SET `last_news_read_id` = CASE
+                    WHEN COALESCE(`news`, 0) = 0 THEN (SELECT COALESCE(MAX(`id`), 0) FROM `news`)
+                    ELSE (SELECT COALESCE(MAX(`id`), 0) FROM `news`
+                          WHERE `id` < (SELECT COALESCE(MAX(`id`), 0) FROM `news`))
+                END
+            ");
+        }
         $newCols = [
             'session_started'  => "ALTER TABLE `users` ADD COLUMN `session_started` int(11) NOT NULL DEFAULT 0",
             'id_clan'          => "ALTER TABLE `users` ADD COLUMN `id_clan` int(11) NOT NULL DEFAULT 0",

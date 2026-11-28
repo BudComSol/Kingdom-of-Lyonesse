@@ -224,7 +224,6 @@ if ($news == 1 && isset($_GET['form'])) {
 
     if ($err == false) {
         qry("INSERT INTO `news` SET `time` = ?, `name` = ?, `text` = ?", array(time(), $name, $text));
-        qry("UPDATE `users` SET `news` = '1'");
         msg("Announcement published successfully!");
         header("Location: /update.php?news=1&r=" . $r);
         exit();

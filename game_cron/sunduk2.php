@@ -41,5 +41,5 @@ if (!empty($leaderLines)) {
 qry("UPDATE `users` SET `gold` = `gold` + 50 WHERE `tour` >= '250'");
 
 // Reset tournament points for all players
-qry("UPDATE `users` SET `tour` = '0', `news` = '1'");
+qry("UPDATE `users` SET `tour` = '0'");
 ?>

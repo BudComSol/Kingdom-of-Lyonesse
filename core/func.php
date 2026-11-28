@@ -854,6 +854,8 @@ function foot($uid) {
         && !array_intersect(['login', 'password', 'start', 'agreee', 'rules', 'help', 'id', 'hash'], array_keys($_GET));
 
     if ($uid > 0) {
+        $unreadNews = fch("SELECT COUNT(*) AS `count` FROM `news` WHERE `id` > ?", array((int)($user['last_news_read_id'] ?? 0)));
+        $unreadNewsCount = (int)$unreadNews['count'];
         if (($_SERVER['PHP_SELF'] ?? '') == '/index.php' && isset($user['save']) && $user['save'] >= 2 && $user['id'] == 0) {
 ?>
 <div class="tophead2 cntr">
@@ -887,7 +889,7 @@ function foot($uid) {
 <nav class="footer-nav" aria-label="Game navigation">
     <div class="hrs"></div>
     <div class="footer-nav-buttons">
-        <a href="/news.php"><?php if (isset($user['news']) && $user['news'] != 0) echo '<span class="lime">'; ?>News<?php if (isset($user['news']) && $user['news'] != 0) echo '</span>'; ?></a>
+        <a href="/news.php" class="footer-news"<?php if ($unreadNewsCount > 0) echo ' aria-label="News, ' . $unreadNewsCount . ' unread ' . ($unreadNewsCount === 1 ? 'item' : 'items') . '"'; ?>>News<?php if ($unreadNewsCount > 0) { ?><span class="news-badge" aria-hidden="true"><?php echo $unreadNewsCount; ?></span><?php } ?></a>
         <a href="/chat.php"><?php if (isset($user['chat_check']) && $user['chat_check'] != 0) echo '<span class="lime">'; ?>Chat<?php if (isset($user['chat_check']) && $user['chat_check'] != 0) echo '</span>'; ?></a>
         <a href="/online.php">Online: <?php echo $on; ?></a>
         <a href="/index.php?help=1">Help</a>
