@@ -150,7 +150,7 @@ function installEscape($value) {
         <div class="success">
             <div class="seal" aria-hidden="true">&#10003;</div>
             <p class="eyebrow">The realm is ready</p>
-            <h2 id="setup-title">Welcome To Your Kingdom.</h2>
+            <h2 id="setup-title">Welcome To Your Kingdom</h2>
             <p>Your database is populated with equipment, monsters, quests and news. Your private configuration and secret key have been saved.</p>
             <div class="notice">Back up <strong>.env</strong> securely. Keep <strong>APP_KEY</strong> unchanged: it protects stored payment credentials. The installer is now locked.</div>
             <p>Enter the game to register your first hero. Administrator promotion is described in the README; no default administrator account is created.</p>
@@ -162,7 +162,7 @@ function installEscape($value) {
         <p class="intro">A few details, and your world is ready to explore.</p>
         <?php if ($error !== ''): ?><div class="error" role="alert"><?= installEscape($error) ?></div><?php endif; ?>
         <details class="requirements" <?= !$ready ? 'open' : '' ?>>
-            <summary><span>Server Requirements</span><strong class="<?= $ready ? 'pass' : 'fail' ?>"><?= $ready ? 'Ready to install' : 'Action needed' ?></strong></summary>
+            <summary><span>Server Requirements</span><strong class="<?= $ready ? 'pass' : 'fail' ?>"><?= $ready ? 'Ready To Install' : 'Action needed' ?></strong></summary>
             <ul><?php foreach ($requirements as $label => $passed): ?>
                 <li><span><?= installEscape($label) ?></span><strong class="<?= $passed ? 'pass' : 'fail' ?>"><?= $passed ? 'Ready' : 'Missing' ?></strong></li>
             <?php endforeach; ?></ul>
@@ -170,7 +170,7 @@ function installEscape($value) {
         <form method="post" action="/install/" id="install-form">
             <input type="hidden" name="csrf_token" value="<?= installEscape($csrfToken) ?>">
             <fieldset>
-                <legend><span>01</span> Database connection</legend>
+                <legend><span>01</span> Database Connection</legend>
                 <p class="hint">Create an <strong>empty MySQL 5.7+ / MariaDB 10.3+ database</strong> in your hosting panel first. Give its user full privileges. We'll import the world for you.</p>
                 <div class="fields">
                     <label class="host">Database Host<input name="DB_HOST" required value="<?= installEscape($values['DB_HOST']) ?>" placeholder="localhost" autocomplete="off"></label>
